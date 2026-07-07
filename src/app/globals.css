@@ -1,26 +1,166 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* =============================================================================
+   ANOVA MEDICAL - DESIGN SYSTEM
+   -----------------------------------------------------------------------------
+   Ton: cald, empatic, calm, profesionist. „Învingem obstacolele, restabilim
+   echilibrul." Premium & minimalist - mult spațiu alb, tipografie editorială,
+   carduri curate, accente folosite cu reținere.
+
+   Paletă (sursă de adevăr - secțiunea 3 din brief):
+     background  #F6F3EE  off-white cald / cremă (dominant)
+     surface     #FFFFFF / #FBF9F5  carduri
+     primary     #1C4B47  petrol/teal profund (CTA, accente, încredere)
+     primary 2   #163B38  primary hover
+     sage        #8BA89F  accent moale (detalii subtile)
+     sand        #C9A88E  nisip/terracotta discret (highlight-uri rare)
+     text        #1F2421  aproape negru, cald
+     text-2      #5A615C  text secundar
+     border      #E7E1D8
+
+   Tipografie:
+     Headings - Fraunces (serif editorial), tracking ușor negativ, lh 1.05–1.1
+     Body/UI  - Inter (sans grotesc curat), 16–18px, lh 1.6, ~68ch
+
+   Convenții:
+     - Folosește `font-heading` pe titluri (Fraunces), restul moștenește Inter.
+     - Spațiere generoasă: `py-24` / `py-32` între secțiuni pe desktop.
+     - Radius mediu-mare pe carduri/imagini (rounded-2xl / rounded-3xl).
+     - Umbre foarte soft sau deloc - preferă borduri subtile (`border-border`).
+     - Culori de brand custom expuse ca utilități: bg-sage / text-sage,
+       bg-sand / text-sand, plus var(--color-primary-hover).
+   ============================================================================= */
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-heading: var(--font-heading);
+
+  /* shadcn surface tokens */
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* brand accents (custom - folosite cu reținere) */
+  --color-primary-hover: var(--primary-hover);
+  --color-sage: var(--sage);
+  --color-sage-foreground: var(--sage-foreground);
+  --color-sand: var(--sand);
+  --color-sand-foreground: var(--sand-foreground);
+
+  /* radius scale (relativ la --radius) */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.4);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --radius: 0.75rem;
+
+  --background: #f6f3ee;
+  --foreground: #1f2421;
+
+  --card: #ffffff;
+  --card-foreground: #1f2421;
+
+  --popover: #ffffff;
+  --popover-foreground: #1f2421;
+
+  --primary: #1c4b47;
+  --primary-foreground: #f6f3ee;
+  --primary-hover: #163b38;
+
+  --secondary: #fbf9f5;
+  --secondary-foreground: #1c4b47;
+
+  --muted: #fbf9f5;
+  --muted-foreground: #5a615c;
+
+  /* accent = tint subtil de sage pentru hover/ghost; brandul „sage" plin e separat */
+  --accent: #eef2f0;
+  --accent-foreground: #1c4b47;
+
+  --destructive: #b4524a;
+
+  --border: #e7e1d8;
+  --input: #e7e1d8;
+  --ring: #1c4b47;
+
+  /* brand accents pline */
+  --sage: #8ba89f;
+  --sage-foreground: #1f2421;
+  --sand: #c9a88e;
+  --sand-foreground: #1f2421;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/40;
+  }
+
+  html {
+    @apply font-sans;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-size: 1.0625rem; /* 17px */
+    line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    font-weight: 500;
+  }
+
+  /* lățime confortabilă de citit pentru blocuri de proză */
+  .prose-readable {
+    max-width: 68ch;
+  }
+
+  /* decalaj pentru ancore, ca headerul fix să nu acopere titlul secțiunii */
+  :target,
+  section[id] {
+    scroll-margin-top: 6rem;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Respectă preferința utilizatorului pentru mișcare redusă */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

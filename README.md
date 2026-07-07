@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Anova Medical Clinic
 
-## Getting Started
+Website de prezentare pentru **Anova Medical Clinic** (AMEDICALCLINIC SRL), clinică de sănătate mintală și neurologică din Iași.
 
-First, run the development server:
+> Învingem obstacolele, restabilim echilibrul.
+
+## Stack
+
+- **Next.js 16** (App Router, RSC, Turbopack) + **TypeScript**
+- **Tailwind CSS v4** + **shadcn/ui** (registry radix)
+- **Supabase** (Postgres + RLS) prin `@supabase/ssr`
+- **Framer Motion** (`motion/react`) pentru animații
+- **React Hook Form** + **Zod** pentru formulare
+- **lucide-react**, `next/font` (Fraunces + Inter), `next/image`
+- Deploy: **Vercel**
+
+## Dezvoltare locală
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Aplicația pornește pe [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Alte comenzi:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm build   # build de producție
+pnpm start   # rulează build-ul
+pnpm lint    # ESLint
+```
 
-## Learn More
+## Variabile de mediu
 
-To learn more about Next.js, take a look at the following resources:
+Copiază `.env.example` în `.env.local` și completează cheile Supabase:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Fără aceste chei, site-ul rulează pe **datele de rezervă** din `src/lib/fallback-data.ts`, astfel încât se poate construi și rula fără o bază de date conectată. Odată setate cheile, comută automat pe Supabase.
 
-## Deploy on Vercel
+## Baza de date
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Scripturile SQL sunt în `supabase/`:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. `migrations/0001_init.sql` — schema + politicile RLS
+2. `seed.sql` — specialitățile, medicii și relațiile (idempotent)
+
+Se rulează în SQL Editor din proiectul Supabase.
+
+## Structură
+
+```
+src/
+  app/            # rute (App Router)
+  components/     # componente UI și de layout
+  lib/            # config, acces la date, conținut, utilitare
+public/           # imagini (medici, servicii, logo, video)
+supabase/         # migrații + seed
+```
+
+---
+
+Made with ❤️ by [Inovex.ro](https://inovex.ro)
