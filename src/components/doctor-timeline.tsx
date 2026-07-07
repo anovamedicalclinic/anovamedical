@@ -34,7 +34,7 @@ export function TimelineBlock({
               className="absolute -left-[7px] top-1 size-3.5 rounded-full border-2 border-primary bg-background"
             />
             {item.period && (
-              <p className="text-xs font-medium uppercase tracking-[0.12em] text-sage">
+              <p className="text-xs font-medium uppercase tracking-[0.12em] text-sage-strong">
                 {item.period}
               </p>
             )}

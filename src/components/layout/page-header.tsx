@@ -36,7 +36,7 @@ export function PageHeader({
 
         {eyebrow && (
           <Reveal delay={0.06} className="mt-8">
-            <span className="text-sm font-medium uppercase tracking-[0.18em] text-sage">
+            <span className="text-sm font-medium uppercase tracking-[0.18em] text-sage-strong">
               {eyebrow}
             </span>
           </Reveal>

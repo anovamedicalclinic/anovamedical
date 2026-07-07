@@ -52,7 +52,7 @@ export function DoctorFlipCard({
           </div>
           <div className="flex flex-1 flex-col p-3.5 sm:p-5">
             {doctor.credentials && (
-              <span className="text-[0.6rem] font-medium uppercase tracking-[0.12em] text-sage sm:text-[0.7rem] sm:tracking-[0.14em]">
+              <span className="text-[0.6rem] font-medium uppercase tracking-[0.12em] text-sage-strong sm:text-[0.7rem] sm:tracking-[0.14em]">
                 {doctor.credentials}
               </span>
             )}

@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Inline critical CSS (elimină CSS-ul care blochează randarea) + tree-shaking
+  // mai agresiv pentru pachetele cu multe exporturi (icoane, animații).
+  experimental: {
+    optimizeCss: true,
+    optimizePackageImports: ["lucide-react", "motion", "date-fns"],
+  },
   images: {
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       // Supabase Storage (bucket public — fotografii medici, imagini editoriale)
       {

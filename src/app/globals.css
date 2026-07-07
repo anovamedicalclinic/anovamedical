@@ -62,6 +62,7 @@
   /* brand accents (custom - folosite cu reținere) */
   --color-primary-hover: var(--primary-hover);
   --color-sage: var(--sage);
+  --color-sage-strong: var(--sage-strong);
   --color-sage-foreground: var(--sage-foreground);
   --color-sand: var(--sand);
   --color-sand-foreground: var(--sand-foreground);
@@ -109,6 +110,8 @@
 
   /* brand accents pline */
   --sage: #8ba89f;
+  /* variantă închisă pentru TEXT pe fundal deschis (contrast WCAG AA >= 4.5:1) */
+  --sage-strong: #4f7267;
   --sage-foreground: #1f2421;
   --sand: #c9a88e;
   --sand-foreground: #1f2421;

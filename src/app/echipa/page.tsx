@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "Echipa",
   description:
     "Echipa Anova Medical Clinic: medici psihiatri, psihologi, neurologi, cardiologi și endocrinologi dedicați sănătății tale, în Iași.",
+  alternates: { canonical: "/echipa" },
 };
 
 export default async function EchipaPage() {

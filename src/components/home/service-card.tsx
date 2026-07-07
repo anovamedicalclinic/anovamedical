@@ -58,7 +58,7 @@ export function ServiceCard({
               className="flex items-start gap-3 text-sm text-muted-foreground"
             >
               <Check
-                className="mt-0.5 size-4 shrink-0 text-sage"
+                className="mt-0.5 size-4 shrink-0 text-sage-strong"
                 strokeWidth={2.5}
               />
               <span>{h}</span>

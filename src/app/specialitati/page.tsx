@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   title: "Specialități",
   description:
     "Specialitățile Anova Medical Clinic din Iași: psihiatrie, psihiatrie pediatrică, psihologie, neurologie, cardiologie și endocrinologie. Îngrijire completă, sub același acoperiș.",
+  alternates: { canonical: "/specialitati" },
 };
 
 export default async function SpecialitatiPage() {
@@ -81,7 +82,7 @@ export default async function SpecialitatiPage() {
                     )}
                   </div>
                   {specialty.tagline && (
-                    <p className="text-sm font-medium text-sage">
+                    <p className="text-sm font-medium text-sage-strong">
                       {specialty.tagline}
                     </p>
                   )}

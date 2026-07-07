@@ -1,7 +1,7 @@
 import { Clock, MapPin, Phone } from "lucide-react";
 import { Section, SectionHeading } from "@/components/layout/section";
 import { Reveal } from "@/components/reveal";
-import { AppointmentForm } from "@/components/home/appointment-form";
+import { LazyAppointmentForm } from "@/components/home/lazy-appointment-form";
 import { WhatsAppIcon } from "@/components/brand/social-icons";
 import { contact } from "@/lib/site";
 import type { Specialty } from "@/lib/supabase/types";
@@ -107,7 +107,7 @@ export function VisitSection({
             Completează câmpurile, iar noi te sunăm pentru confirmare.
           </p>
           <div className="mt-6">
-            <AppointmentForm specialties={specialties} />
+            <LazyAppointmentForm specialties={specialties} />
           </div>
         </Reveal>
       </div>

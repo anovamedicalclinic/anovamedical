@@ -38,6 +38,7 @@ export const metadata: Metadata = {
   title: "Despre noi",
   description:
     "Povestea ANOVA Medical Clinic din Iași: numele, echipa multidisciplinară, valorile care ne ghidează și grija pentru sănătatea ta mintală și neurologică.",
+  alternates: { canonical: "/despre-noi" },
 };
 
 const MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(
@@ -112,7 +113,7 @@ export default async function DespreNoiPage() {
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div className="flex flex-col gap-6">
             <Reveal>
-              <span className="text-sm font-medium uppercase tracking-[0.18em] text-sage">
+              <span className="text-sm font-medium uppercase tracking-[0.18em] text-sage-strong">
                 Povestea noastră
               </span>
             </Reveal>
@@ -307,7 +308,7 @@ export default async function DespreNoiPage() {
       <Section className="bg-card">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <Reveal className="max-w-xl space-y-4">
-            <span className="text-sm font-medium uppercase tracking-[0.18em] text-sage">
+            <span className="text-sm font-medium uppercase tracking-[0.18em] text-sage-strong">
               Echipa
             </span>
             <h2 className="text-balance text-3xl text-foreground sm:text-4xl">

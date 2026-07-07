@@ -18,6 +18,8 @@ import {
 } from "@/lib/data";
 import { specialtyImage } from "@/lib/specialty-images";
 import { specialtyContent, type SpecialtyBlock } from "@/lib/specialty-content";
+import { JsonLd } from "@/components/seo/json-ld";
+import { breadcrumbLd } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
 export async function generateStaticParams() {
@@ -33,10 +35,18 @@ export async function generateMetadata({
   const { slug } = await params;
   const specialty = await getSpecialtyBySlug(slug);
   if (!specialty) return { title: "Specialitate negăsită" };
+  const description =
+    specialtyContent[slug]?.intro[0] ?? specialty.summary ?? undefined;
   return {
     title: specialty.name,
-    description:
-      specialtyContent[slug]?.intro[0] ?? specialty.summary ?? undefined,
+    description,
+    alternates: { canonical: `/specialitati/${slug}` },
+    openGraph: {
+      type: "article",
+      title: `${specialty.name} · Anova Medical Clinic`,
+      description,
+      url: `/specialitati/${slug}`,
+    },
   };
 }
 
@@ -146,6 +156,13 @@ export default async function SpecialtyPage({
 
   return (
     <main className="flex-1 overflow-x-hidden">
+      <JsonLd
+        data={breadcrumbLd([
+          { name: "Acasă", path: "/" },
+          { name: "Specialități", path: "/specialitati" },
+          { name: specialty.name, path: `/specialitati/${slug}` },
+        ])}
+      />
       {/* Hero */}
       <section className="relative overflow-hidden pb-14 pt-28 md:pb-20 md:pt-32">
         <div
@@ -176,7 +193,7 @@ export default async function SpecialtyPage({
                     strokeWidth={1.75}
                   />
                 </span>
-                <span className="text-sm font-medium uppercase tracking-[0.18em] text-sage">
+                <span className="text-sm font-medium uppercase tracking-[0.18em] text-sage-strong">
                   Specialitate
                 </span>
               </Reveal>
@@ -277,7 +294,7 @@ export default async function SpecialtyPage({
         <Section id="echipa" className={doctorsOnCard ? "bg-card" : ""}>
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <Reveal className="max-w-xl space-y-3">
-              <span className="text-sm font-medium uppercase tracking-[0.18em] text-sage">
+              <span className="text-sm font-medium uppercase tracking-[0.18em] text-sage-strong">
                 Echipa
               </span>
               <h2 className="text-balance text-3xl text-foreground sm:text-4xl">

@@ -12,7 +12,7 @@ export function AboutPreview() {
         {/* Text */}
         <div className="flex flex-col gap-6">
           <Reveal>
-            <span className="text-sm font-medium uppercase tracking-[0.18em] text-sage">
+            <span className="text-sm font-medium uppercase tracking-[0.18em] text-sage-strong">
               Despre Anova Medical Clinic
             </span>
           </Reveal>

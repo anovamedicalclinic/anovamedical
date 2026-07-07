@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Termeni și condiții",
   description:
     "Termenii și condițiile de utilizare a website-ului Anova Medical Clinic (AMEDICALCLINIC SRL).",
+  alternates: { canonical: "/termeni-si-conditii" },
 };
 
 export default function TermsPage() {

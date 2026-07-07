@@ -16,7 +16,8 @@ export async function TeamSection({ doctors }: { doctors: Doctor[] }) {
   );
 
   // Doar membrii asociați unei specialități (medici, psihologi, neurologi).
-  const medics = cards.filter((c) => c.specialties.length > 0);
+  // Pe homepage arătăm un teaser (primii 10); echipa completă e pe /echipa.
+  const medics = cards.filter((c) => c.specialties.length > 0).slice(0, 10);
 
   return (
     <Section id="echipa" className="bg-card">

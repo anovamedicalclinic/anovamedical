@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Politica de confidențialitate",
   description:
     "Politica de confidențialitate a Anova Medical Clinic (AMEDICALCLINIC SRL), conform Regulamentului (UE) 2016/679 (GDPR) și legislației din România.",
+  alternates: { canonical: "/politica-de-confidentialitate" },
 };
 
 export default function PrivacyPage() {

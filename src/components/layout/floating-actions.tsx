@@ -58,7 +58,7 @@ export function FloatingActions() {
         href={contact.whatsappHref}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Scrie-ne pe WhatsApp"
+        aria-label="Mesaj pe WhatsApp"
         tabIndex={visible ? 0 : -1}
         className={cn(btn, "bg-[#25D366] text-white shadow-[#25D366]/30 hover:bg-[#20bd5a]")}
       >

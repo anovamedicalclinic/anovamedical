@@ -24,6 +24,7 @@ export const metadata: Metadata = {
   title: "Contact",
   description:
     "Contactează Anova Medical Clinic din Iași: telefon 0774 037 531, WhatsApp, email și formular de programare. Programarea se confirmă telefonic.",
+  alternates: { canonical: "/contact" },
 };
 
 const MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(

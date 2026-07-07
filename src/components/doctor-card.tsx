@@ -43,7 +43,7 @@ export function DoctorCard({
       </div>
       <div className="flex flex-1 flex-col gap-1 p-4 sm:gap-1.5 sm:p-6">
         {doctor.credentials && (
-          <span className="text-[0.65rem] font-medium uppercase tracking-[0.12em] text-sage sm:text-xs sm:tracking-[0.14em]">
+          <span className="text-[0.65rem] font-medium uppercase tracking-[0.12em] text-sage-strong sm:text-xs sm:tracking-[0.14em]">
             {doctor.credentials}
           </span>
         )}

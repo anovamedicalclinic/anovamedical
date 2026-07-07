@@ -119,7 +119,7 @@ export function AppointmentForm({
             control={control}
             render={({ field }) => (
               <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger className="w-full">
+                <SelectTrigger className="w-full" aria-label="Specialitate">
                   <SelectValue placeholder="Alege o specialitate" />
                 </SelectTrigger>
                 <SelectContent>

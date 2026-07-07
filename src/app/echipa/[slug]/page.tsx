@@ -28,6 +28,8 @@ import {
 import { doctorDetails } from "@/lib/doctor-details";
 import { doctorPhoto } from "@/lib/doctor-photos";
 import { contact } from "@/lib/site";
+import { JsonLd } from "@/components/seo/json-ld";
+import { physicianLd, breadcrumbLd } from "@/lib/seo";
 
 export async function generateStaticParams() {
   const doctors = await getDoctors();
@@ -42,10 +44,18 @@ export async function generateMetadata({
   const { slug } = await params;
   const doctor = await getDoctorBySlug(slug);
   if (!doctor) return { title: "Specialist negăsit" };
+  const description =
+    `${doctor.title ?? "Specialist"} la Anova Medical Clinic, Iași. ${doctor.short_bio ?? ""}`.trim();
   return {
     title: doctor.name,
-    description:
-      `${doctor.title ?? "Specialist"} la Anova Medical Clinic, Iași. ${doctor.short_bio ?? ""}`.trim(),
+    description,
+    alternates: { canonical: `/echipa/${slug}` },
+    openGraph: {
+      type: "profile",
+      title: `${doctor.name} · Anova Medical Clinic`,
+      description,
+      url: `/echipa/${slug}`,
+    },
   };
 }
 
@@ -66,6 +76,16 @@ export default async function DoctorPage({
 
   return (
     <main className="flex-1 overflow-x-hidden">
+      <JsonLd
+        data={[
+          physicianLd({ doctor, specialties, image: photo }),
+          breadcrumbLd([
+            { name: "Acasă", path: "/" },
+            { name: "Echipa", path: "/echipa" },
+            { name: doctor.name, path: `/echipa/${doctor.slug}` },
+          ]),
+        ]}
+      />
       {/* Antet profil */}
       <section className="pt-28 md:pt-32">
         <Container>
@@ -110,7 +130,7 @@ export default async function DoctorPage({
                   </div>
                   <div className="space-y-2">
                     {doctor.credentials && (
-                      <span className="text-xs font-medium uppercase tracking-[0.14em] text-sage">
+                      <span className="text-xs font-medium uppercase tracking-[0.14em] text-sage-strong">
                         {doctor.credentials}
                       </span>
                     )}
@@ -236,7 +256,7 @@ export default async function DoctorPage({
               )}
 
               <div className="flex items-start gap-3 border-t border-border pt-5">
-                <MapPin className="mt-0.5 size-4 shrink-0 text-sage" />
+                <MapPin className="mt-0.5 size-4 shrink-0 text-sage-strong" />
                 <div>
                   <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
                     Locație
@@ -248,7 +268,7 @@ export default async function DoctorPage({
               </div>
 
               <div className="flex items-start gap-3">
-                <Clock className="mt-0.5 size-4 shrink-0 text-sage" />
+                <Clock className="mt-0.5 size-4 shrink-0 text-sage-strong" />
                 <div>
                   <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
                     Program
@@ -264,7 +284,7 @@ export default async function DoctorPage({
               </div>
 
               <div className="flex items-start gap-3">
-                <Phone className="mt-0.5 size-4 shrink-0 text-sage" />
+                <Phone className="mt-0.5 size-4 shrink-0 text-sage-strong" />
                 <div>
                   <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
                     Telefon

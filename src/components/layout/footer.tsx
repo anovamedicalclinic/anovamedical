@@ -99,7 +99,7 @@ export function Footer() {
                 <li key={s.slug}>
                   <Link
                     href={`/specialitati/${s.slug}`}
-                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                    className="inline-block py-1 text-sm text-muted-foreground transition-colors hover:text-primary"
                   >
                     {s.name}
                   </Link>
@@ -113,22 +113,22 @@ export function Footer() {
             <h3 className="font-heading text-base text-foreground">Clinică</h3>
             <ul className="mt-4 space-y-2.5">
               <li>
-                <Link href="/despre-noi" className="text-sm text-muted-foreground transition-colors hover:text-primary">
+                <Link href="/despre-noi" className="inline-block py-1 text-sm text-muted-foreground transition-colors hover:text-primary">
                   Despre noi
                 </Link>
               </li>
               <li>
-                <Link href="/echipa" className="text-sm text-muted-foreground transition-colors hover:text-primary">
+                <Link href="/echipa" className="inline-block py-1 text-sm text-muted-foreground transition-colors hover:text-primary">
                   Echipa
                 </Link>
               </li>
               <li>
-                <Link href="/specialitati" className="text-sm text-muted-foreground transition-colors hover:text-primary">
+                <Link href="/specialitati" className="inline-block py-1 text-sm text-muted-foreground transition-colors hover:text-primary">
                   Specialități
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-sm text-muted-foreground transition-colors hover:text-primary">
+                <Link href="/contact" className="inline-block py-1 text-sm text-muted-foreground transition-colors hover:text-primary">
                   Contact
                 </Link>
               </li>
@@ -140,23 +140,23 @@ export function Footer() {
             <h3 className="font-heading text-base text-foreground">Contact</h3>
             <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
               <li className="flex items-start gap-3">
-                <MapPin className="mt-0.5 size-4 shrink-0 text-sage" />
+                <MapPin className="mt-0.5 size-4 shrink-0 text-sage-strong" />
                 <span>{contact.address}</span>
               </li>
               <li className="flex items-start gap-3">
-                <Phone className="mt-0.5 size-4 shrink-0 text-sage" />
+                <Phone className="mt-0.5 size-4 shrink-0 text-sage-strong" />
                 <a href={contact.phoneHref} className="transition-colors hover:text-primary">
                   {contact.phone}
                 </a>
               </li>
               <li className="flex items-start gap-3">
-                <Mail className="mt-0.5 size-4 shrink-0 text-sage" />
+                <Mail className="mt-0.5 size-4 shrink-0 text-sage-strong" />
                 <a href={contact.emailHref} className="transition-colors hover:text-primary">
                   {contact.email}
                 </a>
               </li>
               <li className="flex items-start gap-3">
-                <Clock className="mt-0.5 size-4 shrink-0 text-sage" />
+                <Clock className="mt-0.5 size-4 shrink-0 text-sage-strong" />
                 <span className="space-y-0.5">
                   {contact.schedule.map((row) => (
                     <span key={row.days} className="block">
@@ -176,7 +176,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                    className="inline-block py-1 text-sm text-muted-foreground transition-colors hover:text-primary"
                   >
                     {link.label}
                   </Link>
