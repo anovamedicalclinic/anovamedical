@@ -5,7 +5,7 @@
  * Placeholder. Când vor fi disponibile pozele reale, se pot mapa aici pe slug
  * (sau prin `photo_url` din Supabase) și se poate reactiva logica de mai jos.
  */
-const PLACEHOLDER = "/medici/Placeholder.jpg";
+const PLACEHOLDER = "/medici/Placeholder.png";
 
 /**
  * Fotografia unui medic. În prezent niciun medic nu are `photo_url`, deci toți
