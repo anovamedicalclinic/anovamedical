@@ -1,45 +1,44 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollIndicator } from "@/components/home/scroll-indicator";
 import { siteConfig } from "@/lib/site";
 
-type NetworkInformation = { saveData?: boolean; effectiveType?: string };
-
 /**
- * Hero. LCP-ul este posterul static optimizat (~35KB, `priority`), astfel încât
- * încărcarea inițială este rapidă. Videoclipul (mai greu) se încarcă doar ca
- * enhancement: după idle, pe ecrane mari, dacă utilizatorul nu a cerut mișcare
- * redusă și nu e pe conexiune lentă / Save-Data. Pe mobil rămâne doar posterul.
+ * Hero. Fundalul inițial este un gradient cald (paint instant, fără cost de
+ * rețea), astfel încât LCP-ul rămâne rapid. Videoclipul se încarcă imediat după
+ * idle pe ORICE dispozitiv (inclusiv mobil / iPhone) și apare peste gradient.
  */
 export function Hero() {
   const [showVideo, setShowVideo] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const media = window.matchMedia("(min-width: 768px)");
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const conn = (
-      navigator as Navigator & { connection?: NetworkInformation }
-    ).connection;
-    const slow = conn?.saveData || /(^|-)2g$/.test(conn?.effectiveType ?? "");
-
-    if (!media.matches || reduce || slow) return;
-
     const start = () => setShowVideo(true);
     const w = window as Window & {
       requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => void;
     };
     if (w.requestIdleCallback) {
-      w.requestIdleCallback(start, { timeout: 2500 });
+      w.requestIdleCallback(start, { timeout: 2000 });
     } else {
-      const t = setTimeout(start, 1400);
+      const t = setTimeout(start, 1000);
       return () => clearTimeout(t);
     }
   }, []);
+
+  // iOS/Safari cere muted + playsInline și, uneori, un apel explicit .play().
+  useEffect(() => {
+    if (!showVideo) return;
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+    const p = v.play();
+    if (p && typeof p.catch === "function") p.catch(() => {});
+  }, [showVideo]);
 
   return (
     <section className="relative flex min-h-[100svh] items-center overflow-hidden">
@@ -71,7 +70,7 @@ export function Hero() {
         </div>
 
         {/* Fundal full-bleed. Gradient cald (fără cost de rețea) = paint instant;
-            video = enhancement doar pe desktop, încărcat după idle. */}
+            videoclipul apare peste gradient, pe orice dispozitiv. */}
         <div className="absolute inset-1 overflow-hidden rounded-3xl border border-black/10 bg-[linear-gradient(150deg,#eef2f0_0%,#f6f3ee_45%,#f3ece2_100%)] lg:rounded-[3rem]">
           <div
             aria-hidden
@@ -83,14 +82,16 @@ export function Hero() {
           />
           {showVideo && (
             <video
+              ref={videoRef}
               autoPlay
               loop
               muted
               playsInline
-              preload="none"
+              preload="auto"
               poster="/hero-poster.jpg"
               aria-hidden
               onLoadedData={() => setVideoReady(true)}
+              onCanPlay={() => setVideoReady(true)}
               className={`absolute inset-0 size-full scale-110 object-cover blur-[5px] transition-opacity duration-700 ${
                 videoReady ? "opacity-100" : "opacity-0"
               }`}
