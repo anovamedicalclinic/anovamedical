@@ -92,7 +92,7 @@ export function Hero() {
               aria-hidden
               onLoadedData={() => setVideoReady(true)}
               onCanPlay={() => setVideoReady(true)}
-              className={`absolute inset-0 size-full scale-110 object-cover blur-[5px] transition-opacity duration-700 ${
+              className={`absolute inset-0 size-full scale-105 object-cover transition-opacity duration-700 ${
                 videoReady ? "opacity-100" : "opacity-0"
               }`}
             >
