@@ -43,7 +43,7 @@ Credem într-o îngrijire care privește persoana în întregul ei, nu doar simp
 - Tulburare afectivă bipolară
 - Tulburări de alimentație
 - Dependențe
-- Tulburare de stres post-traumatic (TSPT)
+- Tulburare de stres post-traumatic (PTSD)
 - Tulburări de personalitate
 - Schizofrenie
 
