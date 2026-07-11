@@ -68,7 +68,7 @@ export const specialtyContent: Record<string, SpecialtyContent> = {
           "Tulburare bipolară",
           "Tulburări de alimentație",
           "Dependențe",
-          "Stres posttraumatic (TSPT)",
+          "Stres posttraumatic (PTSD)",
           "Tulburări de personalitate",
           "Schizofrenie",
         ],

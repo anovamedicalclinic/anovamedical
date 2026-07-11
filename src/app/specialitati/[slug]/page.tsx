@@ -18,6 +18,7 @@ import {
 } from "@/lib/data";
 import { specialtyImage } from "@/lib/specialty-images";
 import { specialtyContent, type SpecialtyBlock } from "@/lib/specialty-content";
+import { ConditionPills } from "@/components/specialty/condition-pills";
 import { JsonLd } from "@/components/seo/json-ld";
 import { breadcrumbLd } from "@/lib/seo";
 import { cn } from "@/lib/utils";
@@ -62,23 +63,7 @@ function BlockContent({
     "pointer-events-none absolute -right-10 -top-10 size-24 rounded-full bg-sage/15 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100";
 
   if (block.layout === "pills") {
-    return (
-      <div className="flex flex-wrap gap-2.5">
-        {block.items.map((item, i) => (
-          <Reveal key={item} delay={i * 0.03}>
-            <span
-              className={cn(
-                "group inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground shadow-sm shadow-foreground/[0.03] transition-all duration-200 hover:-translate-y-0.5 hover:border-primary hover:bg-primary hover:text-primary-foreground hover:shadow-md hover:shadow-primary/25",
-                itemBg,
-              )}
-            >
-              <span className="size-1.5 rounded-full bg-sage transition-colors duration-200 group-hover:bg-primary-foreground" />
-              {item}
-            </span>
-          </Reveal>
-        ))}
-      </div>
-    );
+    return <ConditionPills items={block.items} onCard={onCard} />;
   }
 
   if (block.layout === "cards") {

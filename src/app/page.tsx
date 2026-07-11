@@ -5,6 +5,7 @@ import { TeamSection } from "@/components/home/team-section";
 import { Testimonials } from "@/components/home/testimonials";
 import { VisitSection } from "@/components/home/visit-section";
 import { CtaBand } from "@/components/cta-band";
+import { FadeSection } from "@/components/fade-section";
 import { getDoctors, getSpecialties } from "@/lib/data";
 
 export default async function Home() {
@@ -16,12 +17,24 @@ export default async function Home() {
   return (
     <main className="flex-1 overflow-x-hidden">
       <Hero />
-      <AboutPreview />
-      <SpecialtiesSection specialties={specialties} />
-      <TeamSection doctors={doctors} />
-      <Testimonials />
-      <VisitSection specialties={specialties} />
-      <CtaBand />
+      <FadeSection>
+        <AboutPreview />
+      </FadeSection>
+      <FadeSection>
+        <SpecialtiesSection specialties={specialties} />
+      </FadeSection>
+      <FadeSection>
+        <TeamSection doctors={doctors} />
+      </FadeSection>
+      <FadeSection>
+        <Testimonials />
+      </FadeSection>
+      <FadeSection>
+        <VisitSection specialties={specialties} />
+      </FadeSection>
+      <FadeSection>
+        <CtaBand />
+      </FadeSection>
     </main>
   );
 }
