@@ -65,7 +65,7 @@ const megaSpecialties = [
 ];
 
 const linkClass =
-  "text-sm font-medium text-muted-foreground transition-colors duration-150 hover:text-primary";
+  "whitespace-nowrap text-sm font-medium text-muted-foreground transition-colors duration-150 hover:text-primary";
 
 export const Header = () => {
   const [menuState, setMenuState] = React.useState(false);
