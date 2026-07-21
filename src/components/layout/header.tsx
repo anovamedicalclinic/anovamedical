@@ -10,6 +10,13 @@ import { SpecialtyIcon } from "@/lib/icons";
 import { contact } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
+// Aranjament header (desktop):
+//   "logo-left"   - logo în stânga, meniul centrat, butoane dreapta (varianta nouă)
+//   "logo-center" - meniul în stânga, logo centrat, butoane dreapta (varianta veche,
+//                   păstrată în caz că ne răzgândim - schimbă doar această constantă)
+type HeaderLayout = "logo-left" | "logo-center";
+const HEADER_LAYOUT = "logo-left" as HeaderLayout;
+
 const menuItems = [
   { name: "Acasă", href: "/" },
   { name: "Despre noi", href: "/despre-noi" },
@@ -94,6 +101,16 @@ export const Header = () => {
 
   const floating = scrolled || menuState;
 
+  const logoCentered = HEADER_LAYOUT === "logo-center";
+  // La "logo-center": meniul ocupă col.1 (stânga), logo col.2 (centru).
+  // La "logo-left": logo col.1 (stânga), meniul col.2 (centru). Butoanele rămân col.3.
+  const navColClass = logoCentered
+    ? "lg:col-start-1 lg:justify-self-start"
+    : "lg:col-start-2 lg:justify-self-center";
+  const logoColClass = logoCentered
+    ? "lg:col-start-2 lg:justify-self-center"
+    : "lg:col-start-1 lg:justify-self-start";
+
   return (
     <header>
       <nav
@@ -115,8 +132,8 @@ export const Header = () => {
                 scrolled ? "py-2" : "py-3 lg:py-3.5",
               )}
             >
-              {/* Stânga - link-uri (desktop) */}
-              <ul className="hidden items-center gap-6 justify-self-start lg:flex">
+              {/* Meniu (desktop) - poziția pe grid depinde de HEADER_LAYOUT */}
+              <ul className={cn("hidden items-center gap-6 lg:flex", navColClass)}>
                 {menuItems.map((item) =>
                   item.mega ? (
                     <li
@@ -148,13 +165,13 @@ export const Header = () => {
                 )}
               </ul>
 
-              {/* Centru - logo */}
-              <div className="mx-auto lg:mx-0 lg:justify-self-center">
+              {/* Logo - centrat pe mobil; poziția desktop depinde de HEADER_LAYOUT */}
+              <div className={cn("mx-auto lg:mx-0", logoColClass)}>
                 <Logo priority />
               </div>
 
               {/* Dreapta - butoane (desktop) */}
-              <div className="hidden items-center gap-2 justify-self-end lg:flex">
+              <div className="hidden items-center gap-2 lg:col-start-3 lg:flex lg:justify-self-end">
                 <Button
                   asChild
                   variant="outline"

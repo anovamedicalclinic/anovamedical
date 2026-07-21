@@ -103,7 +103,7 @@ export default async function DoctorPage({
             className="mt-6 overflow-hidden rounded-3xl border border-border bg-card"
           >
             {/* Cover */}
-            <div className="relative h-32 bg-gradient-to-br from-primary via-[#22574f] to-sage/60 sm:h-44 md:h-52">
+            <div className="relative h-32 bg-gradient-to-br from-primary via-[#4c6656] to-sage/60 sm:h-44 md:h-52">
               <div
                 aria-hidden
                 className="absolute -right-8 -top-10 size-52 rounded-full bg-primary-foreground/10 blur-2xl"

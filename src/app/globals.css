@@ -9,20 +9,20 @@
    echilibrul." Premium & minimalist - mult spațiu alb, tipografie editorială,
    carduri curate, accente folosite cu reținere.
 
-   Paletă (sursă de adevăr - secțiunea 3 din brief):
-     background  #F6F3EE  off-white cald / cremă (dominant)
+   Paletă (sursă de adevăr - branding oficial ANOVA Medical Clinic):
+     background  #EBE7E3  cremă de brand (dominant)
      surface     #FFFFFF / #FBF9F5  carduri
-     primary     #1C4B47  petrol/teal profund (CTA, accente, încredere)
-     primary 2   #163B38  primary hover
-     sage        #8BA89F  accent moale (detalii subtile)
-     sand        #C9A88E  nisip/terracotta discret (highlight-uri rare)
+     primary     #57705F  verde-salvie ANOVA (CTA, accente, wordmark)
+     primary 2   #47604F  primary hover (verde mai închis)
+     sage        #8BA89F  accent verde moale (detalii subtile)
+     gold/sand   #BB924F  auriu de brand (highlight-uri, accente „MEDICAL CLINIC")
      text        #1F2421  aproape negru, cald
      text-2      #5A615C  text secundar
-     border      #E7E1D8
+     border      #E4DDD2
 
-   Tipografie:
-     Headings - Fraunces (serif editorial), tracking ușor negativ, lh 1.05–1.1
-     Body/UI  - Inter (sans grotesc curat), 16–18px, lh 1.6, ~68ch
+   Tipografie (branding oficial):
+     Headings - Athena Regular (serif de titlu de brand, self-hosted)
+     Body/UI  - Montserrat (alternativă geometrică la Gotham, cu diacritice RO)
 
    Convenții:
      - Folosește `font-heading` pe titluri (Fraunces), restul moștenește Inter.
@@ -66,6 +66,7 @@
   --color-sage-foreground: var(--sage-foreground);
   --color-sand: var(--sand);
   --color-sand-foreground: var(--sand-foreground);
+  --color-sand-strong: var(--sand-strong);
 
   /* radius scale (relativ la --radius) */
   --radius-sm: calc(var(--radius) * 0.6);
@@ -79,7 +80,7 @@
 :root {
   --radius: 0.75rem;
 
-  --background: #f6f3ee;
+  --background: #ebe7e3;
   --foreground: #1f2421;
 
   --card: #ffffff;
@@ -88,33 +89,37 @@
   --popover: #ffffff;
   --popover-foreground: #1f2421;
 
-  --primary: #1c4b47;
-  --primary-foreground: #f6f3ee;
-  --primary-hover: #163b38;
+  /* verde-salvie ANOVA - cream pe verde trece WCAG AA (~5.4:1) */
+  --primary: #57705f;
+  --primary-foreground: #ebe7e3;
+  --primary-hover: #47604f;
 
-  --secondary: #fbf9f5;
-  --secondary-foreground: #1c4b47;
+  --secondary: #faf7f2;
+  --secondary-foreground: #57705f;
 
-  --muted: #fbf9f5;
+  --muted: #f4f0ea;
   --muted-foreground: #5a615c;
 
-  /* accent = tint subtil de sage pentru hover/ghost; brandul „sage" plin e separat */
-  --accent: #eef2f0;
-  --accent-foreground: #1c4b47;
+  /* accent = tint subtil de verde pentru hover/ghost; brandul „sage" plin e separat */
+  --accent: #ebf0ec;
+  --accent-foreground: #57705f;
 
   --destructive: #b4524a;
 
-  --border: #e7e1d8;
-  --input: #e7e1d8;
-  --ring: #1c4b47;
+  --border: #e4ddd2;
+  --input: #e4ddd2;
+  --ring: #57705f;
 
   /* brand accents pline */
   --sage: #8ba89f;
   /* variantă închisă pentru TEXT pe fundal deschis (contrast WCAG AA >= 4.5:1) */
   --sage-strong: #4f7267;
   --sage-foreground: #1f2421;
-  --sand: #c9a88e;
+  /* auriu de brand ANOVA - ca fill/decor; text pe el rămâne foarte închis */
+  --sand: #bb924f;
   --sand-foreground: #1f2421;
+  /* auriu închis, sigur pentru TEXT pe fundal deschis (contrast AA) */
+  --sand-strong: #8a6a30;
 }
 
 @layer base {

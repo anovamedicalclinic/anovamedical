@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Montserrat } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -9,24 +10,24 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { clinicLd, websiteLd } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
 
-// Body / UI - sans grotesc curat. latin-ext pentru diacritice românești (ș ț ă î â).
-// `preload: false` - fontul de body nu e pe calea critică a LCP (textul mare e
-// serif); se încarcă fără să concureze cu randarea inițială.
-const inter = Inter({
+// Body / UI - Gotham Book (font secundar de brand) nu are diacriticele românești
+// (ă, ș, ț) și e comercial. Montserrat e cea mai apropiată alternativă geometrică
+// gratuită, cu suport complet latin-ext. latin-ext pentru diacritice (ș ț ă î â).
+// `preload: false` - fontul de body nu e pe calea critică a LCP (titlul mare e Athena).
+const montserrat = Montserrat({
   variable: "--font-sans",
   subsets: ["latin", "latin-ext"],
   display: "swap",
   preload: false,
 });
 
-// Headings - serif editorial premium. Greutate statică (500) în loc de variabilă,
-// pentru un fișier mult mai mic pe calea critică. `display: optional` evită
-// re-paint-ul târziu al titlului (LCP) pe conexiuni lente.
-const fraunces = Fraunces({
+// Headings - Athena Regular, fontul primar oficial ANOVA (serif de titlu, self-hosted).
+// Are suport complet pentru diacriticele românești. `display: swap` ca titlul (LCP)
+// să apară imediat cu fallback, apoi să comute la Athena.
+const athena = localFont({
+  src: "./fonts/Athena-Regular.ttf",
   variable: "--font-heading",
-  subsets: ["latin", "latin-ext"],
-  weight: ["400", "500"],
-  display: "optional",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -84,7 +85,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f6f3ee",
+  themeColor: "#ebe7e3",
   colorScheme: "light",
 };
 
@@ -97,7 +98,7 @@ export default function RootLayout({
     <html
       lang="ro"
       suppressHydrationWarning
-      className={`${inter.variable} ${fraunces.variable} h-full antialiased`}
+      className={`${montserrat.variable} ${athena.variable} h-full antialiased`}
     >
       <body
         suppressHydrationWarning

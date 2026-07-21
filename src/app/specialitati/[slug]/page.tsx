@@ -83,7 +83,7 @@ function BlockContent({
               >
                 {i + 1}
               </span>
-              <span className="relative flex size-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-accent to-secondary font-heading text-base text-primary shadow-sm shadow-foreground/5 transition-all duration-300 group-hover:from-primary group-hover:to-[#2a6a63] group-hover:text-primary-foreground group-hover:shadow-primary/25 sm:size-11 sm:rounded-2xl sm:text-lg">
+              <span className="relative flex size-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-accent to-secondary font-heading text-base text-primary shadow-sm shadow-foreground/5 transition-all duration-300 group-hover:from-primary group-hover:to-[#6e8b77] group-hover:text-primary-foreground group-hover:shadow-primary/25 sm:size-11 sm:rounded-2xl sm:text-lg">
                 {i + 1}
               </span>
               <span className="relative pt-1 text-sm font-medium leading-relaxed text-foreground sm:pt-1.5">
@@ -108,7 +108,7 @@ function BlockContent({
               itemBg,
             )}
           >
-            <span className="relative flex size-7 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-[#2a6a63] text-primary-foreground shadow-sm shadow-primary/20 transition-transform duration-300 group-hover:scale-110 sm:mt-0.5 sm:size-8 sm:rounded-xl">
+            <span className="relative flex size-7 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-[#6e8b77] text-primary-foreground shadow-sm shadow-primary/20 transition-transform duration-300 group-hover:scale-110 sm:mt-0.5 sm:size-8 sm:rounded-xl">
               <Check className="size-3.5 sm:size-4" strokeWidth={2.5} />
             </span>
             <span className="relative pt-0.5 text-sm leading-relaxed text-foreground/90 sm:pt-1">

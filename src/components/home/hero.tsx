@@ -71,7 +71,7 @@ export function Hero() {
 
         {/* Fundal full-bleed. Gradient cald (fără cost de rețea) = paint instant;
             videoclipul apare peste gradient, pe orice dispozitiv. */}
-        <div className="absolute inset-1 overflow-hidden rounded-3xl border border-black/10 bg-[linear-gradient(150deg,#eef2f0_0%,#f6f3ee_45%,#f3ece2_100%)] lg:rounded-[3rem]">
+        <div className="absolute inset-1 overflow-hidden rounded-3xl border border-black/10 bg-[linear-gradient(150deg,#eef1ec_0%,#ebe7e3_45%,#e7dfd3_100%)] lg:rounded-[3rem]">
           <div
             aria-hidden
             className="absolute -right-16 -top-20 size-80 rounded-full bg-sage/25 blur-3xl"

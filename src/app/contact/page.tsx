@@ -79,7 +79,7 @@ export default async function ContactPage() {
                   : {})}
                 className="group relative flex h-full items-start gap-4 overflow-hidden rounded-3xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-xl hover:shadow-foreground/5"
               >
-                <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-[#2a6a63] text-primary-foreground shadow-sm shadow-primary/20 transition-transform duration-300 group-hover:scale-110">
+                <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-[#6e8b77] text-primary-foreground shadow-sm shadow-primary/20 transition-transform duration-300 group-hover:scale-110">
                   <m.icon className="size-5" />
                 </span>
                 <span className="min-w-0">
