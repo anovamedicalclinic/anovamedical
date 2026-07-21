@@ -44,11 +44,11 @@ export function Hero() {
     <section className="relative flex min-h-[100svh] items-center overflow-hidden">
       <div className="w-full py-28 md:py-32">
         <div className="relative z-10 mx-auto flex max-w-7xl flex-col px-4 sm:px-6 lg:px-12">
-          <div className="mx-auto max-w-3xl text-center">
-            <h1 className="mx-auto mt-4 max-w-none text-balance text-4xl sm:mt-6 sm:max-w-2xl sm:text-5xl md:text-6xl lg:mt-6 xl:text-7xl">
+          <div className="mx-auto max-w-5xl text-center">
+            <h1 className="mx-auto mt-4 max-w-none text-balance text-4xl leading-[1.12] sm:mt-6 sm:max-w-3xl sm:text-5xl md:text-6xl lg:mt-6 lg:max-w-4xl xl:text-7xl">
               Regăsește-ți echilibrul, pas cu pas.
             </h1>
-            <p className="mx-auto mt-5 max-w-md text-balance text-base text-muted-foreground sm:mt-6 sm:max-w-2xl sm:text-lg">
+            <p className="mx-auto mt-6 max-w-md text-balance text-base leading-relaxed text-muted-foreground sm:mt-7 sm:max-w-3xl sm:text-lg">
               Clinică de sănătate mintală și neurologică în {siteConfig.city}. Un
               spațiu discret și sigur, unde fiecare poveste este ascultată cu
               răbdare, iar îngrijirea e croită pe măsura ta.

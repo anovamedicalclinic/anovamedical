@@ -102,14 +102,59 @@ export const Header = () => {
   const floating = scrolled || menuState;
 
   const logoCentered = HEADER_LAYOUT === "logo-center";
-  // La "logo-center": meniul ocupă col.1 (stânga), logo col.2 (centru).
-  // La "logo-left": logo col.1 (stânga), meniul col.2 (centru). Butoanele rămân col.3.
-  const navColClass = logoCentered
-    ? "lg:col-start-1 lg:justify-self-start"
-    : "lg:col-start-2 lg:justify-self-center";
-  const logoColClass = logoCentered
-    ? "lg:col-start-2 lg:justify-self-center"
-    : "lg:col-start-1 lg:justify-self-start";
+  // Trei grupuri flex-1 egale => centrare verticală perfectă și distribuție
+  // echilibrată. "logo-center": meniu stânga, logo centru. "logo-left": logo
+  // stânga, meniu centru. Butoanele rămân mereu în dreapta.
+  const navGroupClass = logoCentered ? "lg:justify-start" : "lg:justify-center";
+  const logoGroupClass = logoCentered
+    ? "justify-center"
+    : "justify-center lg:justify-start";
+
+  // Meniul și logo-ul definite ca blocuri, ca să le putem reordona după layout.
+  const navMenu = (
+    <ul
+      className={cn(
+        "hidden flex-1 items-center gap-6 lg:flex",
+        navGroupClass,
+      )}
+    >
+      {menuItems.map((item) =>
+        item.mega ? (
+          <li
+            key={item.href}
+            onMouseEnter={openMega}
+            onMouseLeave={scheduleClose}
+          >
+            <Link
+              href={item.href}
+              aria-expanded={megaOpen}
+              className={cn(linkClass, "flex items-center gap-1")}
+            >
+              {item.name}
+              <ChevronDown
+                className={cn(
+                  "size-4 transition-transform duration-200",
+                  megaOpen && "rotate-180",
+                )}
+              />
+            </Link>
+          </li>
+        ) : (
+          <li key={item.href}>
+            <Link href={item.href} className={linkClass}>
+              {item.name}
+            </Link>
+          </li>
+        ),
+      )}
+    </ul>
+  );
+
+  const logoBlock = (
+    <div className={cn("flex flex-1", logoGroupClass)}>
+      <Logo priority />
+    </div>
+  );
 
   return (
     <header>
@@ -128,50 +173,16 @@ export const Header = () => {
           >
             <div
               className={cn(
-                "relative flex items-center px-5 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:grid lg:grid-cols-[1fr_auto_1fr] lg:px-8",
+                "relative flex items-center justify-between px-5 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:px-8",
                 scrolled ? "py-2" : "py-3 lg:py-3.5",
               )}
             >
-              {/* Meniu (desktop) - poziția pe grid depinde de HEADER_LAYOUT */}
-              <ul className={cn("hidden items-center gap-6 lg:flex", navColClass)}>
-                {menuItems.map((item) =>
-                  item.mega ? (
-                    <li
-                      key={item.href}
-                      onMouseEnter={openMega}
-                      onMouseLeave={scheduleClose}
-                    >
-                      <Link
-                        href={item.href}
-                        aria-expanded={megaOpen}
-                        className={cn(linkClass, "flex items-center gap-1")}
-                      >
-                        {item.name}
-                        <ChevronDown
-                          className={cn(
-                            "size-4 transition-transform duration-200",
-                            megaOpen && "rotate-180",
-                          )}
-                        />
-                      </Link>
-                    </li>
-                  ) : (
-                    <li key={item.href}>
-                      <Link href={item.href} className={linkClass}>
-                        {item.name}
-                      </Link>
-                    </li>
-                  ),
-                )}
-              </ul>
-
-              {/* Logo - centrat pe mobil; poziția desktop depinde de HEADER_LAYOUT */}
-              <div className={cn("mx-auto lg:mx-0", logoColClass)}>
-                <Logo priority />
-              </div>
+              {/* Ordinea logo/meniu depinde de HEADER_LAYOUT; butoanele mereu dreapta */}
+              {logoCentered ? navMenu : logoBlock}
+              {logoCentered ? logoBlock : navMenu}
 
               {/* Dreapta - butoane (desktop) */}
-              <div className="hidden items-center gap-2 lg:col-start-3 lg:flex lg:justify-self-end">
+              <div className="hidden flex-1 items-center justify-end gap-2 lg:flex">
                 <Button
                   asChild
                   variant="outline"
