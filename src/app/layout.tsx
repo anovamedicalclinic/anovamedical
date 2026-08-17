@@ -2,12 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
-import { FloatingActions } from "@/components/layout/floating-actions";
 import { Toaster } from "@/components/ui/sonner";
-import { JsonLd } from "@/components/seo/json-ld";
-import { clinicLd, websiteLd } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
 
 // Body / UI - Gotham Book (font secundar de brand) nu are diacriticele românești
@@ -104,11 +99,9 @@ export default function RootLayout({
         suppressHydrationWarning
         className="min-h-full flex flex-col overflow-x-hidden"
       >
-        <JsonLd data={[clinicLd(), websiteLd()]} />
-        <Header />
+        {/* Antetul, subsolul și butoanele flotante stau în `(site)/layout.tsx`,
+            ca panoul de administrare să nu le moștenească. */}
         {children}
-        <Footer />
-        <FloatingActions />
         <Toaster richColors position="top-center" />
       </body>
     </html>
