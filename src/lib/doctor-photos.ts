@@ -4,7 +4,8 @@
  * Fișierele stau în `public/medici/` (portret 1200x1500, raport 4:5) și sunt
  * mapate pe slug-ul medicului. Medicii care încă nu au fotografie proprie
  * folosesc `Placeholder.webp`. Conversia PNG -> WebP se face cu
- * `node scripts/optimize-photos.mjs`.
+ * `node scripts/optimize-photos.mjs`, iar decuparea surselor landscape la 4:5
+ * cu `node scripts/crop-portraits.mjs`.
  *
  * Ordinea de prioritate: `photo_url` din Supabase (dacă e completat) > maparea
  * locală de mai jos > placeholder. Astfel, când clientul încarcă poze în
@@ -16,6 +17,7 @@ const PLACEHOLDER = "/medici/Placeholder.webp";
 const PHOTOS: Record<string, string> = {
   "aionesei-catalin": "/medici/AioneseiCatalin.webp",
   "alexandru-ungureanu": "/medici/UngureanuAlexandru.webp",
+  "ana-caterina-cristofor": "/medici/CristoforAnaCaterina.webp",
   "andra-morasan": "/medici/MorsanAndra.webp",
   "andreea-albu": "/medici/AlbuAndreea.webp",
   "aura-cosofret": "/medici/CosofretAura.webp",
@@ -23,18 +25,20 @@ const PHOTOS: Record<string, string> = {
   "dan-chirila": "/medici/ChirilaDan.webp",
   "dorneanu-andra": "/medici/DorneanuAndra.webp",
   "elena-pcela": "/medici/PcelaElena.webp",
+  "georgean-rozinbaum": "/medici/RozinbaumGeorgean.webp",
   "gilea-andra": "/medici/GileaAndra.webp",
   "gusa-lucia": "/medici/GusaLucia.webp",
   "irina-dobrin": "/medici/IrinaDobrin.webp",
   "matei-palimariciuc": "/medici/PalimariciucMatei.webp",
   "mihaela-ungureanu": "/medici/UngureanuMihaela.webp",
   "mihulca-ioana": "/medici/MihulcaIoana.webp",
+  "paula-stanciulescu": "/medici/StanciulescuPaula.webp",
   "ramona-costiug": "/medici/CostiugRamona.webp",
   "silvia-tudosa": "/medici/TudosaSilvia.webp",
+  "thomas-gabriel-schreiner": "/medici/SchreinerThomasGabriel.webp",
+  "tudor-florea": "/medici/FloreaTudor.webp",
   "vlasceanu-marceza": "/medici/VlasceanuMarceza.webp",
-  // Fără fotografie deocamdată (folosesc Placeholder):
-  // ana-caterina-cristofor, banu-adelina, georgean-rozinbaum,
-  // paula-stanciulescu, thomas-gabriel-schreiner, tudor-florea
+  // Fără fotografie deocamdată (folosește Placeholder): banu-adelina
 };
 
 /** Fotografia unui medic, cu fallback pe Placeholder. */
