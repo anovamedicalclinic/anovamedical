@@ -3,7 +3,8 @@ import "server-only";
 import { cache } from "react";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import type { Profile, UserRole } from "@/lib/supabase/types";
+import { roleCan, type Area } from "@/lib/auth/roles";
+import type { Profile } from "@/lib/supabase/types";
 
 /**
  * Stratul de acces la date pentru autentificare (DAL).
@@ -18,18 +19,10 @@ import type { Profile, UserRole } from "@/lib/supabase/types";
  * date.
  */
 
-/** Ce rol are voie la ce secțiune. Adevărul e dublat în RLS, în 0002_admin.sql. */
-export const permissions = {
-  content: ["admin", "editor"],
-  doctors: ["admin", "editor"],
-  testimonials: ["admin", "editor"],
-  staff: ["admin", "editor"],
-  appointments: ["admin", "editor", "reception"],
-  settings: ["admin"],
-  users: ["admin"],
-} as const satisfies Record<string, readonly UserRole[]>;
-
-export type Area = keyof typeof permissions;
+// Rolurile în sine stau în `roles.ts`, ca formularele din panou să le poată
+// folosi fără a trage stratul de server în bundle-ul de browser.
+export type { Area } from "@/lib/auth/roles";
+export { permissions, roleCan, roleLabels, roleDescriptions } from "@/lib/auth/roles";
 
 export type SessionUser = {
   id: string;
@@ -80,11 +73,6 @@ export async function requireUser(): Promise<SessionUser> {
   return user;
 }
 
-/** True dacă rolul dat are acces la secțiune. */
-export function roleCan(role: UserRole, area: Area): boolean {
-  return (permissions[area] as readonly UserRole[]).includes(role);
-}
-
 /**
  * Cere acces la o secțiune. Lipsa sesiunii duce la login; sesiune validă dar
  * rol insuficient duce la o pagină care explică limitarea, ca utilizatorul să
@@ -120,17 +108,3 @@ export async function authorize(
   }
   return { ok: true, user };
 }
-
-/** Eticheta în română a unui rol, pentru interfață. */
-export const roleLabels: Record<UserRole, string> = {
-  admin: "Administrator",
-  editor: "Editor",
-  reception: "Recepție",
-};
-
-/** Descrierea drepturilor, arătată la alegerea rolului. */
-export const roleDescriptions: Record<UserRole, string> = {
-  admin: "Acces complet, inclusiv utilizatori și setări de email.",
-  editor: "Conținut (texte, medici, recenzii) și cereri de programare.",
-  reception: "Doar cererile de programare.",
-};

@@ -14,6 +14,12 @@ import { AdminNav, type NavItem } from "./nav";
  * meniul. NU este o barieră de securitate: layout-urile nu se re-randează la
  * fiecare navigare, deci fiecare pagină cheamă `requireRole` pe cont propriu.
  */
+/**
+ * Tot panoul depinde de sesiune, deci nimic de aici nu se prerandează. Setat pe
+ * layout ca regula să acopere automat și paginile adăugate ulterior.
+ */
+export const dynamic = "force-dynamic";
+
 const allItems: NavItem[] = [
   { href: "/admin", label: "Panou", area: "appointments", icon: "inbox" },
   { href: "/admin/cereri", label: "Cereri de programare", area: "appointments", icon: "inbox" },

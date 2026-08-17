@@ -5,8 +5,8 @@ import { Reveal } from "@/components/reveal";
 import { DoctorFlipCard } from "@/components/doctor-flip-card";
 import { StaffCard } from "@/components/staff-card";
 import { CtaBand } from "@/components/cta-band";
-import { getDoctors, getSpecialtiesForDoctor } from "@/lib/data";
-import { staff } from "@/lib/staff";
+import { getDoctors, getSpecialtiesByDoctor, getStaff } from "@/lib/data";
+import { getContent } from "@/lib/content/get";
 
 export const metadata: Metadata = {
   title: "Echipa",
@@ -16,21 +16,25 @@ export const metadata: Metadata = {
 };
 
 export default async function EchipaPage() {
-  const doctors = await getDoctors();
-  const cards = await Promise.all(
-    doctors.map(async (doctor) => ({
-      doctor,
-      specialties: await getSpecialtiesForDoctor(doctor.id),
-    })),
-  );
+  const [doctors, byDoctor, staff, content] = await Promise.all([
+    getDoctors(),
+    getSpecialtiesByDoctor(),
+    getStaff(),
+    getContent(),
+  ]);
+
+  const cards = doctors.map((doctor) => ({
+    doctor,
+    specialties: byDoctor.get(doctor.id) ?? [],
+  }));
 
   return (
     <main className="flex-1 overflow-x-hidden">
       <PageHeader
-        breadcrumb={[{ label: "Echipa" }]}
-        eyebrow="Echipa"
-        title="Oamenii din spatele îngrijirii tale"
-        description="O echipă multidisciplinară de medici psihiatri, psihologi, neurologi, cardiologi și endocrinologi. Apasă pe un card pentru a afla mai multe despre fiecare specialist."
+        breadcrumb={[{ label: content("echipa.header.eyebrow") }]}
+        eyebrow={content("echipa.header.eyebrow")}
+        title={content("echipa.header.title")}
+        description={content("echipa.header.description")}
       />
 
       <Section>
@@ -48,21 +52,23 @@ export default async function EchipaPage() {
       </Section>
 
       {/* Echipa de suport */}
-      <Section className="bg-card">
-        <SectionHeading
-          eyebrow="Echipa de suport"
-          title="Oamenii care te întâmpină"
-          description="Conducerea clinicii și asistentele medicale care se ocupă de programări, de pregătirea consultațiilor și de confortul tău la fiecare vizită."
-          align="center"
-        />
-        <div className="mt-12 grid grid-cols-2 gap-3.5 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
-          {staff.map((member, i) => (
-            <Reveal key={member.name} delay={(i % 4) * 0.05}>
-              <StaffCard member={member} />
-            </Reveal>
-          ))}
-        </div>
-      </Section>
+      {staff.length > 0 && (
+        <Section className="bg-card">
+          <SectionHeading
+            eyebrow={content("echipa.support.eyebrow")}
+            title={content("echipa.support.title")}
+            description={content("echipa.support.description")}
+            align="center"
+          />
+          <div className="mt-12 grid grid-cols-2 gap-3.5 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
+            {staff.map((member, i) => (
+              <Reveal key={member.id} delay={(i % 4) * 0.05}>
+                <StaffCard member={member} />
+              </Reveal>
+            ))}
+          </div>
+        </Section>
+      )}
 
       <CtaBand />
     </main>

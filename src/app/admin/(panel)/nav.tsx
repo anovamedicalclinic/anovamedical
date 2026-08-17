@@ -12,7 +12,7 @@ import {
   UsersRound,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { Area } from "@/lib/auth/dal";
+import type { Area } from "@/lib/auth/roles";
 
 export type NavItem = {
   href: string;

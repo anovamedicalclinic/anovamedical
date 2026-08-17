@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { StaffMember } from "@/lib/staff";
+import type { StaffMember } from "@/lib/supabase/types";
 
 /**
  * Card pentru echipa de suport. Variantă simplificată a `DoctorCard`: aceleași
@@ -11,7 +11,7 @@ export function StaffCard({ member }: { member: StaffMember }) {
     <div className="flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card">
       <div className="relative aspect-[4/5] overflow-hidden bg-secondary">
         <Image
-          src={member.photo}
+          src={member.photo_url ?? "/medici/Placeholder.webp"}
           alt={`Portret ${member.name}`}
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"

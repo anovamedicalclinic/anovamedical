@@ -4,11 +4,14 @@ import { getDoctorsBySpecialtySlug } from "@/lib/data";
 import { specialtyHighlights } from "@/lib/specialty-highlights";
 import { specialtyImage } from "@/lib/specialty-images";
 import type { Specialty } from "@/lib/supabase/types";
+import type { ContentReader } from "@/lib/content/get";
 
 export async function SpecialtiesSection({
   specialties,
+  content,
 }: {
   specialties: Specialty[];
+  content: ContentReader;
 }) {
   const cards = await Promise.all(
     specialties.map(async (specialty) => ({
@@ -21,9 +24,9 @@ export async function SpecialtiesSection({
   return (
     <Section id="specialitati">
       <SectionHeading
-        eyebrow="Specialități"
-        title="Îngrijire completă, sub același acoperiș"
-        description="De la sănătate mintală la neurologie, cardiologie și endocrinologie, echipa noastră acoperă o gamă largă de nevoi, cu aceeași grijă și atenție."
+        eyebrow={content("home.specialties.eyebrow")}
+        title={content("home.specialties.title")}
+        description={content("home.specialties.description")}
       />
       <div className="mt-12 flex flex-col gap-6">
         {cards.map(({ specialty, doctors, imageSrc }, index) => (

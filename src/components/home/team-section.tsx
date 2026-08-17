@@ -4,16 +4,23 @@ import { Button } from "@/components/ui/button";
 import { Section, SectionHeading } from "@/components/layout/section";
 import { Reveal } from "@/components/reveal";
 import { TeamCarousel } from "@/components/home/team-carousel";
-import { getSpecialtiesForDoctor } from "@/lib/data";
+import { getSpecialtiesByDoctor } from "@/lib/data";
 import type { Doctor } from "@/lib/supabase/types";
+import type { ContentReader } from "@/lib/content/get";
 
-export async function TeamSection({ doctors }: { doctors: Doctor[] }) {
-  const cards = await Promise.all(
-    doctors.map(async (doctor) => ({
-      doctor,
-      specialties: await getSpecialtiesForDoctor(doctor.id),
-    })),
-  );
+export async function TeamSection({
+  doctors,
+  content,
+}: {
+  doctors: Doctor[];
+  content: ContentReader;
+}) {
+  // O singură citire a hărții medic -> specialități, în loc de una per medic.
+  const byDoctor = await getSpecialtiesByDoctor();
+  const cards = doctors.map((doctor) => ({
+    doctor,
+    specialties: byDoctor.get(doctor.id) ?? [],
+  }));
 
   // Doar membrii asociați unei specialități (medici, psihologi, neurologi).
   // Pe homepage arătăm un teaser (primii 10); echipa completă e pe /echipa.
@@ -22,9 +29,9 @@ export async function TeamSection({ doctors }: { doctors: Doctor[] }) {
   return (
     <Section id="echipa" className="bg-card">
       <SectionHeading
-        eyebrow="Echipa"
-        title="Specialiști dedicați, alături de tine"
-        description="O echipă multidisciplinară de medici, psihologi și terapeuți. Apasă pe un card pentru a afla mai multe."
+        eyebrow={content("home.team.eyebrow")}
+        title={content("home.team.title")}
+        description={content("home.team.description")}
         align="center"
       />
 
@@ -40,7 +47,7 @@ export async function TeamSection({ doctors }: { doctors: Doctor[] }) {
           className="group/all rounded-full px-7 hover:border-primary/30 hover:bg-primary/5 hover:text-primary"
         >
           <Link href="/echipa">
-            Vezi echipa completă
+            {content("home.team.cta")}
             <ArrowRight className="size-4 transition-transform duration-200 group-hover/all:translate-x-0.5" />
           </Link>
         </Button>

@@ -4,8 +4,13 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Section } from "@/components/layout/section";
 import { Reveal } from "@/components/reveal";
+import type { ContentReader } from "@/lib/content/get";
 
-export function AboutPreview() {
+/**
+ * Textele vin prin `content`, cititorul încărcat în pagină. Marcajul și clasele
+ * rămân în cod: din panou se schimbă doar conținutul câmpurilor.
+ */
+export function AboutPreview({ content }: { content: ContentReader }) {
   return (
     <Section id="despre" className="overflow-hidden bg-card">
       <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
@@ -13,13 +18,13 @@ export function AboutPreview() {
         <div className="flex flex-col gap-6">
           <Reveal>
             <span className="text-sm font-medium uppercase tracking-[0.18em] text-sage-strong">
-              Despre Anova Medical Clinic
+              {content("home.about.eyebrow")}
             </span>
           </Reveal>
 
           <Reveal delay={0.06}>
             <h2 className="text-balance text-3xl text-foreground sm:text-4xl">
-              Îngrijire construită în jurul fiecărei povești.
+              {content("home.about.title")}
             </h2>
           </Reveal>
 
@@ -27,18 +32,8 @@ export function AboutPreview() {
             delay={0.12}
             className="prose-readable space-y-4 text-pretty text-muted-foreground"
           >
-            <p>
-              ANOVA Medical Clinic s-a născut din dorința de a crea un loc sigur
-              pentru oamenii care traversează o perioadă dificilă. Numele vine de
-              la <em>Analiză a Variabilității și Abordare Nuanțată</em>, felul
-              nostru de a privi fiecare persoană în complexitatea ei, nu ca pe un
-              simplu diagnostic.
-            </p>
-            <p>
-              Suntem o echipă multidisciplinară de medici, psihologi și
-              terapeuți, alături de tine cu răbdare și profesionalism, ca să îți
-              regăsești echilibrul.
-            </p>
+            <p>{content("home.about.paragraph_1")}</p>
+            <p>{content("home.about.paragraph_2")}</p>
           </Reveal>
 
           <Reveal delay={0.18} className="flex flex-wrap items-center gap-3">
@@ -48,7 +43,7 @@ export function AboutPreview() {
               className="group/cta h-12 rounded-full px-6 text-base transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary-hover"
             >
               <Link href="/contact">
-                Programează-te
+                {content("home.about.cta_primary")}
                 <ArrowRight className="size-4 transition-transform duration-200 group-hover/cta:translate-x-0.5" />
               </Link>
             </Button>
@@ -60,7 +55,7 @@ export function AboutPreview() {
               className="group/link h-12 rounded-full px-5 text-base hover:bg-primary/5 hover:text-primary"
             >
               <Link href="/despre-noi">
-                Vezi povestea completă
+                {content("home.about.cta_secondary")}
                 <ArrowRight className="size-4 transition-transform duration-200 group-hover/link:translate-x-0.5" />
               </Link>
             </Button>

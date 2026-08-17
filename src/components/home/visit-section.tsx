@@ -5,6 +5,7 @@ import { LazyAppointmentForm } from "@/components/home/lazy-appointment-form";
 import { WhatsAppIcon } from "@/components/brand/social-icons";
 import { contact } from "@/lib/site";
 import type { Specialty } from "@/lib/supabase/types";
+import type { ContentReader } from "@/lib/content/get";
 
 const MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(
   "Șoseaua Nicolina 14, Iași",
@@ -12,15 +13,17 @@ const MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(
 
 export function VisitSection({
   specialties,
+  content,
 }: {
   specialties: Pick<Specialty, "id" | "name">[];
+  content: ContentReader;
 }) {
   return (
     <Section id="contact" className="bg-card">
       <SectionHeading
-        eyebrow="Vizitează-ne"
-        title="Suntem aproape de tine, în inima Iașului"
-        description="Programează o consultație completând formularul de mai jos sau sună-ne direct. Te așteptăm într-un spațiu cald și primitor."
+        eyebrow={content("home.visit.eyebrow")}
+        title={content("home.visit.title")}
+        description={content("home.visit.description")}
       />
 
       <div className="mt-12 grid gap-8 lg:grid-cols-2 lg:gap-10">
@@ -102,9 +105,11 @@ export function VisitSection({
           delay={0.12}
           className="rounded-3xl border border-border bg-background p-6 shadow-sm shadow-foreground/5 sm:p-8"
         >
-          <h3 className="text-xl text-foreground">Programează o consultație</h3>
+          <h3 className="text-xl text-foreground">
+            {content("home.visit.form_title")}
+          </h3>
           <p className="mt-1 text-sm text-muted-foreground">
-            Completează câmpurile, iar noi te sunăm pentru confirmare.
+            {content("home.visit.form_note")}
           </p>
           <div className="mt-6">
             <LazyAppointmentForm specialties={specialties} />

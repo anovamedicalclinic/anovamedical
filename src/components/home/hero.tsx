@@ -5,14 +5,24 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollIndicator } from "@/components/home/scroll-indicator";
-import { siteConfig } from "@/lib/site";
 
 /**
  * Hero. Fundalul inițial este un gradient cald (paint instant, fără cost de
  * rețea), astfel încât LCP-ul rămâne rapid. Videoclipul se încarcă imediat după
  * idle pe ORICE dispozitiv (inclusiv mobil / iPhone) și apare peste gradient.
+ *
+ * Textele vin ca proprietăți, nu citite aici: componenta e client, iar conținutul
+ * se încarcă pe server, în pagină.
  */
-export function Hero() {
+export function Hero({
+  title,
+  subtitle,
+  ctaLabel,
+}: {
+  title: string;
+  subtitle: string;
+  ctaLabel: string;
+}) {
   const [showVideo, setShowVideo] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -46,12 +56,10 @@ export function Hero() {
         <div className="relative z-10 mx-auto flex max-w-7xl flex-col px-4 sm:px-6 lg:px-12">
           <div className="mx-auto max-w-5xl text-center">
             <h1 className="mx-auto mt-4 max-w-none text-balance text-4xl leading-[1.12] sm:mt-6 sm:max-w-3xl sm:text-5xl md:text-6xl lg:mt-6 lg:max-w-4xl xl:text-7xl">
-              Regăsește-ți echilibrul, pas cu pas.
+              {title}
             </h1>
             <p className="mx-auto mt-6 max-w-md text-balance text-base leading-relaxed text-muted-foreground sm:mt-7 sm:max-w-3xl sm:text-lg">
-              Clinică de sănătate mintală și neurologică în {siteConfig.city}. Un
-              spațiu discret și sigur, unde fiecare poveste este ascultată cu
-              răbdare, iar îngrijirea e croită pe măsura ta.
+              {subtitle}
             </p>
 
             <div className="mt-8 flex justify-center sm:mt-10">
@@ -61,7 +69,7 @@ export function Hero() {
                 className="h-12 rounded-full px-7 text-base transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary-hover"
               >
                 <Link href="/contact">
-                  <span className="text-nowrap">Programează-te</span>
+                  <span className="text-nowrap">{ctaLabel}</span>
                   <ChevronRight className="ml-1" />
                 </Link>
               </Button>
