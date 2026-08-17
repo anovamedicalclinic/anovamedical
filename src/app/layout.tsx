@@ -19,8 +19,12 @@ const montserrat = Montserrat({
 // Headings - Athena Regular, fontul primar oficial ANOVA (serif de titlu, self-hosted).
 // Are suport complet pentru diacriticele românești. `display: swap` ca titlul (LCP)
 // să apară imediat cu fallback, apoi să comute la Athena.
+//
+// WOFF2, nu TTF: aceleași contururi, dar 53 KB în loc de 246 KB. Fontul intră în
+// titlul cel mai mare din pagină, deci cele ~190 KB economisite se simt direct în
+// momentul în care textul devine lizibil.
 const athena = localFont({
-  src: "./fonts/Athena-Regular.ttf",
+  src: "./fonts/Athena-Regular.woff2",
   variable: "--font-heading",
   display: "swap",
 });

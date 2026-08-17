@@ -28,7 +28,6 @@
     "react-dom": "19.2.4",
     "react-hook-form": "^7.80.0",
     "react-use-measure": "^2.1.7",
-    "shadcn": "^4.12.0",
     "sharp": "^0.35.3",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.6.0",
@@ -45,7 +44,9 @@
     "eslint": "^9",
     "eslint-config-next": "^16.2.9",
     "pg": "^8.23.0",
+    "shadcn": "^4.12.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wawoff2": "^2.0.1"
   }
 }

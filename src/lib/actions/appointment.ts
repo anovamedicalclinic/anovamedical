@@ -5,6 +5,7 @@ import { after } from "next/server";
 import { createAdminClient, isAdminConfigured } from "@/lib/supabase/admin";
 import { createPublicClient, isSupabaseConfigured } from "@/lib/supabase/public";
 import { sendAppointmentNotification } from "@/lib/email";
+import { checkAppointmentRateLimit, ipForStorage } from "@/lib/rate-limit";
 import {
   appointmentSchema,
   type AppointmentInput,
@@ -47,6 +48,12 @@ export async function submitAppointment(
     return { ok: true };
   }
 
+  // Verificat după honeypot: un bot naiv nici nu ajunge până aici.
+  const rate = await checkAppointmentRateLimit();
+  if (!rate.allowed) {
+    return { ok: false, error: rate.error };
+  }
+
   try {
     const supabase = createPublicClient();
 
@@ -67,6 +74,8 @@ export async function submitAppointment(
       specialty_id: data.specialtyId ? data.specialtyId : null,
       preferred_date: data.preferredDate ? data.preferredDate : null,
       message: data.message ? data.message : null,
+      // Doar pentru limitarea de rată; se golește automat după 30 de zile.
+      client_ip: await ipForStorage(),
     });
 
     if (error) {

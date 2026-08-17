@@ -110,6 +110,7 @@ export type Database = {
           handled_at: string | null;
           email_status: "sent" | "failed" | null;
           email_error: string | null;
+          client_ip: string | null;
           created_at: string;
         };
         Insert: {
@@ -126,6 +127,7 @@ export type Database = {
           handled_at?: string | null;
           email_status?: "sent" | "failed" | null;
           email_error?: string | null;
+          client_ip?: string | null;
           created_at?: string;
         };
         Update: Partial<

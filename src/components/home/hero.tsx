@@ -14,6 +14,38 @@ import { ScrollIndicator } from "@/components/home/scroll-indicator";
  * Textele vin ca proprietăți, nu citite aici: componenta e client, iar conținutul
  * se încarcă pe server, în pagină.
  */
+/**
+ * Decide dacă merită să descărcăm videoclipul.
+ *
+ * Este pură decorațiune, aflată sub un voal crem de 65-90% opacitate, deci
+ * nimeni nu pierde informație dacă rămâne doar posterul. Îl sărim când:
+ *
+ *  - utilizatorul a cerut mișcare redusă (preferință de accesibilitate, adesea
+ *    setată de persoane cu tulburări vestibulare);
+ *  - browserul raportează „Save-Data”, adică economie de trafic explicită;
+ *  - conexiunea e 2G/3G, unde jumătate de megabyte de decor întârzie tot restul.
+ */
+function shouldLoadVideo(): boolean {
+  if (typeof window === "undefined") return false;
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return false;
+  }
+
+  const connection = (
+    navigator as Navigator & {
+      connection?: { saveData?: boolean; effectiveType?: string };
+    }
+  ).connection;
+
+  if (connection?.saveData) return false;
+  if (connection?.effectiveType && /(^|-)2g$|^3g$/.test(connection.effectiveType)) {
+    return false;
+  }
+
+  return true;
+}
+
 export function Hero({
   title,
   subtitle,
@@ -28,6 +60,8 @@ export function Hero({
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
+    if (!shouldLoadVideo()) return;
+
     const start = () => setShowVideo(true);
     const w = window as Window & {
       requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => void;
@@ -95,7 +129,10 @@ export function Hero({
               loop
               muted
               playsInline
-              preload="auto"
+              // `metadata`, nu `auto`: elementul e montat abia după ce pagina e
+              // liberă, iar redarea pornește oricum prin `autoPlay`. `auto` ar
+              // concura cu resursele care chiar contează pentru primul ecran.
+              preload="metadata"
               poster="/hero-poster.jpg"
               aria-hidden
               onLoadedData={() => setVideoReady(true)}
@@ -104,6 +141,8 @@ export function Hero({
                 videoReady ? "opacity-100" : "opacity-0"
               }`}
             >
+              {/* VP9 primul: browserele care îl susțin iau varianta mai mică. */}
+              <source src="/videoprezentare.webm" type="video/webm" />
               <source src="/videoprezentare.mp4" type="video/mp4" />
             </video>
           )}
