@@ -1,5 +1,6 @@
 "use server";
 
+import { randomUUID } from "node:crypto";
 import { after } from "next/server";
 import { createAdminClient, isAdminConfigured } from "@/lib/supabase/admin";
 import { createPublicClient, isSupabaseConfigured } from "@/lib/supabase/public";
@@ -48,18 +49,25 @@ export async function submitAppointment(
 
   try {
     const supabase = createPublicClient();
-    const { data: inserted, error } = await supabase
-      .from("appointment_requests")
-      .insert({
-        full_name: data.fullName,
-        phone: data.phone,
-        email: data.email ? data.email : null,
-        specialty_id: data.specialtyId ? data.specialtyId : null,
-        preferred_date: data.preferredDate ? data.preferredDate : null,
-        message: data.message ? data.message : null,
-      })
-      .select("id")
-      .single();
+
+    // Id-ul se generează aici, nu se citește înapoi din baza de date.
+    //
+    // `insert().select()` ar cere și drept de SELECT, iar vizitatorii anonimi au
+    // voie doar să insereze: datele pacienților nu sunt lizibile public, exact
+    // cum trebuie. Cerând rândul înapoi, întreaga inserare era respinsă cu
+    // 42501. Generând id-ul, păstrăm politica strictă și avem totuși referința
+    // necesară pentru a nota rezultatul trimiterii pe email.
+    const id = randomUUID();
+
+    const { error } = await supabase.from("appointment_requests").insert({
+      id,
+      full_name: data.fullName,
+      phone: data.phone,
+      email: data.email ? data.email : null,
+      specialty_id: data.specialtyId ? data.specialtyId : null,
+      preferred_date: data.preferredDate ? data.preferredDate : null,
+      message: data.message ? data.message : null,
+    });
 
     if (error) {
       console.error("[appointment] insert error:", error);
@@ -70,7 +78,7 @@ export async function submitAppointment(
     }
 
     after(async () => {
-      await notify(inserted.id, data);
+      await notify(id, data);
     });
 
     return { ok: true };

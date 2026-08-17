@@ -51,7 +51,13 @@ export async function saveContentSection(
 
     const value = String(raw).trim();
 
-    if (value.length === 0) {
+    // Gol SAU identic cu textul din cod => nu stocăm nimic.
+    //
+    // Fără a doua condiție, un „Publică” pe o secțiune neatinsă ar îngheța
+    // textele curente în baza de date. Ele ar arăta identic azi, dar ar
+    // suprascrie tăcut orice îmbunătățire ulterioară a valorilor implicite.
+    // Tabelul trebuie să conțină exclusiv ce a schimbat cineva intenționat.
+    if (value.length === 0 || value === field.default) {
       removals.push(field.key);
       continue;
     }
@@ -126,8 +132,8 @@ export async function saveContentSection(
     return {
       ok: true,
       message:
-        removals.length > 0 && updates.length === 0
-          ? "Textele au revenit la valorile implicite."
+        updates.length === 0
+          ? "Secțiunea folosește textele implicite."
           : "Modificările sunt live pe site.",
     };
   } catch (err) {
