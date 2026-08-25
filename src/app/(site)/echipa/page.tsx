@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import { PageHeader } from "@/components/layout/page-header";
 import { Section, SectionHeading } from "@/components/layout/section";
 import { Reveal } from "@/components/reveal";
@@ -7,6 +8,7 @@ import { StaffCard } from "@/components/staff-card";
 import { CtaBand } from "@/components/cta-band";
 import { getDoctors, getSpecialtiesByDoctor, getStaff } from "@/lib/data";
 import { getContent } from "@/lib/content/get";
+import { shuffle } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Echipa",
@@ -16,6 +18,11 @@ export const metadata: Metadata = {
 };
 
 export default async function EchipaPage() {
+  // Ordinea medicilor se amestecă la fiecare vizită, ca nimeni să nu fie
+  // permanent primul sau ultimul. `connection()` scoate pagina din
+  // prerender, altfel `Math.random()` ar rula o singură dată, la build.
+  await connection();
+
   const [doctors, byDoctor, staff, content] = await Promise.all([
     getDoctors(),
     getSpecialtiesByDoctor(),
@@ -23,7 +30,7 @@ export default async function EchipaPage() {
     getContent(),
   ]);
 
-  const cards = doctors.map((doctor) => ({
+  const cards = shuffle(doctors).map((doctor) => ({
     doctor,
     specialties: byDoctor.get(doctor.id) ?? [],
   }));
