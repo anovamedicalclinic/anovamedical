@@ -62,7 +62,7 @@ export const doctorDetails: Record<string, DoctorDetails> = {
 
   "tudor-florea": {
     description: [
-      "Dr. Tudor Florea este medic primar psihiatru și asistent universitar în cadrul Catedrei de Psihiatrie a UMF „Grigore T. Popa” din Iași.",
+      "Dr. Tudor Florea este medic primar psihiatru și doctorand la Catedra de Psihiatrie a UMF „Grigore T. Popa” din Iași.",
       "Prin formarea profesională în Germania, aprofundând patologii psihiatrice sub coordonarea Prof. Pollmächer, este adeptul unei abordări integrative și personalizate a pacientului psihiatric, în conformitate cu standardele și practica vestică. Oferă consultații în limbile română, engleză, germană și franceză.",
       "Prin cariera universitară fundamentată prin studiile de doctorat, completează practica medicală cu elemente științifice de actualitate, cu multiple participări la congrese și publicații în jurnale medicale internaționale.",
     ],
@@ -84,7 +84,7 @@ export const doctorDetails: Record<string, DoctorDetails> = {
 
   "matei-palimariciuc": {
     description: [
-      "Dr. Matei Palimariciuc este medic specialist psihiatru, asistent universitar în Catedra de Psihiatrie a UMF „Grigore T. Popa” din Iași și co-fondator al ANOVA Medical Clinic.",
+      "Dr. Matei Palimariciuc este medic specialist psihiatru, doctorand la Catedra de Psihiatrie a UMF „Grigore T. Popa” din Iași și co-fondator al ANOVA Medical Clinic.",
       "Prin cariera universitară fundamentată prin studiile de doctorat, este un susținător al conceptului de Medicină Personalizată, ale cărui principii îi ghidează practica terapeutică. Experiența științifică, cu multiple publicații internaționale și studii doctorale privind Stimularea Electrică Transcraniană, se transpune într-o înțelegere plurivalentă a patologiilor psihiatrice.",
       "În calitate de fondator, a creat un spațiu în care pacientul este poziționat în primul plan în construirea planului terapeutic, într-un colectiv care înțelege că fiecare client este unic, atât prin nevoi, cât și prin abordare terapeutică.",
     ],

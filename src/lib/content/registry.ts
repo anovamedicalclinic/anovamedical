@@ -323,15 +323,16 @@ export const contentSections: ContentSection[] = [
         label: "Titlu",
         kind: "text",
         max: 70,
-        default: "Oamenii din spatele îngrijirii tale",
+        default: "O echipă multidisciplinară, dedicată sănătății tale",
       },
       {
         key: "echipa.header.description",
         label: "Descriere",
         kind: "multiline",
-        max: 320,
+        max: 420,
+        help: "Un rând gol între paragrafe le desparte vizual pe pagină.",
         default:
-          "O echipă multidisciplinară de medici psihiatri, psihologi, neurologi, cardiologi și endocrinologi. Apasă pe un card pentru a afla mai multe despre fiecare specialist.",
+          "La ANOVA Medical, beneficiile unei abordări integrate sunt susținute de o echipă de medici psihiatri, endocrinologi, neurologi, cardiologi și psihologi, care colaborează pentru a oferi servicii medicale adaptate nevoilor fiecărui pacient.\n\nApasă pe profilul fiecărui specialist pentru a afla mai multe despre experiența și aria sa de expertiză.",
       },
       {
         key: "echipa.support.eyebrow",

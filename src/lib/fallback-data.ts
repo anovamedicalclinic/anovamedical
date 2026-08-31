@@ -139,12 +139,12 @@ export const fallbackDoctors: FallbackDoctor[] = [
     slug: "matei-palimariciuc",
     name: "Matei Palimariciuc",
     title: "Medic specialist psihiatru",
-    credentials: "Dr., asistent univ.",
+    credentials: "Dr.",
     photo_url: null,
     short_bio:
-      "Medic specialist psihiatru și asistent universitar, co-fondator Anova Medical Clinic.",
+      "Medic specialist psihiatru, co-fondator Anova Medical Clinic.",
     full_bio:
-      "Dr. Matei Palimariciuc este medic specialist psihiatru și asistent universitar la Catedra de Psihiatrie a UMF „Grigore T. Popa” din Iași. Co-fondator al Anova Medical Clinic, îmbină experiența clinică cu activitatea academică, punând accent pe o relație terapeutică bazată pe încredere și pe planuri de tratament adaptate fiecărui pacient.",
+      "Dr. Matei Palimariciuc este medic specialist psihiatru și doctorand la Catedra de Psihiatrie a UMF „Grigore T. Popa” din Iași. Co-fondator al Anova Medical Clinic, îmbină experiența clinică cu activitatea academică, punând accent pe o relație terapeutică bazată pe încredere și pe planuri de tratament adaptate fiecărui pacient.",
     order_index: 1,
     is_founder: true,
     created_at: now,
@@ -203,12 +203,12 @@ export const fallbackDoctors: FallbackDoctor[] = [
     slug: "tudor-florea",
     name: "Tudor Florea",
     title: "Medic primar psihiatru",
-    credentials: "Dr., medic primar, asistent univ.",
+    credentials: "Dr.",
     photo_url: null,
     short_bio:
-      "Medic primar psihiatru și asistent universitar, cu formare în Germania și abordare integrativă.",
+      "Medic primar psihiatru, cu formare în Germania și abordare integrativă.",
     full_bio:
-      "Dr. Tudor Florea este medic primar psihiatru și asistent universitar, cu formare profesională în Germania sub coordonarea Prof. Pollmächer. Adept al unei abordări integrative și personalizate, oferă consultații în română, engleză, germană și franceză.",
+      "Dr. Tudor Florea este medic primar psihiatru, cu formare profesională în Germania sub coordonarea Prof. Pollmächer. Adept al unei abordări integrative și personalizate, oferă consultații în română, engleză, germană și franceză.",
     order_index: 5,
     is_founder: false,
     created_at: now,
@@ -219,7 +219,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     slug: "cartas-nicoleta",
     name: "Nicoleta Cartas",
     title: "Medic primar psihiatru",
-    credentials: "Dr., medic primar",
+    credentials: "Dr.",
     photo_url: null,
     short_bio:
       "Medic primar psihiatru, cu experiență solidă în tratamentul tulburărilor de sănătate mintală.",
@@ -235,7 +235,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     slug: "gilea-andra",
     name: "Andra Gîlea",
     title: "Medic primar psihiatru",
-    credentials: "Dr., medic primar",
+    credentials: "Dr.",
     photo_url: null,
     short_bio:
       "Medic primar psihiatru, cu o abordare empatică și centrată pe nevoile pacientului.",
@@ -251,7 +251,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     slug: "andra-morasan",
     name: "Andra Morășan",
     title: "Medic primar psihiatru",
-    credentials: "Dr., medic primar",
+    credentials: "Dr.",
     photo_url: null,
     short_bio:
       "Medic primar psihiatru dedicat unui parcurs terapeutic blând și personalizat.",
@@ -361,7 +361,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     slug: "georgean-rozinbaum",
     name: "Georgean Rozinbaum",
     title: "Medic primar psihiatrie pediatrică",
-    credentials: "Dr., medic primar",
+    credentials: "Dr.",
     photo_url: null,
     short_bio:
       "Specialist în psihiatrie pediatrică, cu experiență vastă în îngrijirea copiilor și adolescenților.",

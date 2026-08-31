@@ -18,6 +18,14 @@ export function PageHeader({
   title: string;
   description?: string;
 }) {
+  // Textele vin din panou, unde descrierea se scrie ca text simplu. Un rând
+  // gol între paragrafe e singura marcare pe care o are la dispoziție
+  // redactorul, așa că aici o traducem în <p>-uri separate.
+  const paragraphs = (description ?? "")
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+
   return (
     <section className="relative overflow-hidden border-b border-border bg-card pb-14 pt-28 md:pb-16 md:pt-32">
       <div
@@ -48,11 +56,16 @@ export function PageHeader({
           </h1>
         </Reveal>
 
-        {description && (
-          <Reveal delay={0.16} className="mt-5">
-            <p className="prose-readable text-pretty text-lg text-muted-foreground">
-              {description}
-            </p>
+        {paragraphs.length > 0 && (
+          <Reveal delay={0.16} className="mt-5 space-y-4">
+            {paragraphs.map((text) => (
+              <p
+                key={text}
+                className="prose-readable text-pretty text-lg text-muted-foreground"
+              >
+                {text}
+              </p>
+            ))}
           </Reveal>
         )}
       </Container>

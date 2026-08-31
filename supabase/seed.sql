@@ -125,9 +125,9 @@ values
     'matei-palimariciuc',
     'Matei Palimariciuc',
     'Medic specialist psihiatru',
-    'Dr., asistent univ.',
-    'Medic specialist psihiatru și asistent universitar, co-fondator Anova Medical Clinic.',
-    'Dr. Matei Palimariciuc este medic specialist psihiatru și asistent universitar la Catedra de Psihiatrie a UMF „Grigore T. Popa" din Iași. Co-fondator al Anova Medical Clinic, îmbină experiența clinică cu activitatea academică, punând accent pe o relație terapeutică bazată pe încredere și pe planuri de tratament adaptate fiecărui pacient.',
+    'Dr.',
+    'Medic specialist psihiatru, co-fondator Anova Medical Clinic.',
+    'Dr. Matei Palimariciuc este medic specialist psihiatru și doctorand la Catedra de Psihiatrie a UMF „Grigore T. Popa" din Iași. Co-fondator al Anova Medical Clinic, îmbină experiența clinică cu activitatea academică, punând accent pe o relație terapeutică bazată pe încredere și pe planuri de tratament adaptate fiecărui pacient.',
     1, true
   ),
   (
@@ -161,16 +161,16 @@ values
     'tudor-florea',
     'Tudor Florea',
     'Medic primar psihiatru',
-    'Dr., medic primar, asistent univ.',
-    'Medic primar psihiatru și asistent universitar, cu formare în Germania și abordare integrativă.',
-    'Dr. Tudor Florea este medic primar psihiatru și asistent universitar, cu formare profesională în Germania sub coordonarea Prof. Pollmächer. Adept al unei abordări integrative și personalizate, oferă consultații în română, engleză, germană și franceză.',
+    'Dr.',
+    'Medic primar psihiatru, cu formare în Germania și abordare integrativă.',
+    'Dr. Tudor Florea este medic primar psihiatru, cu formare profesională în Germania sub coordonarea Prof. Pollmächer. Adept al unei abordări integrative și personalizate, oferă consultații în română, engleză, germană și franceză.',
     5, false
   ),
   (
     'cartas-nicoleta',
     'Nicoleta Cartas',
     'Medic primar psihiatru',
-    'Dr., medic primar',
+    'Dr.',
     'Medic primar psihiatru, cu experiență solidă în tratamentul tulburărilor de sănătate mintală.',
     'Dr. Nicoleta Cartas este medic primar psihiatru, cu o experiență clinică bogată în evaluarea și tratarea afecțiunilor psihiatrice. Îmbină rigoarea diagnosticului cu o abordare caldă, orientată spre echilibrul și recuperarea pacientului.',
     6, false
@@ -179,7 +179,7 @@ values
     'gilea-andra',
     'Andra Gîlea',
     'Medic primar psihiatru',
-    'Dr., medic primar',
+    'Dr.',
     'Medic primar psihiatru, cu o abordare empatică și centrată pe nevoile pacientului.',
     'Dr. Andra Gîlea este medic primar psihiatru, cu experiență vastă în îngrijirea sănătății mintale. Construiește împreună cu pacientul un parcurs terapeutic clar și adaptat, într-un cadru discret și lipsit de judecată.',
     7, false
@@ -188,7 +188,7 @@ values
     'andra-morasan',
     'Andra Morășan',
     'Medic primar psihiatru',
-    'Dr., medic primar',
+    'Dr.',
     'Medic primar psihiatru dedicat unui parcurs terapeutic blând și personalizat.',
     'Dr. Andra Morășan este medic primar psihiatru, dedicată unui parcurs terapeutic blând și personalizat, în care fiecare pacient se simte ascultat și sprijinit.',
     8, false
@@ -251,7 +251,7 @@ values
     'georgean-rozinbaum',
     'Georgean Rozinbaum',
     'Medic primar psihiatrie pediatrică',
-    'Dr., medic primar',
+    'Dr.',
     'Specialist în psihiatrie pediatrică, cu experiență vastă în îngrijirea copiilor și adolescenților.',
     'Dr. Georgean Rozinbaum este medic în psihiatrie pediatrică și fondator al „Centrului Vocale" din Vaslui. Are o experiență vastă în îngrijirea copiilor și adolescenților, abordând cu blândețe și profesionalism provocările emoționale și de dezvoltare ale celor mici.',
     15, false

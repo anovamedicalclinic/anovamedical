@@ -9,9 +9,9 @@ export const doctorCardBio: Record<string, string> = {
   "irina-dobrin":
     "Medic primar psihiatru care îmbină practica clinică, cercetarea și activitatea academică. Șef de lucrări la Catedra de Psihiatrie a UMF „Gr. T. Popa” și autoare a numeroase articole și cărți de specialitate.",
   "tudor-florea":
-    "Medic primar psihiatru și asistent universitar, cu formare în Germania sub coordonarea Prof. Pollmächer. Abordare integrativă și personalizată; oferă consultații în română, engleză, germană și franceză.",
+    "Medic primar psihiatru, cu formare în Germania sub coordonarea Prof. Pollmächer. Abordare integrativă și personalizată; oferă consultații în română, engleză, germană și franceză.",
   "matei-palimariciuc":
-    "Medic specialist psihiatru, asistent universitar și co-fondator ANOVA. Susținător al Medicinei Personalizate, cu cercetare în stimularea electrică transcraniană și publicații internaționale.",
+    "Medic specialist psihiatru și co-fondator ANOVA. Susținător al Medicinei Personalizate, cu cercetare în stimularea electrică transcraniană și publicații internaționale.",
   "silvia-tudosa":
     "Medic specialist psihiatru, cu o abordare empatică și bazată pe dovezi. Îmbină strategii terapeutice moderne cu un management medicamentos atent, pentru rezultate de durată.",
   "elena-pcela":
