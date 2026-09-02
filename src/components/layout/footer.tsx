@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Clock, Heart, Mail, MapPin, Phone } from "lucide-react";
+import { Clock, Heart, Mail } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { Logo } from "@/components/brand/logo";
 import { FacebookIcon, InstagramIcon } from "@/components/brand/social-icons";
+import { Locations } from "@/components/layout/locations";
 import {
   author,
   contact,
@@ -139,15 +140,8 @@ export function Footer() {
           <div>
             <h3 className="font-heading text-base text-foreground">Contact</h3>
             <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
-              <li className="flex items-start gap-3">
-                <MapPin className="mt-0.5 size-4 shrink-0 text-sage-strong" />
-                <span>{contact.address}</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Phone className="mt-0.5 size-4 shrink-0 text-sage-strong" />
-                <a href={contact.phoneHref} className="transition-colors hover:text-primary">
-                  {contact.phone}
-                </a>
+              <li>
+                <Locations variant="compact" />
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="mt-0.5 size-4 shrink-0 text-sage-strong" />

@@ -16,6 +16,8 @@ import {
   InstagramIcon,
   WhatsAppIcon,
 } from "@/components/brand/social-icons";
+import { Locations } from "@/components/layout/locations";
+import { LocationsMap } from "@/components/layout/locations-map";
 import { getSpecialties } from "@/lib/data";
 import { contact, social } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -26,10 +28,6 @@ export const metadata: Metadata = {
     "Contactează Anova Medical Clinic din Iași: telefon 0774 037 531, WhatsApp, email și formular de programare. Programarea se confirmă telefonic.",
   alternates: { canonical: "/contact" },
 };
-
-const MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(
-  "Șoseaua Nicolina 14, Iași",
-)}&z=15&output=embed`;
 
 const methods = [
   {
@@ -116,8 +114,8 @@ export default async function ContactPage() {
 
           <div className="space-y-5">
             <Reveal className="space-y-5 rounded-3xl border border-border bg-card p-6 sm:p-7">
-              <InfoRow icon={MapPin} label="Adresă">
-                <p className="text-sm text-foreground">{contact.address}</p>
+              <InfoRow icon={MapPin} label="Sedii">
+                <Locations />
               </InfoRow>
               <InfoRow icon={Clock} label="Program" className="border-t pt-5">
                 <div className="space-y-0.5 text-sm text-foreground">
@@ -143,17 +141,8 @@ export default async function ContactPage() {
               </div>
             </Reveal>
 
-            <Reveal
-              delay={0.06}
-              className="overflow-hidden rounded-3xl border border-border"
-            >
-              <iframe
-                src={MAP_SRC}
-                title="Harta locației Anova Medical Clinic"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="h-72 w-full"
-              />
+            <Reveal delay={0.06}>
+              <LocationsMap />
             </Reveal>
           </div>
         </div>

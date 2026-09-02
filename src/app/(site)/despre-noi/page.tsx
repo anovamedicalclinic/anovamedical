@@ -31,8 +31,10 @@ import {
 import { DoctorCard } from "@/components/doctor-card";
 import { CtaBand } from "@/components/cta-band";
 import { WhatsAppIcon } from "@/components/brand/social-icons";
+import { Locations } from "@/components/layout/locations";
+import { LocationsMap } from "@/components/layout/locations-map";
 import { getDoctors } from "@/lib/data";
-import { contact } from "@/lib/site";
+import { contact, locations } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Despre noi",
@@ -40,10 +42,6 @@ export const metadata: Metadata = {
     "Povestea ANOVA Medical Clinic din Iași: numele, echipa multidisciplinară, valorile care ne ghidează și grija pentru sănătatea ta mintală și neurologică.",
   alternates: { canonical: "/despre-noi" },
 };
-
-const MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(
-  "Șoseaua Nicolina 14, Iași",
-)}&z=15&output=embed`;
 
 const values = [
   {
@@ -91,7 +89,7 @@ const faqs = [
   },
   {
     q: "Unde vă găsesc?",
-    a: `Ne găsești pe ${contact.address}, într-un spațiu cald și primitor.`,
+    a: `Avem trei sedii: ${locations.map((l) => l.address).join("; ")}. Telefonul fiecăruia e trecut la Contact.`,
   },
 ];
 
@@ -212,14 +210,8 @@ export default async function DespreNoiPage() {
         <div className="mt-12 grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-12">
           {/* Info + hartă */}
           <div className="space-y-5">
-            <Reveal className="overflow-hidden rounded-3xl border border-border">
-              <iframe
-                src={MAP_SRC}
-                title="Harta locației Anova Medical Clinic"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="h-64 w-full sm:h-72"
-              />
+            <Reveal>
+              <LocationsMap />
             </Reveal>
 
             <Reveal delay={0.08} className="grid gap-4 sm:grid-cols-2">
@@ -244,9 +236,9 @@ export default async function DespreNoiPage() {
                   <MapPin className="size-5" strokeWidth={1.75} />
                 </span>
                 <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-                  Adresă
+                  Sedii
                 </p>
-                <p className="text-sm text-foreground">{contact.address}</p>
+                <Locations />
                 <div className="mt-auto flex flex-wrap gap-2 pt-2">
                   <Button
                     asChild

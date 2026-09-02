@@ -2,7 +2,13 @@
  * Constructori pentru date structurate (JSON-LD), folosiți în paginile relevante.
  * Sursa de adevăr pentru date rămâne `src/lib/site.ts`.
  */
-import { siteConfig, contact, social, navSpecialties } from "@/lib/site";
+import {
+  siteConfig,
+  contact,
+  social,
+  navSpecialties,
+  locations,
+} from "@/lib/site";
 import type { Doctor, Specialty } from "@/lib/supabase/types";
 
 const CLINIC_ID = `${siteConfig.url}/#clinic`;
@@ -25,11 +31,26 @@ export function clinicLd() {
     currenciesAccepted: "RON",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Șoseaua Nicolina, Nr. 14",
-      addressLocality: "Iași",
+      streetAddress: locations[0].street,
+      addressLocality: locations[0].locality,
       addressRegion: "Iași",
       addressCountry: "RO",
     },
+    // Adresa de mai sus e a sediului principal, pentru că `address` acceptă
+    // una singură. Celelalte două intră ca `location`, altfel Google nu ar
+    // avea de unde ști că există.
+    location: locations.map((loc) => ({
+      "@type": "Place",
+      name: loc.name,
+      telephone: loc.phoneHref.replace("tel:", ""),
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: loc.street,
+        addressLocality: loc.locality,
+        addressRegion: "Iași",
+        addressCountry: "RO",
+      },
+    })),
     geo: {
       "@type": "GeoCoordinates",
       latitude: 47.135,
@@ -95,8 +116,8 @@ export function physicianLd({
     memberOf: { "@id": CLINIC_ID },
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Șoseaua Nicolina, Nr. 14",
-      addressLocality: "Iași",
+      streetAddress: locations[0].street,
+      addressLocality: locations[0].locality,
       addressCountry: "RO",
     },
   };

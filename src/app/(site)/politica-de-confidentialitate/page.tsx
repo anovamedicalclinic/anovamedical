@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/layout/legal-page";
-import { contact, legal } from "@/lib/site";
+import { contact, legal, locations } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Politica de confidențialitate",
@@ -26,7 +26,10 @@ export default function PrivacyPage() {
           <li>CIF: {legal.cif}</li>
           <li>Nr. Registrul Comerțului: {legal.regCom}</li>
           <li>Sediu social: {legal.registeredOffice}</li>
-          <li>Punct de lucru: {legal.workPoint}</li>
+          <li>
+            Puncte de lucru:{" "}
+            {locations.map((l) => l.address).join("; ")}
+          </li>
           <li>
             Telefon:{" "}
             <a href={contact.phoneHref}>{contact.phone}</a> · Email:{" "}

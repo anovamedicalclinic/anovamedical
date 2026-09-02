@@ -6,7 +6,6 @@ import {
   Briefcase,
   Clock,
   GraduationCap,
-  MapPin,
   Phone,
   Sparkles,
   UserRound,
@@ -27,6 +26,7 @@ import {
 } from "@/lib/data";
 import { doctorDetails } from "@/lib/doctor-details";
 import { doctorPhoto } from "@/lib/doctor-photos";
+import { Locations } from "@/components/layout/locations";
 import { contact } from "@/lib/site";
 import { JsonLd } from "@/components/seo/json-ld";
 import { physicianLd, breadcrumbLd } from "@/lib/seo";
@@ -255,16 +255,14 @@ export default async function DoctorPage({
                 </div>
               )}
 
-              <div className="flex items-start gap-3 border-t border-border pt-5">
-                <MapPin className="mt-0.5 size-4 shrink-0 text-sage-strong" />
-                <div>
-                  <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-                    Locație
-                  </p>
-                  <p className="mt-1 text-sm text-foreground">
-                    {contact.address}
-                  </p>
-                </div>
+              <div className="border-t border-border pt-5">
+                <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+                  Sedii
+                </p>
+                <Locations
+                  variant="compact"
+                  className="mt-2 text-sm text-muted-foreground"
+                />
               </div>
 
               <div className="flex items-start gap-3">

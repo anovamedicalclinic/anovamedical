@@ -18,7 +18,7 @@ export const fallbackSpecialties: Specialty[] = [
     id: "psihiatrie",
     slug: "psihiatrie",
     name: "Psihiatrie",
-    tagline: "O abordare holistică pentru sănătatea mintală.",
+    tagline: "Îngrijire specializată pentru sănătatea mintală",
     summary:
       "Evaluări și tratamente personalizate pentru anxietate, depresie, tulburări de somn și alte afecțiuni psihiatrice.",
     description: `Echipa noastră de medici psihiatri îți oferă un cadru confidențial și empatic, în care fiecare poveste este ascultată cu atenție. Pornim de la o evaluare atentă a nevoilor tale și construim împreună un plan de tratament personalizat, adaptat ritmului și obiectivelor tale.
@@ -63,7 +63,7 @@ Credem într-o îngrijire care privește persoana în întregul ei, nu doar simp
     id: "psihiatrie-pediatrica",
     slug: "psihiatrie-pediatrica",
     name: "Psihiatrie Pediatrică",
-    tagline: "Sprijin pentru sănătatea mintală a copiilor și adolescenților.",
+    tagline: "Evaluare și îngrijire specializată pentru copii și adolescenți",
     summary:
       "Susținem dezvoltarea armonioasă a celor mici printr-o îngrijire blândă și specializată.",
     description: `Sănătatea mintală a copiilor și adolescenților cere o atenție specială și un limbaj pe înțelesul lor. Medicii noștri specializați în psihiatrie pediatrică creează un mediu cald și sigur, în care cei mici se simt înțeleși, iar părinții găsesc sprijin și îndrumare.
@@ -77,56 +77,56 @@ Lucrăm îndeaproape cu familia pentru a susține dezvoltarea armonioasă a copi
     id: "psihologie",
     slug: "psihologie",
     name: "Psihologie",
-    tagline: "Un spațiu sigur pentru a-ți explora gândurile.",
+    tagline: "Sprijin specializat pentru echilibrul tău emoțional",
     summary:
       "Într-un mediu confidențial și empatic, psihologii noștri te ajută să înțelegi și să gestionezi emoțiile.",
     description: `Psihoterapia este un drum pe care nu trebuie să îl parcurgi singur. Într-un spațiu confidențial și lipsit de judecată, psihologii noștri te însoțesc în explorarea gândurilor și emoțiilor, ajutându-te să găsești resurse și strategii potrivite pentru tine.
 
 Fie că treci printr-o perioadă dificilă, fie că îți dorești o mai bună cunoaștere de sine, te sprijinim să îți recâștigi echilibrul și să construiești relații mai sănătoase cu tine și cu cei din jur.`,
     icon: "messages-square",
-    order_index: 3,
+    order_index: 6,
     created_at: now,
   },
   {
     id: "neurologie",
     slug: "neurologie",
     name: "Neurologie",
-    tagline: "De la migrene la afecțiuni neurodegenerative.",
+    tagline: "Evaluare și tratament pentru afecțiunile sistemului nervos",
     summary:
       "Diagnostic și tratament pentru o gamă largă de afecțiuni neurologice.",
     description: `Sistemul nervos influențează profund calitatea vieții noastre. În cadrul consultațiilor de neurologie, evaluăm și tratăm o gamă largă de afecțiuni, de la migrene și tulburări de somn până la afecțiuni neurodegenerative.
 
 Punem accent pe un diagnostic corect și pe un plan de tratament adaptat fiecărui pacient, cu explicații clare la fiecare pas, astfel încât să înțelegi ce se întâmplă și ce urmează.`,
     icon: "activity",
-    order_index: 4,
+    order_index: 3,
     created_at: now,
   },
   {
     id: "cardiologie",
     slug: "cardiologie",
     name: "Cardiologie",
-    tagline: "Sănătatea inimii, cu grijă și prevenție.",
+    tagline: "Îngrijire specializată pentru sănătatea inimii",
     summary:
       "Diagnostic, tratament și prevenție pentru afecțiunile inimii și ale sistemului cardiovascular.",
     description: `Inima lucrează pentru tine în fiecare clipă, iar sănătatea ei se reflectă în întregul organism. În cadrul consultațiilor de cardiologie evaluăm riscul cardiovascular, urmărim tensiunea și ritmul cardiac și construim un plan de îngrijire potrivit fiecărui pacient.
 
 Punem accent pe prevenție și pe explicații clare, astfel încât să înțelegi ce înseamnă rezultatele investigațiilor și ce pași poți face pentru o inimă sănătoasă pe termen lung.`,
     icon: "heart-pulse",
-    order_index: 5,
+    order_index: 4,
     created_at: now,
   },
   {
     id: "endocrinologie",
     slug: "endocrinologie",
     name: "Endocrinologie",
-    tagline: "Echilibrul hormonal, cheia stării de bine.",
+    tagline: "Evaluarea și tratamentul afecțiunilor hormonale și metabolice",
     summary:
       "Evaluarea și tratamentul afecțiunilor glandelor endocrine, de la tiroidă la metabolism.",
     description: `Sistemul endocrin coordonează, prin hormoni, procese esențiale din corp, de la metabolism și energie până la somn și dispoziție. În cadrul consultațiilor de endocrinologie evaluăm funcția glandelor și identificăm cauzele dezechilibrelor hormonale.
 
 Fie că e vorba de tiroidă, de metabolism sau de alte afecțiuni endocrine, îți oferim un diagnostic atent și un plan de tratament personalizat, cu monitorizare pe parcurs.`,
     icon: "droplets",
-    order_index: 6,
+    order_index: 5,
     created_at: now,
   },
 ];

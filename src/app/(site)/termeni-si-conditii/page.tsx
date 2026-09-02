@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/layout/legal-page";
-import { contact, legal } from "@/lib/site";
+import { contact, legal, locations } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Termeni și condiții",
@@ -20,8 +20,8 @@ export default function TermsPage() {
         <p>
           Website-ul este deținut și operat de <strong>{legal.company}</strong>,
           CIF {legal.cif}, Nr. Registrul Comerțului {legal.regCom}, cu sediul
-          social în {legal.registeredOffice} și punct de lucru în{" "}
-          {legal.workPoint}.
+          social în {legal.registeredOffice} și puncte de lucru în{" "}
+          {locations.map((l) => l.address).join("; ")}.
         </p>
       </section>
 

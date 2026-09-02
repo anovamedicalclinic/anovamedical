@@ -3,13 +3,11 @@ import { Section, SectionHeading } from "@/components/layout/section";
 import { Reveal } from "@/components/reveal";
 import { LazyAppointmentForm } from "@/components/home/lazy-appointment-form";
 import { WhatsAppIcon } from "@/components/brand/social-icons";
+import { Locations } from "@/components/layout/locations";
+import { LocationsMap } from "@/components/layout/locations-map";
 import { contact } from "@/lib/site";
 import type { Specialty } from "@/lib/supabase/types";
 import type { ContentReader } from "@/lib/content/get";
-
-const MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(
-  "Șoseaua Nicolina 14, Iași",
-)}&z=15&output=embed`;
 
 export function VisitSection({
   specialties,
@@ -29,26 +27,20 @@ export function VisitSection({
       <div className="mt-12 grid gap-8 lg:grid-cols-2 lg:gap-10">
         {/* Hartă + date de contact */}
         <div className="flex flex-col gap-6">
-          <Reveal className="overflow-hidden rounded-3xl border border-border">
-            <iframe
-              src={MAP_SRC}
-              title="Harta locației Anova Medical Clinic"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="h-72 w-full lg:h-80"
-            />
+          <Reveal>
+            <LocationsMap />
           </Reveal>
 
           <Reveal delay={0.08} className="grid gap-4 sm:grid-cols-2">
-            <div className="flex flex-col gap-3 rounded-2xl border border-border bg-secondary p-5">
+            <div className="flex flex-col gap-3 rounded-2xl border border-border bg-secondary p-5 sm:col-span-2">
               <span className="flex size-10 items-center justify-center rounded-xl bg-accent text-primary">
                 <MapPin className="size-5" strokeWidth={1.75} />
               </span>
               <div>
                 <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-                  Adresă
+                  Sedii
                 </p>
-                <p className="mt-1 text-sm text-foreground">{contact.address}</p>
+                <Locations className="mt-2" />
               </div>
             </div>
 

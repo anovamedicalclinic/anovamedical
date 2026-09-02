@@ -12,7 +12,7 @@ values
   (
     'psihiatrie',
     'Psihiatrie',
-    'O abordare holistică pentru sănătatea mintală.',
+    'Îngrijire specializată pentru sănătatea mintală',
     'Evaluări și tratamente personalizate pentru anxietate, depresie, tulburări de somn și alte afecțiuni psihiatrice.',
     $md$Echipa noastră de medici psihiatri îți oferă un cadru confidențial și empatic, în care fiecare poveste este ascultată cu atenție. Pornim de la o evaluare atentă a nevoilor tale și construim împreună un plan de tratament personalizat, adaptat ritmului și obiectivelor tale.
 
@@ -54,7 +54,7 @@ Credem într-o îngrijire care privește persoana în întregul ei, nu doar simp
   (
     'psihiatrie-pediatrica',
     'Psihiatrie Pediatrică',
-    'Sprijin pentru sănătatea mintală a copiilor și adolescenților.',
+    'Evaluare și îngrijire specializată pentru copii și adolescenți',
     'Susținem dezvoltarea armonioasă a celor mici printr-o îngrijire blândă și specializată.',
     $md$Sănătatea mintală a copiilor și adolescenților cere o atenție specială și un limbaj pe înțelesul lor. Medicii noștri specializați în psihiatrie pediatrică creează un mediu cald și sigur, în care cei mici se simt înțeleși, iar părinții găsesc sprijin și îndrumare.
 
@@ -65,46 +65,46 @@ Lucrăm îndeaproape cu familia pentru a susține dezvoltarea armonioasă a copi
   (
     'psihologie',
     'Psihologie',
-    'Un spațiu sigur pentru a-ți explora gândurile.',
+    'Sprijin specializat pentru echilibrul tău emoțional',
     'Într-un mediu confidențial și empatic, psihologii noștri te ajută să înțelegi și să gestionezi emoțiile.',
     $md$Psihoterapia este un drum pe care nu trebuie să îl parcurgi singur. Într-un spațiu confidențial și lipsit de judecată, psihologii noștri te însoțesc în explorarea gândurilor și emoțiilor, ajutându-te să găsești resurse și strategii potrivite pentru tine.
 
 Fie că treci printr-o perioadă dificilă, fie că îți dorești o mai bună cunoaștere de sine, te sprijinim să îți recâștigi echilibrul și să construiești relații mai sănătoase cu tine și cu cei din jur.$md$,
     'messages-square',
-    3
+    6
   ),
   (
     'neurologie',
     'Neurologie',
-    'De la migrene la afecțiuni neurodegenerative.',
+    'Evaluare și tratament pentru afecțiunile sistemului nervos',
     'Diagnostic și tratament pentru o gamă largă de afecțiuni neurologice.',
     $md$Sistemul nervos influențează profund calitatea vieții noastre. În cadrul consultațiilor de neurologie, evaluăm și tratăm o gamă largă de afecțiuni, de la migrene și tulburări de somn până la afecțiuni neurodegenerative.
 
 Punem accent pe un diagnostic corect și pe un plan de tratament adaptat fiecărui pacient, cu explicații clare la fiecare pas, astfel încât să înțelegi ce se întâmplă și ce urmează.$md$,
     'activity',
-    4
+    3
   ),
   (
     'cardiologie',
     'Cardiologie',
-    'Sănătatea inimii, cu grijă și prevenție.',
+    'Îngrijire specializată pentru sănătatea inimii',
     'Diagnostic, tratament și prevenție pentru afecțiunile inimii și ale sistemului cardiovascular.',
     $md$Inima lucrează pentru tine în fiecare clipă, iar sănătatea ei se reflectă în întregul organism. În cadrul consultațiilor de cardiologie evaluăm riscul cardiovascular, urmărim tensiunea și ritmul cardiac și construim un plan de îngrijire potrivit fiecărui pacient.
 
 Punem accent pe prevenție și pe explicații clare, astfel încât să înțelegi ce înseamnă rezultatele investigațiilor și ce pași poți face pentru o inimă sănătoasă pe termen lung.$md$,
     'heart-pulse',
-    5
+    4
   ),
   (
     'endocrinologie',
     'Endocrinologie',
-    'Echilibrul hormonal, cheia stării de bine.',
+    'Evaluarea și tratamentul afecțiunilor hormonale și metabolice',
     'Evaluarea și tratamentul afecțiunilor glandelor endocrine, de la tiroidă la metabolism.',
     $md$Sistemul endocrin coordonează, prin hormoni, procese esențiale din corp, de la metabolism și energie până la somn și dispoziție. În cadrul consultațiilor de endocrinologie evaluăm funcția glandelor și identificăm cauzele dezechilibrelor hormonale.
 
 Fie că e vorba de tiroidă, de metabolism sau de alte afecțiuni endocrine, îți oferim un diagnostic atent și un plan de tratament personalizat, cu monitorizare pe parcurs.$md$,
     'droplets',
-    6
+    5
   )
 on conflict (slug) do update set
   name        = excluded.name,
