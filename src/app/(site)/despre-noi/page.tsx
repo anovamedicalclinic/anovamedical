@@ -4,7 +4,6 @@ import Link from "next/link";
 import {
   ArrowRight,
   Clock,
-  GraduationCap,
   HeartHandshake,
   MapPin,
   Phone,
@@ -39,34 +38,28 @@ import { contact, locations } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Despre noi",
   description:
-    "Povestea ANOVA Medical Clinic din Iași: numele, echipa multidisciplinară, valorile care ne ghidează și grija pentru sănătatea ta mintală și neurologică.",
+    "Povestea ANOVA Medical Clinic din Iași: abordarea noastră, viziunea, misiunea și valorile care ne ghidează, și echipa care are grijă de sănătatea ta mintală și neurologică.",
   alternates: { canonical: "/despre-noi" },
 };
 
 const values = [
   {
-    icon: HeartHandshake,
-    title: "Empatie",
-    description:
-      "Ascultăm cu răbdare și fără judecată. Fiecare poveste contează și merită să fie înțeleasă.",
-  },
-  {
-    icon: GraduationCap,
-    title: "Profesionalism",
-    description:
-      "Echipă universitară experimentată, cu standarde clinice riguroase și formare continuă.",
-  },
-  {
     icon: Sparkles,
-    title: "Abordare nuanțată",
+    title: "Viziunea noastră",
     description:
-      "Privim fiecare persoană în complexitatea ei și construim planuri de tratament personalizate.",
+      "Transcendem granițele, căutând să definim calea către o lume în care sănătatea mintală primește atenția și sprijinul pe care le merită. Ne dorim să fim reper în tratarea afecțiunilor psihice, aducând în prim-plan inovație și cercetare, oferind soluții personalizate și eficiente. Cu fiecare pas, ne străduim să modelăm un viitor în care toate persoanele să aibă acces la cele mai bune servicii de sănătate mintală.",
+  },
+  {
+    icon: HeartHandshake,
+    title: "Misiunea noastră",
+    description:
+      "O chemare, un angajament și o promisiune de a îmbunătăți viața celor care se confruntă cu tulburări psihice. Prin servicii medicale de înaltă calitate și un mediu plin de pasiune pentru ceea ce facem, oferim pacienților noștri șansa unei recuperări complete și a unei vieți mai bune. Încurajăm pacienții și familiile lor să fie parte activă în procesul terapeutic, construind împreună punți către o sănătate mintală durabilă.",
   },
   {
     icon: ShieldCheck,
-    title: "Confidențialitate",
+    title: "Valorile noastre",
     description:
-      "Un spațiu discret și sigur, în care intimitatea și datele tale sunt protejate.",
+      "La Anova, credem în respectul profund față de fiecare individ, apreciem diversitatea și recunoaștem că respectul este baza încrederii. Suntem o echipă, unde fiecare membru contribuie la succes și unde parteneriatul cu pacienții noștri este esențial. Profesionalismul nostru este ancorat în etică, standarde științifice și dezvoltare continuă, pentru a oferi mereu cele mai bune soluții pentru pacienții noștri.",
   },
 ];
 
@@ -103,7 +96,7 @@ export default async function DespreNoiPage() {
         breadcrumb={[{ label: "Despre noi" }]}
         eyebrow="Despre noi"
         title="Îngrijire cu suflet, pentru echilibrul tău"
-        description="Află povestea din spatele numelui ANOVA, valorile care ne ghidează și echipa care te însoțește la fiecare pas."
+        description="Povestea ANOVA, viziunea și valorile care ne ghidează și echipa care te însoțește la fiecare pas."
       />
 
       {/* Povestea */}
@@ -125,22 +118,36 @@ export default async function DespreNoiPage() {
               className="prose-readable space-y-4 text-pretty text-muted-foreground"
             >
               <p>
-                ANOVA Medical Clinic s-a născut din dorința de a crea un loc
-                sigur pentru cei care caută echilibru în mijlocul provocărilor de
-                sănătate mintală. Un spațiu în care oamenii se simt ascultați,
-                înțeleși și sprijiniți.
+                Clinica a fost concepută ca un loc de siguranță, unde pacienții
+                să se simtă acceptați și înțeleși. Sala de așteptare a fost
+                amenajată pentru a crea o atmosferă liniștită și relaxantă, cu un
+                decor reconfortant. Fiecare detaliu a fost gândit pentru a
+                elimina stigmatul asociat cu „mersul la psihiatru sau psiholog”
+                și pentru a promova o abordare pozitivă a sănătății mintale.
+              </p>
+
+              <h3 className="pt-2 font-heading text-xl text-foreground">
+                Abordarea noastră
+              </h3>
+              <p>
+                Încă de la început, ANOVA Medical Clinic a pus un accent deosebit
+                pe personalizarea tratamentelor. Fiecare pacient a fost evaluat
+                individual, iar planurile de tratament au fost adaptate nevoilor
+                lor. Psihiatrii și terapeuții au lucrat împreună cu pacienții,
+                construind o relație de încredere și colaborare pentru a găsi
+                cele mai eficiente modalități de a-și redobândi echilibrul.
               </p>
               <p>
-                Numele ANOVA vine de la <em>Analiză a Variabilității și Abordare
-                Nuanțată</em>, angajamentul nostru de a privi fiecare poveste cu o
-                perspectivă amplă și comprehensivă.
+                Pe măsură ce timpul a trecut, ANOVA Medical Clinic a devenit un
+                punct de referință în comunitate, oferind nu doar tratamente, ci
+                și programe de educație și prevenție. Clinica a organizat
+                ateliere pentru a informa oamenii despre sănătatea mintală și a
+                încurajat discuții deschise despre această temă.
               </p>
               <p>
-                La deschidere, o echipă multidisciplinară de medici, psihologi,
-                terapeuți și asistenți medicali a pus bazele unei misiuni comune:
-                să ajute oamenii să-și recâștige echilibrul. În timp, ascultând
-                nevoile pacienților, clinica și-a extins serviciile cu noi
-                specialități medicale, pentru o îngrijire cât mai completă.
+                Astfel, ANOVA Medical Clinic continuă povestea, rămânând un far
+                de speranță și un simbol al îngrijirii psihiatrice de înaltă
+                calitate.
               </p>
             </Reveal>
           </div>
@@ -172,12 +179,28 @@ export default async function DespreNoiPage() {
       {/* Valori */}
       <Section className="bg-card">
         <SectionHeading
-          eyebrow="Valorile noastre"
-          title="Principiile care ne ghidează"
-          description="Tot ce facem pornește de la câteva convingeri simple despre cum ar trebui să arate îngrijirea sănătății mintale."
+          eyebrow="Despre ANOVA"
+          title="Alături de fiecare poveste care trece pragul"
           align="center"
         />
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <Reveal
+          delay={0.06}
+          className="prose-readable mx-auto mt-5 space-y-4 text-pretty text-center text-lg text-muted-foreground"
+        >
+          <p>
+            La Anova, ne dedicăm cu pasiune și devotament fiecărei povești care
+            trece pragul ușilor noastre. Suntem nu doar un centru medical, ci o
+            comunitate de profesioniști în sănătate mintală, transformând
+            fiecare zi într-o oportunitate de a aduce lumină și speranță în
+            viața pacienților noștri.
+          </p>
+          <p>
+            Suntem gata să fim alături de tine în călătoria către sănătatea
+            mintală și psihică. Fiecare zi este o oportunitate de a transforma
+            vieți și de a contribui la un viitor mai luminos pentru toți.
+          </p>
+        </Reveal>
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {values.map((v, i) => (
             <Reveal key={v.title} delay={i * 0.05}>
               <Card className="h-full rounded-3xl border-border bg-background shadow-none transition-colors duration-300 hover:border-primary/20">

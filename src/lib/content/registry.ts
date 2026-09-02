@@ -90,7 +90,7 @@ export const contentSections: ContentSection[] = [
         label: "Supratitlu",
         kind: "text",
         max: 40,
-        default: "Despre Anova Medical Clinic",
+        default: "Povestea noastră",
       },
       {
         key: "home.about.title",
@@ -105,7 +105,7 @@ export const contentSections: ContentSection[] = [
         kind: "multiline",
         max: 500,
         default:
-          "ANOVA Medical Clinic s-a născut din dorința de a crea un loc sigur pentru oamenii care traversează o perioadă dificilă. Numele vine de la Analiză a Variabilității și Abordare Nuanțată, felul nostru de a privi fiecare persoană în complexitatea ei, nu ca pe un simplu diagnostic.",
+          "ANOVA Medical Clinic a fost gândită ca un loc de siguranță, unde pacienții să se simtă acceptați și înțeleși. De la sala de așteptare până la felul în care se poartă discuțiile, fiecare detaliu are același scop: să scoată din ecuație stigmatul care încă însoțește mersul la psihiatru sau la psiholog.",
       },
       {
         key: "home.about.paragraph_2",
@@ -113,7 +113,7 @@ export const contentSections: ContentSection[] = [
         kind: "multiline",
         max: 500,
         default:
-          "Suntem o echipă multidisciplinară de medici, psihologi și terapeuți, alături de tine cu răbdare și profesionalism, ca să îți regăsești echilibrul.",
+          "Tratamentele sunt personalizate încă de la prima evaluare, iar medicii și terapeuții lucrează împreună cu pacientul, nu doar cu diagnosticul lui. În timp, clinica a devenit un reper în comunitate, prin ateliere și discuții deschise despre sănătatea mintală.",
       },
       {
         key: "home.about.cta_primary",
