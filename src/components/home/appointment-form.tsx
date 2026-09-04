@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format, parseISO } from "date-fns";
@@ -57,6 +58,8 @@ export function AppointmentForm({
     },
   });
 
+  const [calendarOpen, setCalendarOpen] = useState(false);
+
   const onSubmit = async (values: AppointmentInput) => {
     const res = await submitAppointment(values);
     if (res.ok) {
@@ -70,7 +73,7 @@ export function AppointmentForm({
   const errClass = "text-xs text-destructive";
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
       {/* Honeypot */}
       <input
         type="text"
@@ -81,14 +84,14 @@ export function AppointmentForm({
         {...register("company")}
       />
 
-      <div className="grid gap-5 sm:grid-cols-2">
-        <div className="space-y-2">
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className="space-y-1.5">
           <Label htmlFor="fullName">Nume și prenume *</Label>
           <Input id="fullName" placeholder="Ex: Maria Popescu" {...register("fullName")} />
           {errors.fullName && <p className={errClass}>{errors.fullName.message}</p>}
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           <Label htmlFor="phone">Telefon *</Label>
           <Input
             id="phone"
@@ -100,8 +103,8 @@ export function AppointmentForm({
         </div>
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-2">
-        <div className="space-y-2">
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className="space-y-1.5">
           <Label htmlFor="email">Email (opțional)</Label>
           <Input
             id="email"
@@ -112,7 +115,7 @@ export function AppointmentForm({
           {errors.email && <p className={errClass}>{errors.email.message}</p>}
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           <Label>Specialitate (opțional)</Label>
           <Controller
             name="specialtyId"
@@ -135,7 +138,8 @@ export function AppointmentForm({
         </div>
       </div>
 
-      <div className="space-y-2">
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className="space-y-1.5">
         <Label>Data preferată (opțional)</Label>
         <Controller
           name="preferredDate"
@@ -143,7 +147,7 @@ export function AppointmentForm({
           render={({ field }) => {
             const selected = field.value ? parseISO(field.value) : undefined;
             return (
-              <Popover>
+              <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
                 <PopoverTrigger asChild>
                   <Button
                     type="button"
@@ -164,9 +168,12 @@ export function AppointmentForm({
                     mode="single"
                     locale={ro}
                     selected={selected}
-                    onSelect={(d) =>
-                      field.onChange(d ? format(d, "yyyy-MM-dd") : "")
-                    }
+                    onSelect={(d) => {
+                      field.onChange(d ? format(d, "yyyy-MM-dd") : "");
+                      // Calendarul rămânea deschis peste restul formularului
+                      // după ce alegeai ziua; se închide singur acum.
+                      setCalendarOpen(false);
+                    }}
                     disabled={(date) => {
                       const today = new Date();
                       today.setHours(0, 0, 0, 0);
@@ -180,63 +187,71 @@ export function AppointmentForm({
           }}
         />
         <p className="text-xs text-muted-foreground">
-          Programul: Luni–Vineri. Ziua o confirmăm telefonic în funcție de
-          disponibilitate.
+          Luni–Vineri. Ziua o confirmăm telefonic.
         </p>
-      </div>
+        </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="message">Mesaj (opțional)</Label>
-        <Textarea
-          id="message"
-          rows={3}
-          placeholder="Spune-ne pe scurt cu ce te putem ajuta."
-          {...register("message")}
-        />
-      </div>
-
-      <div className="space-y-2">
-        <label className="flex items-start gap-3 text-sm text-muted-foreground">
-          <input
-            type="checkbox"
-            className="mt-0.5 size-4 shrink-0 accent-primary"
-            {...register("consent")}
+        <div className="space-y-1.5">
+          <Label htmlFor="message">Mesaj (opțional)</Label>
+          <Textarea
+            id="message"
+            rows={3}
+            placeholder="Spune-ne pe scurt cu ce te putem ajuta."
+            {...register("message")}
           />
-          <span>
-            Sunt de acord cu prelucrarea datelor conform{" "}
-            <a
-              href="/politica-de-confidentialitate"
-              className="text-primary underline underline-offset-2 hover:text-primary-hover"
-            >
-              politicii de confidențialitate
-            </a>
-            . *
-          </span>
-        </label>
-        {errors.consent && <p className={errClass}>{errors.consent.message}</p>}
+        </div>
       </div>
 
-      <Button
-        type="submit"
-        size="lg"
-        disabled={isSubmitting}
-        className="w-full hover:bg-primary-hover sm:w-auto"
-      >
-        {isSubmitting ? (
-          <>
-            <Loader2 className="size-4 animate-spin" />
-            Se trimite...
-          </>
-        ) : (
-          "Trimite cererea"
-        )}
-      </Button>
+      {/*
+        Acordul și butonul stau pe același rând de la sm în sus: sunt ultimii
+        doi pași ai aceleiași acțiuni, iar unul sub altul lungeau formularul
+        cu încă un ecran de derulare.
+      */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="space-y-1">
+          <label className="flex items-start gap-2.5 text-sm text-muted-foreground">
+            <input
+              type="checkbox"
+              className="mt-0.5 size-4 shrink-0 accent-primary"
+              {...register("consent")}
+            />
+            <span>
+              Sunt de acord cu prelucrarea datelor conform{" "}
+              <a
+                href="/politica-de-confidentialitate"
+                className="text-primary underline underline-offset-2 hover:text-primary-hover"
+              >
+                politicii de confidențialitate
+              </a>
+              . *
+            </span>
+          </label>
+          {errors.consent && (
+            <p className={errClass}>{errors.consent.message}</p>
+          )}
+        </div>
 
-      <p className="flex items-start gap-2 rounded-xl bg-secondary p-3 text-xs text-muted-foreground">
+        <Button
+          type="submit"
+          size="lg"
+          disabled={isSubmitting}
+          className="w-full shrink-0 hover:bg-primary-hover sm:w-auto"
+        >
+          {isSubmitting ? (
+            <>
+              <Loader2 className="size-4 animate-spin" />
+              Se trimite...
+            </>
+          ) : (
+            "Trimite cererea"
+          )}
+        </Button>
+      </div>
+
+      <p className="flex items-start gap-2 text-xs text-muted-foreground">
         <Phone className="mt-0.5 size-3.5 shrink-0 text-primary" />
-        Programarea nu este confirmată automat. După trimiterea cererii, te
-        contactăm telefonic la {contact.phone} pentru a confirma data și ora în
-        funcție de disponibilitate.
+        Programarea nu e confirmată automat: te sunăm la {contact.phone} ca să
+        stabilim data și ora.
       </p>
     </form>
   );

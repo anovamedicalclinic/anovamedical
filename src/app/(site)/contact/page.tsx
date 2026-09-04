@@ -104,8 +104,11 @@ export default async function ContactPage() {
             <h2 className="text-2xl text-foreground">
               Programează o consultație
             </h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Completează câmpurile, iar noi te sunăm pentru confirmare.
+            <p className="prose-readable mt-2 text-pretty text-sm text-muted-foreground">
+              Completează formularul de programare sau contactează-ne direct.
+              Echipa ANOVA Medical îți va răspunde cu promptitudine și îți va
+              oferi toate informațiile necesare pentru a face următorul pas în
+              îngrijirea sănătății tale.
             </p>
             <div className="mt-6">
               <AppointmentForm specialties={specialties} />

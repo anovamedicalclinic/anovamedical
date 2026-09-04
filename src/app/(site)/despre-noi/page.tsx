@@ -5,7 +5,6 @@ import {
   ArrowRight,
   Clock,
   HeartHandshake,
-  MapPin,
   Phone,
   ShieldCheck,
   Sparkles,
@@ -30,7 +29,7 @@ import {
 import { DoctorCard } from "@/components/doctor-card";
 import { CtaBand } from "@/components/cta-band";
 import { WhatsAppIcon } from "@/components/brand/social-icons";
-import { Locations } from "@/components/layout/locations";
+import { LocationCard } from "@/components/layout/locations";
 import { LocationsMap } from "@/components/layout/locations-map";
 import { getDoctors } from "@/lib/data";
 import { contact, locations } from "@/lib/site";
@@ -237,39 +236,40 @@ export default async function DespreNoiPage() {
               <LocationsMap />
             </Reveal>
 
-            <Reveal delay={0.08} className="grid gap-4 sm:grid-cols-2">
-              <div className="flex flex-col gap-2 rounded-2xl border border-border bg-card p-5">
-                <span className="flex size-10 items-center justify-center rounded-xl bg-accent text-primary">
-                  <Clock className="size-5" strokeWidth={1.75} />
-                </span>
-                <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-                  Program
-                </p>
-                <div className="space-y-0.5 text-sm text-foreground">
-                  {contact.schedule.map((row) => (
-                    <p key={row.days}>
-                      {row.days}: {row.hours}
+            {/*
+              Programul și cele trei sedii stau în același grid, ca patru fișe
+              de aceeași înălțime. Când programul era într-o cartelă separată,
+              lângă una care ținea toate sediile, rămânea aproape gol și se
+              întindea cât vecina lui.
+            */}
+            <Reveal delay={0.08} className="grid gap-3 sm:grid-cols-2">
+              <div className="flex h-full flex-col rounded-2xl border border-border bg-gradient-to-br from-card to-secondary/50 p-4">
+                <div className="flex items-start gap-3">
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-accent text-primary">
+                    <Clock className="size-4" strokeWidth={1.75} />
+                  </span>
+                  <div>
+                    <p className="text-sm font-medium leading-snug text-foreground">
+                      Program
                     </p>
-                  ))}
+                    <div className="mt-1 space-y-0.5 text-sm leading-relaxed text-muted-foreground">
+                      {contact.schedule.map((row) => (
+                        <p key={row.days}>
+                          {row.days}: {row.hours}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
 
-              <div className="flex flex-col gap-2 rounded-2xl border border-border bg-card p-5">
-                <span className="flex size-10 items-center justify-center rounded-xl bg-accent text-primary">
-                  <MapPin className="size-5" strokeWidth={1.75} />
-                </span>
-                <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-                  Sedii
-                </p>
-                <Locations />
-                <div className="mt-auto flex flex-wrap gap-2 pt-2">
+                <div className="mt-3 flex flex-wrap items-center gap-2 pt-3">
                   <Button
                     asChild
                     size="sm"
-                    className="rounded-full hover:bg-primary-hover"
+                    className="h-8 rounded-full px-3 text-xs hover:bg-primary-hover"
                   >
                     <a href={contact.phoneHref}>
-                      <Phone className="size-4" />
+                      <Phone className="size-3.5" />
                       Sună
                     </a>
                   </Button>
@@ -277,19 +277,23 @@ export default async function DespreNoiPage() {
                     asChild
                     size="sm"
                     variant="outline"
-                    className="rounded-full hover:border-primary/30 hover:bg-primary/5 hover:text-primary"
+                    className="h-8 rounded-full px-3 text-xs hover:border-primary/30 hover:bg-primary/5 hover:text-primary"
                   >
                     <a
                       href={contact.whatsappHref}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <WhatsAppIcon className="size-4" />
+                      <WhatsAppIcon className="size-3.5" />
                       WhatsApp
                     </a>
                   </Button>
                 </div>
               </div>
+
+              {locations.map((loc) => (
+                <LocationCard key={loc.id} loc={loc} />
+              ))}
             </Reveal>
           </div>
 
