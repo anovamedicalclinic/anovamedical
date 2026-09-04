@@ -29,9 +29,9 @@ export function Footer() {
   return (
     <footer className="border-t border-border bg-secondary">
       <Container className="py-16 md:py-20">
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-6">
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-12">
           {/* Brand */}
-          <div className="space-y-5 md:col-span-2 lg:col-span-2">
+          <div className="space-y-5 md:col-span-2 lg:col-span-3">
             <Logo />
             <p className="max-w-xs text-pretty text-sm text-muted-foreground">
               {siteConfig.tagline}
@@ -91,7 +91,7 @@ export function Footer() {
           </div>
 
           {/* Specialități */}
-          <div>
+          <div className="lg:col-span-2">
             <h3 className="font-heading text-base text-foreground">
               Specialități
             </h3>
@@ -110,7 +110,7 @@ export function Footer() {
           </div>
 
           {/* Navigare */}
-          <div>
+          <div className="lg:col-span-2">
             <h3 className="font-heading text-base text-foreground">Clinică</h3>
             <ul className="mt-4 space-y-2.5">
               <li>
@@ -137,7 +137,7 @@ export function Footer() {
           </div>
 
           {/* Contact */}
-          <div>
+          <div className="lg:col-span-3">
             <h3 className="font-heading text-base text-foreground">Contact</h3>
             <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
               <li>
@@ -163,7 +163,7 @@ export function Footer() {
           </div>
 
           {/* Legal */}
-          <div>
+          <div className="lg:col-span-2">
             <h3 className="font-heading text-base text-foreground">Legal</h3>
             <ul className="mt-4 space-y-2.5">
               {legalLinks.map((link) => (

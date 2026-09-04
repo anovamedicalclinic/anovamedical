@@ -98,29 +98,69 @@ export default async function ContactPage() {
           ))}
         </div>
 
-        {/* Formular + info + hartă */}
-        <div className="mt-8 grid gap-8 lg:grid-cols-2 lg:gap-10">
-          <Reveal className="rounded-3xl border border-border bg-card p-6 shadow-sm shadow-foreground/5 sm:p-8">
-            <h2 className="text-2xl text-foreground">
-              Programează o consultație
-            </h2>
-            <p className="prose-readable mt-2 text-pretty text-sm text-muted-foreground">
-              Completează formularul de programare sau contactează-ne direct.
-              Echipa ANOVA Medical îți va răspunde cu promptitudine și îți va
-              oferi toate informațiile necesare pentru a face următorul pas în
-              îngrijirea sănătății tale.
-            </p>
-            <div className="mt-6">
-              <AppointmentForm specialties={specialties} />
+        {/*
+          Formularul ocupă un rând întreg, iar sediile vin sub el. Când stăteau
+          alături, sediile se înghesuiau într-o jumătate de coloană, iar
+          formularul, mai scurt, lăsa jumătate de cartelă goală sub el.
+        */}
+        <Reveal className="mt-8 rounded-3xl border border-border bg-card p-6 shadow-sm shadow-foreground/5 sm:p-8 lg:p-10">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-12">
+            <div>
+              <h2 className="text-balance text-2xl text-foreground sm:text-3xl">
+                Programează o consultație
+              </h2>
+              <p className="prose-readable mt-3 text-pretty text-muted-foreground">
+                Completează formularul de programare sau contactează-ne direct.
+                Echipa ANOVA Medical îți va răspunde cu promptitudine și îți va
+                oferi toate informațiile necesare pentru a face următorul pas în
+                îngrijirea sănătății tale.
+              </p>
+            </div>
+
+            <AppointmentForm specialties={specialties} />
+          </div>
+        </Reveal>
+
+        {/* Sedii */}
+        <div className="mt-14 sm:mt-16">
+          <Reveal className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <span className="text-sm font-medium uppercase tracking-[0.18em] text-sage-strong">
+                Sedii
+              </span>
+              <h2 className="mt-2 text-balance text-2xl text-foreground sm:text-3xl">
+                Ne găsești în trei locuri
+              </h2>
+            </div>
+            <div className="flex items-center gap-3">
+              <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+                Urmărește-ne
+              </p>
+              <div className="flex gap-2">
+                <SocialLink href={social.facebook} label="Facebook">
+                  <FacebookIcon className="size-4" />
+                </SocialLink>
+                <SocialLink href={social.instagram} label="Instagram">
+                  <InstagramIcon className="size-4" />
+                </SocialLink>
+              </div>
             </div>
           </Reveal>
 
-          <div className="space-y-5">
-            <Reveal className="space-y-5 rounded-3xl border border-border bg-card p-6 sm:p-7">
-              <InfoRow icon={MapPin} label="Sedii">
-                <Locations />
-              </InfoRow>
-              <InfoRow icon={Clock} label="Program" className="border-t pt-5">
+          <Reveal delay={0.06}>
+            <Locations variant="cards" className="mt-8 md:grid-cols-3" />
+          </Reveal>
+
+          <div className="mt-6 grid gap-6 lg:grid-cols-3 lg:items-start">
+            <Reveal delay={0.1} className="lg:col-span-2">
+              <LocationsMap />
+            </Reveal>
+
+            <Reveal
+              delay={0.14}
+              className="rounded-2xl border border-border bg-card p-5"
+            >
+              <InfoRow icon={Clock} label="Program">
                 <div className="space-y-0.5 text-sm text-foreground">
                   {contact.schedule.map((row) => (
                     <p key={row.days}>
@@ -129,23 +169,9 @@ export default async function ContactPage() {
                   ))}
                 </div>
               </InfoRow>
-              <div className="flex items-center gap-3 border-t border-border pt-5">
-                <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-                  Urmărește-ne
-                </p>
-                <div className="flex gap-2">
-                  <SocialLink href={social.facebook} label="Facebook">
-                    <FacebookIcon className="size-4" />
-                  </SocialLink>
-                  <SocialLink href={social.instagram} label="Instagram">
-                    <InstagramIcon className="size-4" />
-                  </SocialLink>
-                </div>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.06}>
-              <LocationsMap />
+              <p className="mt-4 border-t border-border pt-4 text-sm leading-relaxed text-muted-foreground">
+                {contact.note}
+              </p>
             </Reveal>
           </div>
         </div>

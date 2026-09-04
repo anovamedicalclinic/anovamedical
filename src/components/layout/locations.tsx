@@ -6,12 +6,50 @@ const mapsHref = (query: string) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 
 /**
- * Un sediu, ca fișă de sine stătătoare.
- *
- * Titlul e numele scurt, nu cel complet: pe trei fișe una sub alta, „Anova
- * Medical Clinic –” s-ar repeta de trei ori și ar împinge adresa pe două
- * rânduri în coloanele înguste. Telefonul stă pe fiecare fișă pentru că nu e
- * același peste tot — Tătărușiul are alt număr.
+ * Numele scurt („Șos. Nicolina”), nu cel complet: „Anova Medical Clinic –”
+ * repetat de trei ori nu spune nimic în plus și împinge adresa pe două rânduri
+ * în coloanele înguste.
+ */
+function LocationBody({ loc }: { loc: Location }) {
+  return (
+    <div className="min-w-0">
+      <p className="text-sm font-medium leading-snug text-foreground">
+        {loc.short}
+      </p>
+      <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+        {loc.address}
+      </p>
+      {"detail" in loc && loc.detail && (
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          {loc.detail}
+        </p>
+      )}
+      <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
+        <a
+          href={loc.phoneHref}
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-primary-hover"
+        >
+          <Phone className="size-3.5" />
+          {loc.phone}
+        </a>
+        <a
+          href={mapsHref(loc.mapQuery)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-primary"
+        >
+          Vezi pe hartă
+          <ArrowUpRight className="size-3.5" />
+        </a>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Un sediu ca fișă de sine stătătoare, pentru grilele care stau direct pe
+ * fundalul paginii (ex. sediile lângă program, pe „Despre noi”). NU se pune
+ * într-o cartelă: două chenare unul în altul arată înghesuit.
  */
 export function LocationCard({
   loc,
@@ -23,7 +61,7 @@ export function LocationCard({
   return (
     <div
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-card to-secondary/50 p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-lg hover:shadow-foreground/5",
+        "group relative flex h-full gap-3 overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-card to-secondary/50 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-lg hover:shadow-foreground/5",
         className,
       )}
     >
@@ -31,63 +69,31 @@ export function LocationCard({
         aria-hidden
         className="pointer-events-none absolute -right-8 -top-8 size-20 rounded-full bg-sage/20 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"
       />
-
-      <div className="relative flex items-start gap-3">
-        <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-accent text-primary transition-transform duration-300 group-hover:scale-105">
-          <MapPin className="size-4" strokeWidth={1.75} />
-        </span>
-        <div className="min-w-0">
-          <p className="text-sm font-medium leading-snug text-foreground">
-            {loc.short}
-          </p>
-          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-            {loc.address}
-          </p>
-          {"detail" in loc && loc.detail && (
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {loc.detail}
-            </p>
-          )}
-        </div>
-      </div>
-
-      <div className="relative mt-3 flex flex-wrap items-center gap-2 pt-3">
-        <a
-          href={loc.phoneHref}
-          className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5 text-xs font-medium text-primary transition-colors hover:border-primary/30 hover:bg-primary/5"
-        >
-          <Phone className="size-3.5" />
-          {loc.phone}
-        </a>
-        <a
-          href={mapsHref(loc.mapQuery)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground transition-colors hover:text-primary"
-        >
-          Vezi pe hartă
-          <ArrowUpRight className="size-3.5" />
-        </a>
-      </div>
+      <span className="relative flex size-9 shrink-0 items-center justify-center rounded-xl bg-accent text-primary transition-transform duration-300 group-hover:scale-105">
+        <MapPin className="size-4" strokeWidth={1.75} />
+      </span>
+      <LocationBody loc={loc} />
     </div>
   );
 }
 
 /**
- * Lista celor trei sedii, în două densități.
+ * Lista celor trei sedii, în trei densități.
  *
- * `full` pune fișele una sub alta (pagina de contact, prima pagină).
- * `compact` e pentru coloane înguste — subsol, bara laterală a unui medic —
- * unde nu încape o fișă, doar text.
+ * `list` — rânduri despărțite de o linie subțire. Asta se folosește în
+ * interiorul unei cartele (contact, prima pagină): fără chenar propriu, ca să
+ * nu iasă chenar în chenar.
  *
- * Pentru un grid propriu (ex. sedii lângă program) se folosește direct
- * `LocationCard`, ca părintele să decidă coloanele.
+ * `cards` — fișe separate, pentru grile care stau direct pe pagină.
+ *
+ * `compact` — doar text, pentru coloane înguste: subsol, bara laterală a unui
+ * medic.
  */
 export function Locations({
-  variant = "full",
+  variant = "list",
   className,
 }: {
-  variant?: "full" | "compact";
+  variant?: "list" | "cards" | "compact";
   className?: string;
 }) {
   if (variant === "compact") {
@@ -117,11 +123,29 @@ export function Locations({
     );
   }
 
+  if (variant === "cards") {
+    return (
+      <div className={cn("grid gap-4", className)}>
+        {locations.map((loc) => (
+          <LocationCard key={loc.id} loc={loc} />
+        ))}
+      </div>
+    );
+  }
+
   return (
-    <div className={cn("grid gap-3", className)}>
+    <ul className={cn("divide-y divide-border", className)}>
       {locations.map((loc) => (
-        <LocationCard key={loc.id} loc={loc} />
+        <li
+          key={loc.id}
+          className="flex gap-3 py-4 first:pt-0 last:pb-0"
+        >
+          <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-accent text-primary">
+            <MapPin className="size-4" strokeWidth={1.75} />
+          </span>
+          <LocationBody loc={loc} />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

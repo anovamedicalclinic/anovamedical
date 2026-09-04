@@ -29,7 +29,7 @@ import {
 import { DoctorCard } from "@/components/doctor-card";
 import { CtaBand } from "@/components/cta-band";
 import { WhatsAppIcon } from "@/components/brand/social-icons";
-import { LocationCard } from "@/components/layout/locations";
+import { Locations } from "@/components/layout/locations";
 import { LocationsMap } from "@/components/layout/locations-map";
 import { getDoctors } from "@/lib/data";
 import { contact, locations } from "@/lib/site";
@@ -236,14 +236,8 @@ export default async function DespreNoiPage() {
               <LocationsMap />
             </Reveal>
 
-            {/*
-              Programul și cele trei sedii stau în același grid, ca patru fișe
-              de aceeași înălțime. Când programul era într-o cartelă separată,
-              lângă una care ținea toate sediile, rămânea aproape gol și se
-              întindea cât vecina lui.
-            */}
-            <Reveal delay={0.08} className="grid gap-3 sm:grid-cols-2">
-              <div className="flex h-full flex-col rounded-2xl border border-border bg-gradient-to-br from-card to-secondary/50 p-4">
+            <Reveal delay={0.08}>
+              <div className="flex h-full flex-col rounded-2xl border border-border bg-gradient-to-br from-card to-secondary/50 p-5">
                 <div className="flex items-start gap-3">
                   <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-accent text-primary">
                     <Clock className="size-4" strokeWidth={1.75} />
@@ -290,10 +284,6 @@ export default async function DespreNoiPage() {
                   </Button>
                 </div>
               </div>
-
-              {locations.map((loc) => (
-                <LocationCard key={loc.id} loc={loc} />
-              ))}
             </Reveal>
           </div>
 
@@ -319,6 +309,24 @@ export default async function DespreNoiPage() {
                 </AccordionItem>
               ))}
             </Accordion>
+          </Reveal>
+        </div>
+
+        {/*
+          Sediile pe toată lățimea, sub cele două coloane. Într-o jumătate de
+          coloană, adresa din Tătăruși se rupea în cinci rânduri.
+        */}
+        <div className="mt-14 sm:mt-16">
+          <Reveal>
+            <span className="text-sm font-medium uppercase tracking-[0.18em] text-sage-strong">
+              Sedii
+            </span>
+            <h3 className="mt-2 text-balance text-2xl text-foreground sm:text-3xl">
+              Ne găsești în trei locuri
+            </h3>
+          </Reveal>
+          <Reveal delay={0.06}>
+            <Locations variant="cards" className="mt-8 md:grid-cols-3" />
           </Reveal>
         </div>
       </Section>
