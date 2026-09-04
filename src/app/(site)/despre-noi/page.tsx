@@ -176,7 +176,7 @@ export default async function DespreNoiPage() {
       </Section>
 
       {/* Valori */}
-      <Section className="bg-card">
+      <Section blend className="bg-card">
         <SectionHeading
           eyebrow="Despre ANOVA"
           title="Alături de fiecare poveste care trece pragul"
@@ -332,7 +332,7 @@ export default async function DespreNoiPage() {
       </Section>
 
       {/* Echipa preview */}
-      <Section className="bg-card">
+      <Section blend className="bg-card">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <Reveal className="max-w-xl space-y-4">
             <span className="text-sm font-medium uppercase tracking-[0.18em] text-sage-strong">

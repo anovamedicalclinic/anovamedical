@@ -60,7 +60,7 @@ export default async function EchipaPage() {
 
       {/* Echipa de suport */}
       {staff.length > 0 && (
-        <Section className="bg-card">
+        <Section blend className="bg-card">
           <SectionHeading
             eyebrow={content("echipa.support.eyebrow")}
             title={content("echipa.support.title")}

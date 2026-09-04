@@ -12,7 +12,7 @@ import type { ContentReader } from "@/lib/content/get";
  */
 export function AboutPreview({ content }: { content: ContentReader }) {
   return (
-    <Section id="despre" className="overflow-hidden bg-card">
+    <Section id="despre" blend className="overflow-hidden bg-card">
       <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
         {/* Text */}
         <div className="flex flex-col gap-6">

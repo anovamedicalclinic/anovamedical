@@ -27,7 +27,7 @@ export async function TeamSection({
   const medics = cards.filter((c) => c.specialties.length > 0).slice(0, 10);
 
   return (
-    <Section id="echipa" className="bg-card">
+    <Section id="echipa" blend className="bg-card">
       <SectionHeading
         eyebrow={content("home.team.eyebrow")}
         title={content("home.team.title")}

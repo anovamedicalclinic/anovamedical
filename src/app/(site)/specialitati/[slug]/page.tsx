@@ -276,7 +276,7 @@ export default async function SpecialtyPage({
 
       {/* Specialiștii */}
       {doctors.length > 0 && (
-        <Section id="echipa" className={doctorsOnCard ? "bg-card" : ""}>
+        <Section id="echipa" blend={doctorsOnCard} className={doctorsOnCard ? "bg-card" : ""}>
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <Reveal className="max-w-xl space-y-3">
               <span className="text-sm font-medium uppercase tracking-[0.18em] text-sage-strong">

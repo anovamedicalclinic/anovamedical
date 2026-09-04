@@ -27,7 +27,15 @@ export function PageHeader({
     .filter(Boolean);
 
   return (
-    <section className="relative overflow-hidden border-b border-border bg-card pb-14 pt-28 md:pb-16 md:pt-32">
+    <section className="relative overflow-hidden bg-card pb-14 pt-28 md:pb-16 md:pt-32">
+      {/*
+        În locul liniei de sub antet, o bandă care topește fundalul acestuia în
+        cel al paginii. Linia tăia pagina în două; degradeul o leagă.
+      */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent"
+      />
       <div
         aria-hidden
         className="pointer-events-none absolute -right-16 -top-20 -z-0 size-72 rounded-full bg-sage/15 blur-3xl"

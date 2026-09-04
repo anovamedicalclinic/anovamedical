@@ -17,7 +17,7 @@ export function VisitSection({
   content: ContentReader;
 }) {
   return (
-    <Section id="contact" className="bg-card">
+    <Section id="contact" blend className="bg-card">
       <SectionHeading
         eyebrow={content("home.visit.eyebrow")}
         title={content("home.visit.title")}

@@ -151,14 +151,14 @@ export default async function ContactPage() {
             <Locations variant="cards" className="mt-8 md:grid-cols-3" />
           </Reveal>
 
-          <div className="mt-6 grid gap-6 lg:grid-cols-3 lg:items-start">
+          <div className="mt-6 grid gap-6 lg:grid-cols-3">
             <Reveal delay={0.1} className="lg:col-span-2">
               <LocationsMap />
             </Reveal>
 
             <Reveal
               delay={0.14}
-              className="rounded-2xl border border-border bg-card p-5"
+              className="flex h-full flex-col rounded-2xl border border-border bg-card p-5"
             >
               <InfoRow icon={Clock} label="Program">
                 <div className="space-y-0.5 text-sm text-foreground">
@@ -172,6 +172,13 @@ export default async function ContactPage() {
               <p className="mt-4 border-t border-border pt-4 text-sm leading-relaxed text-muted-foreground">
                 {contact.note}
               </p>
+              <a
+                href={contact.phoneHref}
+                className="mt-auto inline-flex items-center gap-2 pt-4 text-sm font-medium text-primary transition-colors hover:text-primary-hover"
+              >
+                <Phone className="size-4" />
+                {contact.phone}
+              </a>
             </Reveal>
           </div>
         </div>
