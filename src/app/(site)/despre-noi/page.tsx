@@ -35,7 +35,7 @@ import { getDoctors } from "@/lib/data";
 import { contact, locations } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Despre noi",
+  title: "Povestea noastră",
   description:
     "Povestea ANOVA Medical Clinic din Iași: abordarea noastră, viziunea, misiunea și valorile care ne ghidează, și echipa care are grijă de sănătatea ta mintală și neurologică.",
   alternates: { canonical: "/despre-noi" },
@@ -92,8 +92,8 @@ export default async function DespreNoiPage() {
   return (
     <main className="flex-1 overflow-x-hidden">
       <PageHeader
-        breadcrumb={[{ label: "Despre noi" }]}
-        eyebrow="Despre noi"
+        breadcrumb={[{ label: "Povestea noastră" }]}
+        eyebrow="Povestea noastră"
         title="Îngrijire cu suflet, pentru echilibrul tău"
         description="Povestea ANOVA, viziunea și valorile care ne ghidează și echipa care te însoțește la fiecare pas."
       />
@@ -104,7 +104,7 @@ export default async function DespreNoiPage() {
           <div className="flex flex-col gap-6">
             <Reveal>
               <span className="text-sm font-medium uppercase tracking-[0.18em] text-sage-strong">
-                Povestea noastră
+                Începutul
               </span>
             </Reveal>
             <Reveal delay={0.06}>

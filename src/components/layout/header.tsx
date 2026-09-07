@@ -19,7 +19,7 @@ const HEADER_LAYOUT = "logo-left" as HeaderLayout;
 
 const menuItems = [
   { name: "Acasă", href: "/" },
-  { name: "Despre noi", href: "/despre-noi" },
+  { name: "Povestea noastră", href: "/despre-noi" },
   { name: "Specialități", href: "/specialitati", mega: true },
   { name: "Echipa", href: "/echipa" },
   { name: "Contact", href: "/contact" },

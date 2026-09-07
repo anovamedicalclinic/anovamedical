@@ -115,7 +115,7 @@ export function Footer() {
             <ul className="mt-4 space-y-2.5">
               <li>
                 <Link href="/despre-noi" className="inline-block py-1 text-sm text-muted-foreground transition-colors hover:text-primary">
-                  Despre noi
+                  Povestea noastră
                 </Link>
               </li>
               <li>

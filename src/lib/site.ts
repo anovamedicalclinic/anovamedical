@@ -115,7 +115,7 @@ export const navSpecialties = [
 
 export const mainNav = [
   { label: "Acasă", href: "/" },
-  { label: "Despre noi", href: "/despre-noi" },
+  { label: "Povestea noastră", href: "/despre-noi" },
   { label: "Specialități", href: "/specialitati", children: navSpecialties },
   { label: "Echipa", href: "/echipa" },
   { label: "Contact", href: "/contact" },

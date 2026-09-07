@@ -48,7 +48,7 @@ function LocationBody({ loc }: { loc: Location }) {
 
 /**
  * Un sediu ca fișă de sine stătătoare, pentru grilele care stau direct pe
- * fundalul paginii (ex. sediile lângă program, pe „Despre noi”). NU se pune
+ * fundalul paginii (ex. sediile lângă program, pe „Povestea noastră”). NU se pune
  * într-o cartelă: două chenare unul în altul arată înghesuit.
  */
 export function LocationCard({

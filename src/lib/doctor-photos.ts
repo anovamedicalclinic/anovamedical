@@ -26,6 +26,7 @@ const PHOTOS: Record<string, string> = {
   "andra-morasan": "/medici/MorsanAndra.webp",
   "andreea-albu": "/medici/AlbuAndreea.webp",
   "aura-cosofret": "/medici/CosofretAura.webp",
+  "banu-adelina": "/medici/BanuAdelina.webp",
   "cartas-nicoleta": "/medici/CartasNicoleta.webp",
   "dan-chirila": "/medici/ChirilaDan.webp",
   "dorneanu-andra": "/medici/DorneanuAndra.webp",
@@ -43,7 +44,6 @@ const PHOTOS: Record<string, string> = {
   "thomas-gabriel-schreiner": "/medici/SchreinerThomasGabriel.webp",
   "tudor-florea": "/medici/FloreaTudor.webp",
   "vlasceanu-marceza": "/medici/VlasceanuMarceza.webp",
-  // Fără fotografie deocamdată (folosește Placeholder): banu-adelina
 };
 
 /** Fotografia unui medic, cu fallback pe Placeholder. */
