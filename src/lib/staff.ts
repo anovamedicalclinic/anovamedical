@@ -3,7 +3,9 @@
  *
  * Spre deosebire de medici, aceștia nu au pagină individuală, bio sau
  * specialități, deci nu stau în Supabase — doar nume, rol și fotografie.
- * Fotografiile respectă același format ca la medici (1200x1500, raport 4:5).
+ * Fotografiile respectă același format ca la medici (1200x1500, raport 4:5),
+ * dar se fac la recepție, nu în cabinet: cabinetul e pentru cine are „Dr.” sau
+ * „Psiholog” în titulatură (vezi `doctor-photos.ts`).
  */
 export type StaffMember = {
   name: string;

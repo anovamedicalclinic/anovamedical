@@ -1,6 +1,11 @@
 /**
  * Fotografiile medicilor.
  *
+ * Regula de decor, dată de client: cine are „Dr.” sau „Psiholog” în titulatură
+ * se fotografiază în cabinet, la birou. Restul echipei — director, asistente —
+ * se fotografiază la recepție (vezi `staff.ts`). Împărțirea coincide cu cea
+ * dintre tabelul `doctors` și `staff`, deci nu e nevoie de un câmp în plus.
+ *
  * Fișierele stau în `public/medici/` (portret 1200x1500, raport 4:5) și sunt
  * mapate pe slug-ul medicului. Medicii care încă nu au fotografie proprie
  * folosesc `Placeholder.webp`. Conversia PNG -> WebP se face cu
