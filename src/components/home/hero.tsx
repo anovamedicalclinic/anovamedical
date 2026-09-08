@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,44 +8,24 @@ import { ScrollIndicator } from "@/components/home/scroll-indicator";
 
 /**
  * Hero. Fundalul inițial este un gradient cald (paint instant, fără cost de
- * rețea), astfel încât LCP-ul rămâne rapid. Videoclipul se încarcă imediat după
- * idle pe ORICE dispozitiv (inclusiv mobil / iPhone) și apare peste gradient.
+ * rețea), iar videoclipul stă peste el.
+ *
+ * Videoclipul se afișează necondiționat, cerință explicită a clientului. A
+ * existat aici un filtru care îl sărea pe `prefers-reduced-motion`, pe
+ * `Save-Data` și pe conexiuni 2G/3G; a fost scos. De reținut dacă cineva se
+ * întreabă mai târziu de ce: oamenii care cer mișcare redusă o fac de obicei
+ * pentru că mișcarea le provoacă rău fizic, iar un fundal video în buclă e
+ * exact asta. Decizia a fost luată în cunoștință de cauză.
+ *
+ * Elementul `<video>` e randat direct în HTML, nu montat din `useEffect`:
+ * altfel un JavaScript care nu apucă să ruleze ar însemna hero fără video, iar
+ * „indiferent de situație" include și situația aceea. Din același motiv nu mai
+ * există stare `videoReady` care să comande opacitatea — `poster` acoperă
+ * intervalul până la primele cadre, fără să depindă de nimic.
  *
  * Textele vin ca proprietăți, nu citite aici: componenta e client, iar conținutul
  * se încarcă pe server, în pagină.
  */
-/**
- * Decide dacă merită să descărcăm videoclipul.
- *
- * Este pură decorațiune, aflată sub un voal crem de 65-90% opacitate, deci
- * nimeni nu pierde informație dacă rămâne doar posterul. Îl sărim când:
- *
- *  - utilizatorul a cerut mișcare redusă (preferință de accesibilitate, adesea
- *    setată de persoane cu tulburări vestibulare);
- *  - browserul raportează „Save-Data”, adică economie de trafic explicită;
- *  - conexiunea e 2G/3G, unde jumătate de megabyte de decor întârzie tot restul.
- */
-function shouldLoadVideo(): boolean {
-  if (typeof window === "undefined") return false;
-
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    return false;
-  }
-
-  const connection = (
-    navigator as Navigator & {
-      connection?: { saveData?: boolean; effectiveType?: string };
-    }
-  ).connection;
-
-  if (connection?.saveData) return false;
-  if (connection?.effectiveType && /(^|-)2g$|^3g$/.test(connection.effectiveType)) {
-    return false;
-  }
-
-  return true;
-}
-
 export function Hero({
   title,
   subtitle,
@@ -55,34 +35,18 @@ export function Hero({
   subtitle: string;
   ctaLabel: string;
 }) {
-  const [showVideo, setShowVideo] = useState(false);
-  const [videoReady, setVideoReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // iOS/Safari cere muted + playsInline și, uneori, un apel explicit `.play()`.
+  // E doar o plasă: atributul `autoPlay` din markup pornește redarea singur, deci
+  // videoclipul rulează și dacă efectul ăsta nu apucă niciodată să se execute.
   useEffect(() => {
-    if (!shouldLoadVideo()) return;
-
-    const start = () => setShowVideo(true);
-    const w = window as Window & {
-      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => void;
-    };
-    if (w.requestIdleCallback) {
-      w.requestIdleCallback(start, { timeout: 2000 });
-    } else {
-      const t = setTimeout(start, 1000);
-      return () => clearTimeout(t);
-    }
-  }, []);
-
-  // iOS/Safari cere muted + playsInline și, uneori, un apel explicit .play().
-  useEffect(() => {
-    if (!showVideo) return;
     const v = videoRef.current;
     if (!v) return;
     v.muted = true;
     const p = v.play();
     if (p && typeof p.catch === "function") p.catch(() => {});
-  }, [showVideo]);
+  }, []);
 
   return (
     <section className="relative flex min-h-[100svh] items-center overflow-hidden">
@@ -122,30 +86,24 @@ export function Hero({
             aria-hidden
             className="absolute -bottom-24 -left-16 size-80 rounded-full bg-sand/20 blur-3xl"
           />
-          {showVideo && (
-            <video
-              ref={videoRef}
-              autoPlay
-              loop
-              muted
-              playsInline
-              // `metadata`, nu `auto`: elementul e montat abia după ce pagina e
-              // liberă, iar redarea pornește oricum prin `autoPlay`. `auto` ar
-              // concura cu resursele care chiar contează pentru primul ecran.
-              preload="metadata"
-              poster="/hero-poster.jpg"
-              aria-hidden
-              onLoadedData={() => setVideoReady(true)}
-              onCanPlay={() => setVideoReady(true)}
-              className={`absolute inset-0 size-full scale-105 object-cover transition-opacity duration-700 ${
-                videoReady ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              {/* VP9 primul: browserele care îl susțin iau varianta mai mică. */}
-              <source src="/videoprezentare.webm" type="video/webm" />
-              <source src="/videoprezentare.mp4" type="video/mp4" />
-            </video>
-          )}
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            // `metadata`, nu `auto`: `autoPlay` pornește oricum descărcarea, iar
+            // `auto` ar concura mai devreme cu resursele primului ecran.
+            preload="metadata"
+            // Se vede până sosesc primele cadre, deci nu există gol de umplut.
+            poster="/hero-poster.jpg"
+            aria-hidden
+            className="absolute inset-0 size-full scale-105 object-cover"
+          >
+            {/* VP9 primul: browserele care îl susțin iau varianta mai mică. */}
+            <source src="/videoprezentare.webm" type="video/webm" />
+            <source src="/videoprezentare.mp4" type="video/mp4" />
+          </video>
           {/* Voal cremă pentru un fundal calm și contrast bun pentru text. */}
           <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/65 to-background/90" />
           <div className="absolute inset-0 bg-background/10" />
