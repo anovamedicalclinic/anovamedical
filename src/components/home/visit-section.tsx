@@ -26,8 +26,8 @@ export function VisitSection({
 
       {/*
         Aceeași structură ca pe pagina de contact: formularul pe un rând
-        întreg, sediile dedesubt. Înghesuite în jumătate de coloană, cele trei
-        adrese ajungeau fiecare pe patru-cinci rânduri.
+        întreg, sediile dedesubt. Înghesuite în jumătate de coloană, adresele
+        ajungeau fiecare pe patru-cinci rânduri.
       */}
       <Reveal className="mt-12 rounded-3xl border border-border bg-background p-6 shadow-sm shadow-foreground/5 sm:p-8 lg:p-10">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-12">
@@ -87,12 +87,12 @@ export function VisitSection({
             Sedii
           </span>
           <h3 className="mt-2 text-balance text-2xl text-foreground sm:text-3xl">
-            Ne găsești în trei locuri
+            Ne găsești în două locuri
           </h3>
         </Reveal>
 
         <Reveal delay={0.06}>
-          <Locations variant="cards" className="mt-8 md:grid-cols-3" />
+          <Locations variant="cards" className="mt-8 sm:grid-cols-2" />
         </Reveal>
 
         <Reveal delay={0.1} className="mt-6">

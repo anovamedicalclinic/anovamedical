@@ -28,52 +28,43 @@ export const contact = {
 } as const;
 
 /**
- * Cele trei sedii ale clinicii.
+ * Cele două sedii ale clinicii.
  *
  * Primul e cel principal și e singurul care apare acolo unde nu încap toate:
  * butonul flotant de apel, headerul, entitatea principală din JSON-LD. În
  * rest, lista se afișează întreagă — de aceea nu mai există o singură
  * `contact.address`, ca să nu se poată strecura undeva doar unul dintre sedii.
  *
+ * Ambele sunt pe Șoseaua Nicolina, deci `short` poartă zona, nu strada:
+ * „Nicolina” repetat de două ori nu ajută pe nimeni să le deosebească.
+ *
  * `mapQuery` e ce se trimite la Google Maps; e scris cu numele complet al
  * străzii, nu cu prescurtarea de pe pagină, altfel harta ratează adresa.
  */
 export const locations = [
   {
-    id: "nicolina",
-    name: "Anova Medical Clinic – Șos. Nicolina",
-    short: "Șos. Nicolina",
-    address: "Șos. Nicolina, Nr. 14, Iași",
+    id: "nicolina-belvedere",
+    name: "Anova Medical Clinic – Nicolina, Belvedere",
+    short: "Nicolina – Belvedere",
+    address: "Șos. Nicolina, Nr. 14, Bloc 941, Iași",
+    detail: "Parter — zona Belvedere",
     phone: "0774 037 531",
     phoneHref: "tel:+40774037531",
-    mapQuery: "Șoseaua Nicolina 14, Iași",
-    street: "Șoseaua Nicolina, Nr. 14",
+    mapQuery: "Șoseaua Nicolina 14, Bloc 941, Iași",
+    street: "Șos. Nicolina, Nr. 14, Bloc 941",
     locality: "Iași",
   },
   {
-    id: "stefan-cel-mare",
-    name: "Anova Medical Clinic – Bd. Ștefan cel Mare și Sfânt",
-    short: "Bd. Ștefan cel Mare",
-    address: "Bd. Ștefan cel Mare și Sfânt, Nr. 4, Iași",
+    id: "nicolina-selgros",
+    name: "Anova Medical Clinic – Nicolina, Selgros",
+    short: "Nicolina – Selgros",
+    address: "Șos. Nicolina, Nr. 41, Bloc 966, Iași",
+    detail: "Parter — zona Selgros",
     phone: "0774 037 531",
     phoneHref: "tel:+40774037531",
-    mapQuery: "Bulevardul Ștefan cel Mare și Sfânt 4, Iași",
-    street: "Bd. Ștefan cel Mare și Sfânt, Nr. 4",
+    mapQuery: "Șoseaua Nicolina 41, Bloc 966, Iași",
+    street: "Șos. Nicolina, Nr. 41, Bloc 966",
     locality: "Iași",
-  },
-  {
-    id: "tatarusi",
-    name: "Anova Medical Clinic – Tătăruși",
-    short: "Tătăruși",
-    address:
-      "Str. Alexandru Vasiliu Tătăruși, Nr. 98, sat Tătăruși, com. Tătăruși, jud. Iași",
-    detail: "În incinta Centrului Medical Tătăruși, Cabinet 2",
-    phone: "0773 816 891",
-    phoneHref: "tel:+40773816891",
-    mapQuery:
-      "Centrul Medical Tătăruși, Strada Alexandru Vasiliu Tătăruși 98, Tătăruși, Iași",
-    street: "Str. Alexandru Vasiliu Tătăruși, Nr. 98",
-    locality: "Tătăruși",
   },
 ] as const;
 

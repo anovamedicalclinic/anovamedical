@@ -78,7 +78,7 @@ export function LocationCard({
 }
 
 /**
- * Lista celor trei sedii, în trei densități.
+ * Lista sediilor, în trei densități.
  *
  * `list` — rânduri despărțite de o linie subțire. Asta se folosește în
  * interiorul unei cartele (contact, prima pagină): fără chenar propriu, ca să

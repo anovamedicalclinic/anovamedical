@@ -129,7 +129,7 @@ export default async function ContactPage() {
                 Sedii
               </span>
               <h2 className="mt-2 text-balance text-2xl text-foreground sm:text-3xl">
-                Ne găsești în trei locuri
+                Ne găsești în două locuri
               </h2>
             </div>
             <div className="flex items-center gap-3">
@@ -148,7 +148,7 @@ export default async function ContactPage() {
           </Reveal>
 
           <Reveal delay={0.06}>
-            <Locations variant="cards" className="mt-8 md:grid-cols-3" />
+            <Locations variant="cards" className="mt-8 sm:grid-cols-2" />
           </Reveal>
 
           <div className="mt-6 grid gap-6 lg:grid-cols-3">

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -81,7 +80,7 @@ const faqs = [
   },
   {
     q: "Unde vă găsesc?",
-    a: `Avem trei sedii: ${locations.map((l) => l.address).join("; ")}. Telefonul fiecăruia e trecut la Contact.`,
+    a: `Avem două sedii, ambele pe Șos. Nicolina: ${locations.map((l) => `${l.address} (${l.detail})`).join("; ")}. Telefonul e trecut la Contact.`,
   },
 ];
 
@@ -98,80 +97,107 @@ export default async function DespreNoiPage() {
         description="Povestea ANOVA, viziunea și valorile care ne ghidează și echipa care te însoțește la fiecare pas."
       />
 
-      {/* Povestea */}
-      <Section>
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          <div className="flex flex-col gap-6">
+      {/*
+        Povestea.
+
+        Aici a stat o fotografie, într-o grilă de două coloane egale. Scoaterea
+        ei nu a lăsat o coloană goală: secțiunea e acum un articol centrat, cu
+        titlul deasupra și textul într-o singură coloană de lățime lizibilă.
+        E o formă care se susține singură - nimic nu sugerează că ar fi trebuit
+        să stea ceva alături.
+
+        Ritmul îl dau tipografia și spațierea, nu o imagine: paragraf de
+        deschidere mai mare, o linie subțire înainte de „Abordarea noastră", și
+        concluzia marcată cu un filet auriu.
+
+        Nu se folosește `position: sticky` nicăieri aici: `<main>` și `<body>`
+        au `overflow-x-hidden`, ceea ce face din ele containere de derulare și
+        anulează sticky pentru tot ce e dedesubt.
+      */}
+      <Section className="overflow-x-clip">
+        {/* Aureolele calde care însoțeau fotografia rămân, mutate pe secțiune:
+            fără ele, textul ar sta pe un fundal complet plat. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-28 top-20 -z-10 size-72 rounded-full bg-sage/20 blur-3xl"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -left-28 bottom-20 -z-10 size-72 rounded-full bg-sand/20 blur-3xl"
+        />
+
+        <div className="mx-auto max-w-3xl">
+          <div className="text-center">
             <Reveal>
               <span className="text-sm font-medium uppercase tracking-[0.18em] text-sage-strong">
                 Începutul
               </span>
             </Reveal>
             <Reveal delay={0.06}>
-              <h2 className="text-balance text-3xl text-foreground sm:text-4xl">
+              <h2 className="mt-3 text-balance text-3xl text-foreground sm:text-4xl">
                 Un început gândit în jurul oamenilor
               </h2>
             </Reveal>
-            <Reveal
-              delay={0.12}
-              className="prose-readable space-y-4 text-pretty text-muted-foreground"
-            >
-              <p>
-                Clinica a fost concepută ca un loc de siguranță, unde pacienții
-                să se simtă acceptați și înțeleși. Sala de așteptare a fost
-                amenajată pentru a crea o atmosferă liniștită și relaxantă, cu un
-                decor reconfortant. Fiecare detaliu a fost gândit pentru a
-                elimina stigmatul asociat cu „mersul la psihiatru sau psiholog”
-                și pentru a promova o abordare pozitivă a sănătății mintale.
-              </p>
+            <Reveal delay={0.12}>
+              <span aria-hidden className="mx-auto mt-7 block h-px w-14 bg-sand" />
+            </Reveal>
+          </div>
 
-              <h3 className="pt-2 font-heading text-xl text-foreground">
+          <Reveal delay={0.16} className="mt-10 text-pretty sm:mt-12">
+            <p className="text-lg leading-relaxed text-foreground sm:text-xl sm:leading-[1.7]">
+              Clinica a fost concepută ca un loc de siguranță, unde pacienții să
+              se simtă acceptați și înțeleși.
+            </p>
+          </Reveal>
+
+          <Reveal
+            delay={0.2}
+            className="mt-6 space-y-4 text-pretty text-muted-foreground"
+          >
+            <p>
+              Sala de așteptare a fost amenajată pentru a crea o atmosferă
+              liniștită și relaxantă, cu un decor reconfortant. Fiecare detaliu a
+              fost gândit pentru a elimina stigmatul asociat cu „mersul la
+              psihiatru sau psiholog” și pentru a promova o abordare pozitivă a
+              sănătății mintale.
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.24}>
+            <div className="mt-12 border-t border-border pt-10">
+              <h3 className="font-heading text-2xl text-foreground">
                 Abordarea noastră
               </h3>
-              <p>
-                Încă de la început, ANOVA Medical Clinic a pus un accent deosebit
-                pe personalizarea tratamentelor. Fiecare pacient a fost evaluat
-                individual, iar planurile de tratament au fost adaptate nevoilor
-                lor. Psihiatrii și terapeuții au lucrat împreună cu pacienții,
-                construind o relație de încredere și colaborare pentru a găsi
-                cele mai eficiente modalități de a-și redobândi echilibrul.
-              </p>
-              <p>
-                Pe măsură ce timpul a trecut, ANOVA Medical Clinic a devenit un
-                punct de referință în comunitate, oferind nu doar tratamente, ci
-                și programe de educație și prevenție. Clinica a organizat
-                ateliere pentru a informa oamenii despre sănătatea mintală și a
-                încurajat discuții deschise despre această temă.
-              </p>
-              <p>
-                Astfel, ANOVA Medical Clinic continuă povestea, rămânând un far
-                de speranță și un simbol al îngrijirii psihiatrice de înaltă
-                calitate.
-              </p>
-            </Reveal>
-          </div>
+            </div>
+          </Reveal>
 
-          <div className="relative">
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -right-6 -top-6 -z-10 size-40 rounded-full bg-sage/20 blur-3xl"
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -bottom-8 -left-6 -z-10 size-40 rounded-full bg-sand/20 blur-3xl"
-            />
-            <Reveal scale={1.05} duration={0.9}>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] border border-border shadow-xl shadow-foreground/5">
-                <Image
-                  src="/poza-about.jpg"
-                  alt="Echipa Anova Medical Clinic"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover"
-                />
-              </div>
-            </Reveal>
-          </div>
+          <Reveal
+            delay={0.28}
+            className="mt-5 space-y-4 text-pretty text-muted-foreground"
+          >
+            <p>
+              Încă de la început, ANOVA Medical Clinic a pus un accent deosebit pe
+              personalizarea tratamentelor. Fiecare pacient a fost evaluat
+              individual, iar planurile de tratament au fost adaptate nevoilor
+              lor. Psihiatrii și terapeuții au lucrat împreună cu pacienții,
+              construind o relație de încredere și colaborare pentru a găsi cele
+              mai eficiente modalități de a-și redobândi echilibrul.
+            </p>
+            <p>
+              Pe măsură ce timpul a trecut, ANOVA Medical Clinic a devenit un
+              punct de referință în comunitate, oferind nu doar tratamente, ci și
+              programe de educație și prevenție. Clinica a organizat ateliere
+              pentru a informa oamenii despre sănătatea mintală și a încurajat
+              discuții deschise despre această temă.
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.32} className="mt-10 text-pretty">
+            <p className="border-l-2 border-sand pl-6 text-base leading-relaxed text-foreground sm:text-lg sm:leading-relaxed">
+              Astfel, ANOVA Medical Clinic continuă povestea, rămânând un far de
+              speranță și un simbol al îngrijirii psihiatrice de înaltă calitate.
+            </p>
+          </Reveal>
         </div>
       </Section>
 
@@ -314,7 +340,7 @@ export default async function DespreNoiPage() {
 
         {/*
           Sediile pe toată lățimea, sub cele două coloane. Într-o jumătate de
-          coloană, adresa din Tătăruși se rupea în cinci rânduri.
+          coloană, adresele se rupeau în patru-cinci rânduri.
         */}
         <div className="mt-14 sm:mt-16">
           <Reveal>
@@ -322,11 +348,11 @@ export default async function DespreNoiPage() {
               Sedii
             </span>
             <h3 className="mt-2 text-balance text-2xl text-foreground sm:text-3xl">
-              Ne găsești în trei locuri
+              Ne găsești în două locuri
             </h3>
           </Reveal>
           <Reveal delay={0.06}>
-            <Locations variant="cards" className="mt-8 md:grid-cols-3" />
+            <Locations variant="cards" className="mt-8 sm:grid-cols-2" />
           </Reveal>
         </div>
       </Section>

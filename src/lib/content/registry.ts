@@ -398,9 +398,9 @@ export const contentSections: ContentSection[] = [
         max: 120,
         default: "contact@anovamedical.ro",
       },
-      // Adresa nu mai e un singur câmp: clinica are trei sedii, iar lista lor
+      // Adresa nu mai e un singur câmp: clinica are două sedii, iar lista lor
       // stă în `locations` din `src/lib/site.ts`. Un câmp „Adresă" aici ar fi
-      // arătat un sediu din trei și n-ar fi schimbat nimic pe site.
+      // arătat un singur sediu și n-ar fi schimbat nimic pe site.
       {
         key: "site.contact.note",
         label: "Notă despre consultații",
