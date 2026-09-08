@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion, type HTMLMotionProps } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { motion, type HTMLMotionProps } from "motion/react";
 import { cn } from "@/lib/utils";
 
 type RevealProps = {
@@ -26,8 +27,23 @@ type RevealProps = {
  * Wrapper pentru animații subtile la scroll: conținutul intră estompat și se
  * limpezește, cu fade + translate (+ scale opțional), o singură dată.
  *
- * Blurul e ce face trecerea să pară graduală: fără el, elementul apare dintr-o
- * dată, cu marginile deja tăioase. Respectă `prefers-reduced-motion`.
+ * Regula de bază: **conținutul nu depinde niciodată de JavaScript ca să fie
+ * vizibil.** Serverul randează un element obișnuit, fără niciun stil inline,
+ * deci textul se vede din primul paint - pe orice dispozitiv, pe orice
+ * conexiune, chiar dacă bundle-ul nu ajunge niciodată.
+ *
+ * Animația se „armează" abia după hidratare și numai pentru elementele aflate
+ * SUB ecran în acel moment. Astfel:
+ *
+ *  - ce se vede deja la încărcare rămâne vizibil, fără clipire și fără să
+ *    aștepte nimic (contează direct pentru LCP);
+ *  - ce e mai jos pornește ascuns și se animează la derulare, ca înainte -
+ *    schimbarea de stare se petrece în afara ecranului, deci nu se observă;
+ *  - dacă JavaScript-ul nu rulează deloc, nimic nu se armează și pagina rămâne
+ *    pur și simplu întreagă.
+ *
+ * Varianta anterioară făcea exact invers - pleca de la `opacity:0` randat pe
+ * server - și golea complet site-ul ori de câte ori JS-ul întârzia sau pica.
  */
 export function Reveal({
   children,
@@ -41,12 +57,22 @@ export function Reveal({
   as = "div",
   ...props
 }: RevealProps) {
-  const reduceMotion = useReducedMotion();
+  const ref = useRef<HTMLElement>(null);
+  const [armed, setArmed] = useState(false);
 
-  if (reduceMotion) {
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    // Strict ce e sub marginea de jos a ecranului. `getBoundingClientRect` e
+    // citit o singură dată, la montare, deci nu costă nimic la derulare.
+    if (el.getBoundingClientRect().top > window.innerHeight) setArmed(true);
+  }, []);
+
+  if (!armed) {
     const Tag = as;
     return (
       <Tag
+        ref={ref as React.Ref<never>}
         className={className}
         {...(props as unknown as React.HTMLAttributes<HTMLElement>)}
       >

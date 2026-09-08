@@ -1,12 +1,16 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 /**
  * Învelește o secțiune și o aduce în prim-plan cu un fade (opacity 0 → 1)
- * la intrarea în viewport, pentru o tranziție lină între secțiuni la scroll.
- * O singură dată și respectă `prefers-reduced-motion`.
+ * la intrarea în viewport, o singură dată.
+ *
+ * Aceeași regulă ca la [Reveal]: serverul trimite secțiunea vizibilă, iar
+ * fade-ul se armează după hidratare, doar dacă secțiunea e sub ecran. Vezi
+ * comentariul din `reveal.tsx` pentru ce se strica altfel.
  */
 export function FadeSection({
   children,
@@ -15,10 +19,21 @@ export function FadeSection({
   children: React.ReactNode;
   className?: string;
 }) {
-  const reduceMotion = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const [armed, setArmed] = useState(false);
 
-  if (reduceMotion) {
-    return <div className={className}>{children}</div>;
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (el.getBoundingClientRect().top > window.innerHeight) setArmed(true);
+  }, []);
+
+  if (!armed) {
+    return (
+      <div ref={ref} className={className}>
+        {children}
+      </div>
+    );
   }
 
   return (
