@@ -6,6 +6,7 @@ import { requireUser, roleCan, roleLabels } from "@/lib/auth/dal";
 import { countNewAppointments } from "@/lib/admin/appointments";
 import { signOut } from "@/lib/actions/auth";
 import { AdminNav, type NavItem } from "./nav";
+import { Toaster } from "@/components/ui/sonner";
 
 /**
  * Cromatica panoului: bară laterală și antet.
@@ -109,6 +110,7 @@ export default async function PanelLayout({
 
         <main className="min-w-0 flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
       </div>
+      <Toaster richColors position="top-center" />
     </div>
   );
 }

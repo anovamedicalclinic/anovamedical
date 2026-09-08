@@ -30,7 +30,11 @@ export function TeamCarousel({ items }: { items: Item[] }) {
             data-card
             className="h-[27rem] w-[270px] shrink-0 snap-start sm:w-[290px]"
           >
-            <DoctorFlipCard doctor={doctor} specialties={specialties} />
+            <DoctorFlipCard
+              doctor={doctor}
+              specialties={specialties}
+              sizes="(min-width: 640px) 290px, 270px"
+            />
           </div>
         ))}
       </div>

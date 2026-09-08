@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { PrefetchLink } from "@/components/prefetch-link";
 import { ArrowRight, RotateCcw, Stethoscope } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { doctorPhoto } from "@/lib/doctor-photos";
@@ -13,9 +13,20 @@ import type { Doctor, Specialty } from "@/lib/supabase/types";
 export function DoctorFlipCard({
   doctor,
   specialties,
+  sizes = "(min-width: 1280px) 300px, (min-width: 1024px) 30vw, 45vw",
 }: {
   doctor: Doctor;
   specialties: Specialty[];
+  /**
+   * Lățimea reală a cardului, pe puncte de rupere.
+   *
+   * Nu e detaliu cosmetic: browserul alege din `srcset` pe baza acestei valori,
+   * iar o valoare prea mare îl face să descarce o poză mult mai mare decât
+   * încape pe ecran. Implicit descrie grila din `/echipa` (2 coloane pe telefon,
+   * 3 pe laptop, 4 pe desktop). Caruselul de pe Acasă are lățime fixă, deci își
+   * trimite propria valoare.
+   */
+  sizes?: string;
 }) {
   const [flipped, setFlipped] = useState(false);
   const toggle = () => setFlipped((v) => !v);
@@ -46,7 +57,7 @@ export function DoctorFlipCard({
               src={doctorPhoto(doctor)}
               alt={`Portret ${doctor.name}`}
               fill
-              sizes="(max-width: 640px) 90vw, 300px"
+              sizes={sizes}
               className="object-cover object-top transition-transform duration-500 group-hover/card:scale-105"
             />
           </div>
@@ -106,14 +117,14 @@ export function DoctorFlipCard({
           </div>
 
           <div className="mt-3 flex items-center justify-between gap-3 border-t border-primary-foreground/15 pt-3 sm:mt-4 sm:pt-4">
-            <Link
+            <PrefetchLink
               href={`/echipa/${doctor.slug}`}
               onClick={(e) => e.stopPropagation()}
               className="inline-flex items-center gap-1.5 text-xs font-medium text-primary-foreground hover:text-primary-foreground/80 sm:text-sm"
             >
               Vezi profilul
               <ArrowRight className="size-3.5 sm:size-4" />
-            </Link>
+            </PrefetchLink>
             <span className="hidden items-center gap-1.5 text-xs text-primary-foreground/60 sm:inline-flex">
               <RotateCcw className="size-3.5" />
               Înapoi

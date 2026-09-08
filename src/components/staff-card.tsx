@@ -14,7 +14,7 @@ export function StaffCard({ member }: { member: StaffMember }) {
           src={member.photo_url ?? "/medici/Placeholder.webp"}
           alt={`Portret ${member.name}`}
           fill
-          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 30vw, 45vw"
           className="object-cover object-top"
         />
       </div>

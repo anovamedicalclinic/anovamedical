@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import { Toaster } from "@/components/ui/sonner";
 import { siteConfig } from "@/lib/site";
 
 // Body / UI - Gotham Book (font secundar de brand) nu are diacriticele românești
@@ -106,7 +105,6 @@ export default function RootLayout({
         {/* Antetul, subsolul și butoanele flotante stau în `(site)/layout.tsx`,
             ca panoul de administrare să nu le moștenească. */}
         {children}
-        <Toaster richColors position="top-center" />
       </body>
     </html>
   );

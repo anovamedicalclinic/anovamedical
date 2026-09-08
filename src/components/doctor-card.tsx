@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { PrefetchLink } from "@/components/prefetch-link";
 import { ArrowUpRight } from "lucide-react";
 import { doctorPhoto } from "@/lib/doctor-photos";
 import type { Doctor } from "@/lib/supabase/types";
@@ -28,7 +28,7 @@ export function DoctorCard({
   >;
 }) {
   return (
-    <Link
+    <PrefetchLink
       href={`/echipa/${doctor.slug}`}
       className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card transition-colors duration-300 hover:border-primary/30"
     >
@@ -37,7 +37,7 @@ export function DoctorCard({
           src={doctorPhoto(doctor)}
           alt={`Portret ${doctor.name}`}
           fill
-          sizes="(max-width: 768px) 100vw, 25vw"
+          sizes="(min-width: 1024px) 25vw, 45vw"
           className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
         />
       </div>
@@ -57,7 +57,7 @@ export function DoctorCard({
           </p>
         )}
       </div>
-    </Link>
+    </PrefetchLink>
   );
 }
 

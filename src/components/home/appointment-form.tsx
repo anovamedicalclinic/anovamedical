@@ -32,6 +32,7 @@ import {
 import { contact } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import type { Specialty } from "@/lib/supabase/types";
+import { Toaster } from "@/components/ui/sonner";
 
 export function AppointmentForm({
   specialties,
@@ -73,7 +74,12 @@ export function AppointmentForm({
   const errClass = "text-xs text-destructive";
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+    <>
+      {/* Notificările de trimitere. Montate aici, nu în layout-ul rădăcină:
+          sonner (~35 KB) se încărca altfel pe fiecare pagină publică, deși
+          formularul e singurul loc din site care ridică vreun toast. */}
+      <Toaster richColors position="top-center" />
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
       {/* Honeypot */}
       <input
         type="text"
@@ -253,6 +259,7 @@ export function AppointmentForm({
         Programarea nu e confirmată automat: te sunăm la {contact.phone} ca să
         stabilim data și ora.
       </p>
-    </form>
+      </form>
+    </>
   );
 }
