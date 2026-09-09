@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildMetadata, requireMeta } from "@/lib/page-meta";
 import { connection } from "next/server";
 import { PageHeader } from "@/components/layout/page-header";
 import { Section, SectionHeading } from "@/components/layout/section";
@@ -10,12 +11,10 @@ import { getDoctors, getSpecialtiesByDoctor, getStaff } from "@/lib/data";
 import { getContent } from "@/lib/content/get";
 import { shuffle } from "@/lib/utils";
 
-export const metadata: Metadata = {
-  title: "Echipa",
-  description:
-    "Echipa Anova Medical Clinic: medici psihiatri, psihologi, neurologi, cardiologi și endocrinologi dedicați sănătății tale, în Iași.",
-  alternates: { canonical: "/echipa" },
-};
+export const metadata: Metadata = buildMetadata({
+  path: "/echipa",
+  ...requireMeta("/echipa"),
+});
 
 export default async function EchipaPage() {
   // Ordinea medicilor se amestecă la fiecare vizită, ca nimeni să nu fie

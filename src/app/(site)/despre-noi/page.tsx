@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildMetadata, requireMeta } from "@/lib/page-meta";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -33,12 +34,10 @@ import { LocationsMap } from "@/components/layout/locations-map";
 import { getDoctors } from "@/lib/data";
 import { contact, locations } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Povestea noastră",
-  description:
-    "Povestea ANOVA Medical Clinic din Iași: abordarea noastră, viziunea, misiunea și valorile care ne ghidează, și echipa care are grijă de sănătatea ta mintală și neurologică.",
-  alternates: { canonical: "/despre-noi" },
-};
+export const metadata: Metadata = buildMetadata({
+  path: "/despre-noi",
+  ...requireMeta("/despre-noi"),
+});
 
 const values = [
   {

@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
+import { buildMetadata, requireMeta } from "@/lib/page-meta";
 import { LegalPage } from "@/components/layout/legal-page";
 import { contact } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Politica de cookie-uri",
-  description:
-    "Politica de cookie-uri a Anova Medical Clinic: ce sunt cookie-urile, ce tipuri folosim și cum le poți gestiona.",
-  alternates: { canonical: "/politica-de-cookie-uri" },
-};
+export const metadata: Metadata = buildMetadata({
+  path: "/politica-de-cookie-uri",
+  ...requireMeta("/politica-de-cookie-uri"),
+});
 
 export default function CookiePage() {
   return (

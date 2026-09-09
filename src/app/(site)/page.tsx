@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { buildMetadata, requireMeta } from "@/lib/page-meta";
 import { Hero } from "@/components/home/hero";
 import { AboutPreview } from "@/components/home/about-preview";
 import { SpecialtiesSection } from "@/components/home/specialties-section";
@@ -9,6 +11,14 @@ import { FadeSection } from "@/components/fade-section";
 import { getDoctors, getSpecialties, getTestimonials } from "@/lib/data";
 import { fill, getContent } from "@/lib/content/get";
 import { siteConfig } from "@/lib/site";
+
+// Titlul și descrierea primei pagini vin din aceeași sursă ca restul, nu
+// din `layout.tsx`: acolo rămân doar valorile implicite, pentru paginile
+// care nu-și declară nimic.
+export const metadata: Metadata = buildMetadata({
+  path: "/",
+  ...requireMeta("/"),
+});
 
 export default async function Home() {
   const [specialties, doctors, testimonials, content] = await Promise.all([

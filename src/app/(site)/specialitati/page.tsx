@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildMetadata, requireMeta } from "@/lib/page-meta";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Users } from "lucide-react";
@@ -10,12 +11,10 @@ import { SpecialtyIcon } from "@/lib/icons";
 import { getDoctorsBySpecialtySlug, getSpecialties } from "@/lib/data";
 import { specialtyImage } from "@/lib/specialty-images";
 
-export const metadata: Metadata = {
-  title: "Specialități",
-  description:
-    "Specialitățile Anova Medical Clinic din Iași: psihiatrie, psihiatrie pediatrică, psihologie, neurologie, cardiologie și endocrinologie. Îngrijire completă, sub același acoperiș.",
-  alternates: { canonical: "/specialitati" },
-};
+export const metadata: Metadata = buildMetadata({
+  path: "/specialitati",
+  ...requireMeta("/specialitati"),
+});
 
 export default async function SpecialitatiPage() {
   const specialties = await getSpecialties();

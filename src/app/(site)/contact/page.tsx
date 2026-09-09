@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildMetadata, requireMeta } from "@/lib/page-meta";
 import {
   ArrowUpRight,
   Clock,
@@ -22,12 +23,10 @@ import { getSpecialties } from "@/lib/data";
 import { contact, social } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Contactează Anova Medical Clinic din Iași: telefon 0774 037 531, WhatsApp, email și formular de programare. Programarea se confirmă telefonic.",
-  alternates: { canonical: "/contact" },
-};
+export const metadata: Metadata = buildMetadata({
+  path: "/contact",
+  ...requireMeta("/contact"),
+});
 
 const methods = [
   {

@@ -17,6 +17,7 @@ import {
   getSpecialtyBySlug,
 } from "@/lib/data";
 import { specialtyImage } from "@/lib/specialty-images";
+import { buildMetadata, pageMeta } from "@/lib/page-meta";
 import { specialtyContent, type SpecialtyBlock } from "@/lib/specialty-content";
 import { ConditionPills } from "@/components/specialty/condition-pills";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -36,19 +37,23 @@ export async function generateMetadata({
   const { slug } = await params;
   const specialty = await getSpecialtyBySlug(slug);
   if (!specialty) return { title: "Specialitate negăsită" };
-  const description =
-    specialtyContent[slug]?.intro[0] ?? specialty.summary ?? undefined;
-  return {
-    title: specialty.name,
-    description,
-    alternates: { canonical: `/specialitati/${slug}` },
-    openGraph: {
-      type: "article",
-      title: `${specialty.name} · Anova Medical Clinic`,
-      description,
-      url: `/specialitati/${slug}`,
-    },
-  };
+
+  const path = `/specialitati/${slug}`;
+  const legacy = pageMeta[path];
+
+  return buildMetadata({
+    path,
+    type: "article",
+    image: specialtyImage(slug) ?? undefined,
+    title: legacy?.title ?? `${specialty.name} · Anova Medical Clinic`,
+    // Fără o descriere scrisă anume, cădem pe rezumatul specialității. NU pe
+    // primul paragraf al paginii: e scris ca să fie citit, nu ca meta, și
+    // ajungea la 357 de caractere, mai mult decât dublul a ce afișează Google.
+    description:
+      legacy?.description ??
+      specialty.summary ??
+      `${specialty.name} la Anova Medical Clinic, Iași.`,
+  });
 }
 
 function BlockContent({

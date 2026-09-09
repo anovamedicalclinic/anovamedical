@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
+import { buildMetadata, requireMeta } from "@/lib/page-meta";
 import { LegalPage } from "@/components/layout/legal-page";
 import { contact, legal, locations } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Politica de confidențialitate",
-  description:
-    "Politica de confidențialitate a Anova Medical Clinic (AMEDICALCLINIC SRL), conform Regulamentului (UE) 2016/679 (GDPR) și legislației din România.",
-  alternates: { canonical: "/politica-de-confidentialitate" },
-};
+export const metadata: Metadata = buildMetadata({
+  path: "/politica-de-confidentialitate",
+  ...requireMeta("/politica-de-confidentialitate"),
+});
 
 export default function PrivacyPage() {
   return (

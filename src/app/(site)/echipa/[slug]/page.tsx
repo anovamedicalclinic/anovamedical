@@ -26,6 +26,7 @@ import {
 } from "@/lib/data";
 import { doctorDetails } from "@/lib/doctor-details";
 import { doctorPhoto } from "@/lib/doctor-photos";
+import { buildMetadata, pageMeta } from "@/lib/page-meta";
 import { Locations } from "@/components/layout/locations";
 import { contact } from "@/lib/site";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -44,19 +45,23 @@ export async function generateMetadata({
   const { slug } = await params;
   const doctor = await getDoctorBySlug(slug);
   if (!doctor) return { title: "Specialist negăsit" };
-  const description =
-    `${doctor.title ?? "Specialist"} la Anova Medical Clinic, Iași. ${doctor.short_bio ?? ""}`.trim();
-  return {
-    title: doctor.name,
-    description,
-    alternates: { canonical: `/echipa/${slug}` },
-    openGraph: {
-      type: "profile",
-      title: `${doctor.name} · Anova Medical Clinic`,
-      description,
-      url: `/echipa/${slug}`,
-    },
-  };
+
+  const path = `/echipa/${slug}`;
+  // Medicii care aveau pagină pe site-ul vechi păstrează titlul și descrierea
+  // de acolo; ceilalți primesc una compusă din titulatură și biografia scurtă.
+  const legacy = pageMeta[path];
+
+  return buildMetadata({
+    path,
+    type: "profile",
+    // Portretul propriu, nu imaginea generică a clinicii: linkul unui medic
+    // trimis pe WhatsApp arată omul despre care e vorba.
+    image: doctorPhoto(doctor),
+    title: legacy?.title ?? `${doctor.name} · Anova Medical Clinic`,
+    description:
+      legacy?.description ??
+      `${doctor.title ?? "Specialist"} la Anova Medical Clinic, Iași. ${doctor.short_bio ?? ""}`.trim(),
+  });
 }
 
 export default async function DoctorPage({

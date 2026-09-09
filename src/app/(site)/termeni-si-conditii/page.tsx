@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
+import { buildMetadata, requireMeta } from "@/lib/page-meta";
 import { LegalPage } from "@/components/layout/legal-page";
 import { contact, legal, locations } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Termeni și condiții",
-  description:
-    "Termenii și condițiile de utilizare a website-ului Anova Medical Clinic (AMEDICALCLINIC SRL).",
-  alternates: { canonical: "/termeni-si-conditii" },
-};
+export const metadata: Metadata = buildMetadata({
+  path: "/termeni-si-conditii",
+  ...requireMeta("/termeni-si-conditii"),
+});
 
 export default function TermsPage() {
   return (
