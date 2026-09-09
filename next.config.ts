@@ -47,6 +47,54 @@ const securityHeaders = [
   { key: "X-DNS-Prefetch-Control", value: "on" },
 ];
 
+/**
+ * Redirecturi de pe site-ul WordPress înlocuit.
+ *
+ * Structura veche era alta: medicii stăteau sub `/despre-noi/<nume>`, iar
+ * specialitățile direct în rădăcină. Fără regulile de mai jos, cele ~48 de
+ * adrese indexate de Google ar da 404 în ziua mutării domeniului, iar
+ * poziționarea construită până acum s-ar pierde.
+ *
+ * `permanent: true` trimite 308, nu 301. Next preferă 308 pentru că păstrează
+ * metoda cererii; Google îl tratează identic cu 301 la transferul de autoritate.
+ *
+ * Adresele vechi se termină toate cu `/`. Nu au nevoie de reguli separate:
+ * proiectul rulează cu `trailingSlash` implicit (false), deci Next normalizează
+ * întâi `/x/` la `/x` și abia apoi caută potrivirea.
+ */
+
+/** Aveau pagină pe site-ul vechi, nu mai sunt în echipă. Profilul nu mai
+ *  există, deci îi ducem la lista de echipă, nu în 404. */
+const MEDICI_PLECATI = [
+  "cezara-ungureanu",
+  "codrina-barbalata",
+  "diana-arcana",
+  "lacramioara-mihaela-marar",
+  "ramona-profire",
+  "romeo-dobrin",
+];
+
+/** Specialitățile stăteau în rădăcină, acum sunt sub `/specialitati`. */
+const SPECIALITATI_MUTATE = [
+  "neurologie",
+  "psihiatrie",
+  "psihiatrie-pediatrica",
+  "psihologie",
+];
+
+/** Rămășițe din tema WordPress (pagini demo de blog și „portfolio", un footer
+ *  de probă) plus `/qr1`, pagina către care duceau codurile QR tipărite.
+ *  Niciuna nu are corespondent, deci merg la prima pagină. */
+const PAGINI_FARA_CORESPONDENT = [
+  "/blog",
+  "/blog/:path*",
+  "/portfolio",
+  "/portfolio/:path*",
+  "/portfolio_category/:path*",
+  "/footer-home-03",
+  "/qr1",
+];
+
 /** Un an, imuabil - pentru fișiere cu nume stabil din `public/`. */
 const IMMUTABLE = "public, max-age=31536000, immutable";
 
@@ -86,6 +134,46 @@ const nextConfig: NextConfig = {
         hostname: "www.anovamedical.ro",
       },
     ],
+  },
+  async redirects() {
+    /*
+      Ordinea contează: prima regulă care se potrivește câștigă. Regula generală
+      pentru medici stă ultima, altfel ar înghiți și `/despre-noi/contact`, și
+      medicii plecați, trimițându-i pe toți către profiluri care nu există.
+    */
+    return [
+      // Contactul era o subpagină a secțiunii „despre noi".
+      {
+        source: "/despre-noi/contact",
+        destination: "/contact",
+        permanent: true,
+      },
+
+      ...MEDICI_PLECATI.map((slug) => ({
+        source: `/despre-noi/${slug}`,
+        destination: "/echipa",
+        permanent: true,
+      })),
+
+      ...SPECIALITATI_MUTATE.map((slug) => ({
+        source: `/${slug}`,
+        destination: `/specialitati/${slug}`,
+        permanent: true,
+      })),
+
+      ...PAGINI_FARA_CORESPONDENT.map((source) => ({
+        source,
+        destination: "/",
+        permanent: true,
+      })),
+
+      // Medicii rămași în echipă au păstrat exact același slug.
+      {
+        source: "/despre-noi/:slug",
+        destination: "/echipa/:slug",
+        permanent: true,
+      },
+    ];
   },
   async headers() {
     return [
