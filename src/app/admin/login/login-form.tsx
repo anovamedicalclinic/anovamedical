@@ -1,20 +1,21 @@
 "use client";
 
-import { useActionState } from "react";
 import { AlertCircle, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useFormAction } from "@/components/admin/ui";
 import { signIn, type LoginState } from "@/lib/actions/auth";
 
 export function LoginForm({ redirectTo }: { redirectTo?: string }) {
-  const [state, action, pending] = useActionState<LoginState, FormData>(
+  // Prin `useFormAction`, ca o parolă greșită să nu golească și adresa de email.
+  const { state, onSubmit, pending } = useFormAction<LoginState>(
     signIn,
     undefined,
   );
 
   return (
-    <form action={action} className="space-y-5">
+    <form onSubmit={onSubmit} className="space-y-5">
       {redirectTo && <input type="hidden" name="redirectTo" value={redirectTo} />}
 
       <div className="space-y-2">

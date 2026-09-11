@@ -85,7 +85,11 @@ export async function createStaff(
       .select("id")
       .single();
 
-    if (error) throw error;
+    if (error) {
+      // Fotografia a urcat deja; fără rând, nu o mai folosește nimeni.
+      await deletePortrait(photoUrl);
+      throw error;
+    }
 
     await logAudit({
       actorId: auth.user.id,
@@ -136,12 +140,13 @@ export async function updateStaff(
     if (!existing) return { error: "Membrul nu mai există." };
 
     let photoUrl = existing.photo_url;
+    let uploaded: string | null = null;
     const photo = formData.get("photo");
     if (photo instanceof File && photo.size > 0) {
       const upload = await uploadPortrait(photo, s.name, Date.now());
       if (!upload.ok) return { error: upload.error };
       photoUrl = upload.url;
-      await deletePortrait(existing.photo_url);
+      uploaded = upload.url;
     }
 
     const { error } = await supabase
@@ -154,7 +159,15 @@ export async function updateStaff(
       })
       .eq("id", s.id);
 
-    if (error) throw error;
+    if (error) {
+      // Rândul a rămas pe fotografia veche; cea abia încărcată nu mai servește.
+      await deletePortrait(uploaded);
+      throw error;
+    }
+
+    // Poza veche se șterge abia după ce rândul arată spre cea nouă, altfel o
+    // salvare eșuată lăsa pe site o imagine ruptă.
+    if (uploaded) await deletePortrait(existing.photo_url);
 
     await logAudit({
       actorId: auth.user.id,

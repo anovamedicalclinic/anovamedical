@@ -25,7 +25,9 @@ export async function logAudit(entry: {
 
   try {
     const supabase = createAdminClient();
-    await supabase.from("audit_log").insert({
+    // Supabase nu aruncă la eșec, întoarce `error`; fără verificare, o scriere
+    // respinsă trecea neobservată.
+    const { error } = await supabase.from("audit_log").insert({
       actor_id: entry.actorId ?? null,
       actor_email: entry.actorEmail ?? null,
       action: entry.action,
@@ -33,6 +35,7 @@ export async function logAudit(entry: {
       entity_id: entry.entityId ?? null,
       details: entry.details ?? null,
     });
+    if (error) throw error;
   } catch (err) {
     console.error("[audit] nu am putut scrie în jurnal:", err);
   }

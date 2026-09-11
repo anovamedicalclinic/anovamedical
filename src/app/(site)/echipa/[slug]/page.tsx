@@ -74,9 +74,13 @@ export default async function DoctorPage({
   if (!doctor) notFound();
 
   const specialties = await getSpecialtiesForDoctor(doctor.id);
+  // Timeline-urile (educație, experiență) sunt încă în cod; descrierea vine din
+  // panou, cu paragrafele separate de un rând liber.
   const details = doctorDetails[slug];
-  const description =
-    details?.description ?? (doctor.full_bio ? [doctor.full_bio] : []);
+  const description = (doctor.full_bio ?? "")
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .filter(Boolean);
   const photo = doctorPhoto(doctor);
 
   return (

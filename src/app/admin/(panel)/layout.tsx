@@ -35,15 +35,17 @@ const allItems: NavItem[] = [
 export default async function PanelLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const user = await requireUser();
+  // Numărul de cereri noi, arătat ca badge lângă „Cereri de programare”. Citit
+  // în paralel cu sesiunea, nu după ea: RLS întoarce oricum zero rânduri fără
+  // un profil activ, deci nu avem nevoie de rol ca să pornim interogarea.
+  const [user, count] = await Promise.all([
+    requireUser(),
+    countNewAppointments(),
+  ]);
   const role = user.profile.role;
 
   const items = allItems.filter((item) => roleCan(role, item.area));
-
-  // Numărul de cereri noi, arătat ca badge lângă „Cereri de programare”.
-  const newCount = roleCan(role, "appointments")
-    ? await countNewAppointments()
-    : 0;
+  const newCount = roleCan(role, "appointments") ? count : 0;
 
   const withBadges = items.map((item) =>
     item.href === "/admin/cereri" ? { ...item, badge: newCount } : item,

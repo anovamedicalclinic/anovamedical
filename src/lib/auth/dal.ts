@@ -36,30 +36,34 @@ export type SessionUser = {
  * `cache()` memoizează pe durata unui singur render, deci mai multe apeluri în
  * aceeași pagină nu înseamnă mai multe interogări.
  *
- * Folosește `getUser()`, nu `getSession()`: `getUser()` validează token-ul la
- * serverul Supabase, în timp ce sesiunea din cookie poate fi falsificată.
+ * Folosește `getClaims()`, nu `getSession()`: sesiunea din cookie poate fi
+ * falsificată, iar `getClaims()` verifică semnătura token-ului. Proiectul are
+ * chei de semnare asimetrice (ES256), deci verificarea se face local, fără
+ * drum la serverul de autentificare - `getUser()` costa un apel de rețea la
+ * fiecare pagină.
+ *
+ * Profilul se citește în continuare din baza de date la fiecare cerere, deci un
+ * cont dezactivat sau șters pierde accesul imediat, nu la expirarea token-ului.
  */
 export const getSessionUser = cache(async (): Promise<SessionUser | null> => {
   try {
     const supabase = await createClient();
 
-    const {
-      data: { user },
-      error,
-    } = await supabase.auth.getUser();
+    const { data, error } = await supabase.auth.getClaims();
+    const claims = data?.claims;
 
-    if (error || !user) return null;
+    if (error || !claims?.sub) return null;
 
     const { data: profile } = await supabase
       .from("profiles")
       .select("*")
-      .eq("id", user.id)
+      .eq("id", claims.sub)
       .maybeSingle();
 
     // Cont fără profil sau dezactivat: tratat ca neautentificat.
     if (!profile || !profile.is_active) return null;
 
-    return { id: user.id, email: user.email ?? profile.email, profile };
+    return { id: claims.sub, email: claims.email || profile.email, profile };
   } catch (err) {
     console.error("[auth] nu am putut citi sesiunea:", err);
     return null;

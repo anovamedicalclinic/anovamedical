@@ -6,7 +6,6 @@ import { PrefetchLink } from "@/components/prefetch-link";
 import { ArrowRight, RotateCcw, Stethoscope } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { doctorPhoto } from "@/lib/doctor-photos";
-import { doctorCardBio } from "@/lib/doctor-bios";
 import { cn } from "@/lib/utils";
 import type { Doctor, Specialty } from "@/lib/supabase/types";
 
@@ -112,7 +111,7 @@ export function DoctorFlipCard({
             )}
 
             <p className="line-clamp-4 text-pretty text-xs leading-relaxed text-primary-foreground/85 sm:line-clamp-6 sm:text-sm">
-              {doctorCardBio[doctor.slug] ?? doctor.short_bio}
+              {doctor.short_bio}
             </p>
           </div>
 

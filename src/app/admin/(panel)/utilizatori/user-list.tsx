@@ -13,8 +13,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { FormMessage, SubmitButton } from "@/components/admin/ui";
-import { useActionState } from "react";
+import {
+  FormMessage,
+  SubmitButton,
+  useFormAction,
+} from "@/components/admin/ui";
 import {
   createUser,
   deleteUser,
@@ -37,14 +40,15 @@ export type UserRow = {
 const roles: UserRole[] = ["admin", "editor", "reception"];
 
 export function CreateUserForm() {
-  const [state, action] = useActionState<UserActionState, FormData>(
+  const { state, onSubmit, pending, saved } = useFormAction<UserActionState>(
     createUser,
     {},
   );
 
   return (
-    <form action={action} className="space-y-4">
-      <div className="grid gap-4 sm:grid-cols-2">
+    <form onSubmit={onSubmit} className="space-y-4">
+      {/* Refăcut gol după fiecare cont creat; o eroare păstrează ce s-a scris. */}
+      <div key={saved} className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="fullName">Nume complet</Label>
           <Input id="fullName" name="fullName" required maxLength={120} />
@@ -98,7 +102,7 @@ export function CreateUserForm() {
 
       <FormMessage ok={state.ok} message={state.message} error={state.error} />
 
-      <SubmitButton pendingLabel="Se creează…">
+      <SubmitButton pending={pending} pendingLabel="Se creează…">
         <UserPlus className="size-4" />
         Creează cont
       </SubmitButton>

@@ -130,6 +130,8 @@ export async function createDoctor(
       .single();
 
     if (error) {
+      // Fotografia a urcat deja; fără rând, nu o mai folosește nimeni.
+      await deletePortrait(photoUrl);
       if (error.code === "23505") {
         return { error: "Există deja un medic cu această adresă (slug)." };
       }
@@ -187,20 +189,21 @@ export async function updateDoctor(
     if (!existing) return { error: "Medicul nu mai există." };
 
     let photoUrl = existing.photo_url;
+    let uploaded: string | null = null;
     const photo = formData.get("photo");
     if (photo instanceof File && photo.size > 0) {
-      const upload = await uploadPortrait(photo, d.slug, Date.now());
+      const upload = await uploadPortrait(photo, existing.slug, Date.now());
       if (!upload.ok) return { error: upload.error };
       photoUrl = upload.url;
-      // Ștergem poza veche abia după ce cea nouă e sus, ca o eroare de încărcare
-      // să nu lase medicul fără fotografie.
-      await deletePortrait(existing.photo_url);
+      uploaded = upload.url;
     }
 
+    // Adresa (slug) nu se schimbă după creare, deci nu intră în actualizare. De
+    // ea depind fotografia din `public/medici`, textele și timeline-ul din cod,
+    // titlul preluat de pe site-ul vechi și redirectul `/despre-noi/:slug`.
     const { error } = await supabase
       .from("doctors")
       .update({
-        slug: d.slug,
         name: d.name,
         title: d.title || null,
         credentials: d.credentials || null,
@@ -212,11 +215,14 @@ export async function updateDoctor(
       .eq("id", d.id);
 
     if (error) {
-      if (error.code === "23505") {
-        return { error: "Există deja un medic cu această adresă (slug)." };
-      }
+      // Rândul a rămas pe fotografia veche; cea abia încărcată nu mai servește.
+      await deletePortrait(uploaded);
       throw error;
     }
+
+    // Poza veche se șterge abia acum, când rândul arată spre cea nouă. Ștearsă
+    // înaintea salvării, o salvare eșuată lăsa pe site o imagine ruptă.
+    if (uploaded) await deletePortrait(existing.photo_url);
 
     await setSpecialties(supabase, d.id, d.specialtyIds);
 
@@ -226,11 +232,11 @@ export async function updateDoctor(
       action: "update",
       entity: "doctor",
       entityId: d.id,
-      details: { slug: d.slug },
+      details: { slug: existing.slug },
     });
 
     refresh();
-    revalidatePath(`/echipa/${d.slug}`);
+    revalidatePath(`/echipa/${existing.slug}`);
     return { ok: true, message: "Modificările sunt live pe site." };
   } catch (err) {
     console.error("[doctors] actualizare:", err);

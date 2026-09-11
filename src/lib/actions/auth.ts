@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { logAudit } from "@/lib/audit";
+import { safeRedirect } from "@/lib/auth/redirect";
 
 /**
  * Autentificarea în panou.
@@ -21,14 +22,6 @@ const loginSchema = z.object({
 });
 
 export type LoginState = { error?: string } | undefined;
-
-/** Doar căi interne, ca `?redirect=` să nu poată trimite pe alt domeniu. */
-function safeRedirect(target: string | undefined): string {
-  if (!target) return "/admin";
-  if (!target.startsWith("/admin")) return "/admin";
-  if (target.startsWith("//")) return "/admin";
-  return target;
-}
 
 export async function signIn(
   _state: LoginState,

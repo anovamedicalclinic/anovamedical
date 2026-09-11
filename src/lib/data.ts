@@ -90,7 +90,10 @@ const loadDoctors = unstable_cache(
       return fallbackDoctors;
     }
   },
-  ["doctors"],
+  // `v2`: descrierile medicilor s-au mutat din cod în baza de date. Cache-ul de
+  // date supraviețuiește deploy-urilor, iar sub cheia veche site-ul ar fi servit
+  // până la o oră textele scurte de dinainte de mutare.
+  ["doctors-v2"],
   { tags: [DOCTORS_TAG], revalidate: REVALIDATE },
 );
 
@@ -233,7 +236,9 @@ const loadTestimonials = unstable_cache(
         .eq("is_published", true)
         .order("order_index", { ascending: true });
       if (error) throw error;
-      return data?.length ? data : fromFallback();
+      // O listă goală e o alegere din panou (toate ascunse sau șterse), nu o
+      // defecțiune: nu mai readucem peste ea recenziile scrise în cod.
+      return data ?? [];
     } catch (err) {
       console.warn("[data] testimonials fallback:", err);
       return fromFallback();
@@ -273,7 +278,8 @@ const loadStaff = unstable_cache(
         .eq("is_published", true)
         .order("order_index", { ascending: true });
       if (error) throw error;
-      return data?.length ? data : fromFallback();
+      // La fel ca la recenzii: lista goală e decizia panoului, nu o eroare.
+      return data ?? [];
     } catch (err) {
       console.warn("[data] staff fallback:", err);
       return fromFallback();

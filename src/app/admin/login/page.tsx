@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect as navigate } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { Logo } from "@/components/brand/logo";
+import { getSessionUser } from "@/lib/auth/dal";
+import { safeRedirect } from "@/lib/auth/redirect";
 import { LoginForm } from "./login-form";
 
 export const metadata: Metadata = {
@@ -15,6 +18,11 @@ export default async function LoginPage({
   searchParams: Promise<{ redirect?: string }>;
 }) {
   const { redirect } = await searchParams;
+
+  // Cine e deja autentificat, cu profil activ, merge direct în panou. Decizia
+  // stă aici, nu în `proxy.ts`: proxy-ul vede doar sesiunea, iar un cont
+  // dezactivat dar încă logat era plimbat la nesfârșit între login și panou.
+  if (await getSessionUser()) navigate(safeRedirect(redirect));
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-secondary/40 px-4 py-12">

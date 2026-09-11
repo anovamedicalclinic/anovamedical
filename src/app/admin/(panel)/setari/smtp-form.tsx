@@ -1,11 +1,14 @@
 "use client";
 
-import { useActionState } from "react";
 import { Info } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { FormMessage, SubmitButton } from "@/components/admin/ui";
+import {
+  FormMessage,
+  SubmitButton,
+  useFormAction,
+} from "@/components/admin/ui";
 import {
   saveNotifications,
   saveSmtp,
@@ -15,10 +18,15 @@ import {
 import type { SmtpFormValues } from "@/lib/settings";
 
 export function SmtpForm({ initial }: { initial: SmtpFormValues | null }) {
-  const [state, action] = useActionState<SettingsState, FormData>(saveSmtp, {});
+  // Prin `useFormAction`: o conexiune respinsă nu mai golește serverul,
+  // utilizatorul și parola introduse.
+  const { state, onSubmit, pending } = useFormAction<SettingsState>(
+    saveSmtp,
+    {},
+  );
 
   return (
-    <form action={action} className="space-y-4">
+    <form onSubmit={onSubmit} className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2 sm:col-span-2">
           <Label htmlFor="host">Server SMTP</Label>
@@ -122,7 +130,7 @@ export function SmtpForm({ initial }: { initial: SmtpFormValues | null }) {
       <FormMessage ok={state.ok} message={state.message} error={state.error} />
 
       <div className="flex items-center gap-3">
-        <SubmitButton pendingLabel="Se verifică…">
+        <SubmitButton pending={pending} pendingLabel="Se verifică…">
           Verifică și salvează
         </SubmitButton>
         <p className="text-xs text-muted-foreground">
@@ -134,10 +142,13 @@ export function SmtpForm({ initial }: { initial: SmtpFormValues | null }) {
 }
 
 export function TestEmailForm({ defaultTo }: { defaultTo: string }) {
-  const [state, action] = useActionState<SettingsState, FormData>(sendTest, {});
+  const { state, onSubmit, pending } = useFormAction<SettingsState>(
+    sendTest,
+    {},
+  );
 
   return (
-    <form action={action} className="space-y-3">
+    <form onSubmit={onSubmit} className="space-y-3">
       <div className="space-y-2">
         <Label htmlFor="testEmail">Trimite un email de test către</Label>
         <div className="flex flex-col gap-2 sm:flex-row">
@@ -149,7 +160,11 @@ export function TestEmailForm({ defaultTo }: { defaultTo: string }) {
             defaultValue={defaultTo}
             className="sm:flex-1"
           />
-          <SubmitButton variant="outline" pendingLabel="Se trimite…">
+          <SubmitButton
+            pending={pending}
+            variant="outline"
+            pendingLabel="Se trimite…"
+          >
             Trimite test
           </SubmitButton>
         </div>
@@ -167,13 +182,13 @@ export function NotificationsForm({
   recipients: string[];
   enabled: boolean;
 }) {
-  const [state, action] = useActionState<SettingsState, FormData>(
+  const { state, onSubmit, pending } = useFormAction<SettingsState>(
     saveNotifications,
     {},
   );
 
   return (
-    <form action={action} className="space-y-4">
+    <form onSubmit={onSubmit} className="space-y-4">
       <label className="flex items-center gap-2 text-sm">
         <input
           name="enabled"
@@ -202,7 +217,7 @@ export function NotificationsForm({
 
       <FormMessage ok={state.ok} message={state.message} error={state.error} />
 
-      <SubmitButton>Salvează destinatarii</SubmitButton>
+      <SubmitButton pending={pending}>Salvează destinatarii</SubmitButton>
     </form>
   );
 }

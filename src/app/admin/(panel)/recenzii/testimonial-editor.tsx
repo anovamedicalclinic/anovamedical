@@ -1,13 +1,17 @@
 "use client";
 
-import { useActionState, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { ChevronDown, ChevronUp, Plus, Star, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { FormMessage, SubmitButton } from "@/components/admin/ui";
+import {
+  FormMessage,
+  SubmitButton,
+  useFormAction,
+} from "@/components/admin/ui";
 import {
   createTestimonial,
   deleteTestimonial,
@@ -72,11 +76,10 @@ function CharCount({ value, max }: { value: string; max: number }) {
 }
 
 export function CreateTestimonialForm() {
-  const [state, action] = useActionState<TestimonialState, FormData>(
+  const { state, onSubmit, pending, saved } = useFormAction<TestimonialState>(
     createTestimonial,
     {},
   );
-  const [text, setText] = useState("");
   const [open, setOpen] = useState(false);
 
   if (!open) {
@@ -95,11 +98,39 @@ export function CreateTestimonialForm() {
 
   return (
     <form
-      action={action}
+      onSubmit={onSubmit}
       className="space-y-4 rounded-2xl border border-border bg-card p-5"
     >
       <h3 className="text-base text-foreground">Recenzie nouă</h3>
 
+      {/* Refăcut gol după fiecare adăugare reușită, ca o a doua apăsare pe
+          „Adaugă” să nu publice aceeași recenzie de două ori. */}
+      <NewTestimonialFields key={saved} />
+
+      <FormMessage ok={state.ok} message={state.message} error={state.error} />
+
+      <div className="flex gap-2">
+        <SubmitButton pending={pending} pendingLabel="Se adaugă…">
+          Adaugă
+        </SubmitButton>
+        <Button
+          type="button"
+          variant="ghost"
+          onClick={() => setOpen(false)}
+          className="rounded-full"
+        >
+          Renunță
+        </Button>
+      </div>
+    </form>
+  );
+}
+
+function NewTestimonialFields() {
+  const [text, setText] = useState("");
+
+  return (
+    <>
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="new-author">Autor</Label>
@@ -137,21 +168,7 @@ export function CreateTestimonialForm() {
         />
         Publicată pe site
       </label>
-
-      <FormMessage ok={state.ok} message={state.message} error={state.error} />
-
-      <div className="flex gap-2">
-        <SubmitButton pendingLabel="Se adaugă…">Adaugă</SubmitButton>
-        <Button
-          type="button"
-          variant="ghost"
-          onClick={() => setOpen(false)}
-          className="rounded-full"
-        >
-          Renunță
-        </Button>
-      </div>
-    </form>
+    </>
   );
 }
 
@@ -164,10 +181,11 @@ export function TestimonialCard({
   isFirst: boolean;
   isLast: boolean;
 }) {
-  const [state, action] = useActionState<TestimonialState, FormData>(
-    updateTestimonial,
-    {},
-  );
+  const {
+    state,
+    onSubmit,
+    pending: saving,
+  } = useFormAction<TestimonialState>(updateTestimonial, {});
   const [text, setText] = useState(testimonial.text);
   const [pending, startTransition] = useTransition();
   const [confirming, setConfirming] = useState(false);
@@ -190,7 +208,7 @@ export function TestimonialCard({
 
   return (
     <form
-      action={action}
+      onSubmit={onSubmit}
       className="space-y-4 rounded-2xl border border-border bg-card p-5"
     >
       <input type="hidden" name="id" value={testimonial.id} />
@@ -270,7 +288,7 @@ export function TestimonialCard({
       <FormMessage ok={state.ok} message={state.message} error={state.error} />
 
       <div className="flex flex-wrap items-center gap-2">
-        <SubmitButton>Salvează</SubmitButton>
+        <SubmitButton pending={saving}>Salvează</SubmitButton>
 
         {confirming ? (
           <>

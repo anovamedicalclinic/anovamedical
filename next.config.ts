@@ -104,6 +104,15 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizeCss: true,
     optimizePackageImports: ["lucide-react", "motion", "date-fns"],
+    /**
+     * Fotografiile din panou pleacă prin Server Actions, iar limita implicită
+     * de 1 MB respingea orice poză de telefon înainte ca acțiunea să ruleze.
+     * Panoul acceptă poze de până la 8 MB (`src/lib/images.ts`); restul e loc
+     * pentru celelalte câmpuri ale formularului.
+     */
+    serverActions: {
+      bodySizeLimit: "9mb",
+    },
   },
   images: {
     formats: ["image/avif", "image/webp"],

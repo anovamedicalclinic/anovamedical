@@ -45,10 +45,11 @@ export async function proxy(request: NextRequest) {
     },
   });
 
-  // Necesar: `getUser()` declanșează reîmprospătarea și scrierea cookie-urilor.
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // Necesar: `getClaims()` declanșează reîmprospătarea și scrierea cookie-urilor.
+  // Cu cheile asimetrice ale proiectului verifică token-ul local, deci nu costă
+  // un drum la serverul de autentificare la fiecare cerere, cum costa `getUser()`.
+  const { data } = await supabase.auth.getClaims();
+  const user = data?.claims;
 
   const { pathname } = request.nextUrl;
   const isLogin = pathname === "/admin/login";
@@ -61,10 +62,8 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  if (isLogin && user) {
-    return NextResponse.redirect(new URL("/admin", request.url));
-  }
-
+  // Invers (logat pe pagina de login -> panou) NU se decide aici: sesiunea nu
+  // spune dacă profilul mai e activ. Vezi `admin/login/page.tsx`.
   return response;
 }
 

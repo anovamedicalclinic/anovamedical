@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { UsersRound } from "lucide-react";
 import { requireRole } from "@/lib/auth/dal";
 import { createClient } from "@/lib/supabase/server";
-import { staff as fallbackStaff } from "@/lib/staff";
 import {
   CreateStaffForm,
   StaffCardEditor,
@@ -42,12 +41,11 @@ export default async function EchipaSuportPage() {
         <div className="rounded-2xl border border-dashed border-border bg-card p-8 text-center">
           <UsersRound className="mx-auto size-8 text-muted-foreground" />
           <p className="mt-3 text-sm font-medium text-foreground">
-            Tabelul e gol
+            Nimeni în echipa de suport
           </p>
           <p className="mx-auto mt-1 max-w-md text-sm text-muted-foreground">
-            Site-ul afișează deocamdată cei {fallbackStaff.length} membri scriși
-            în cod. Din momentul în care adaugi primul membru aici, site-ul
-            folosește exclusiv lista din panou.
+            Secțiunea de pe pagina Echipa rămâne ascunsă până adaugi pe cineva
+            aici.
           </p>
         </div>
       )}

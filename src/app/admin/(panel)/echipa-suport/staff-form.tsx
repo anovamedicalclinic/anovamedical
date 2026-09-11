@@ -1,13 +1,19 @@
 "use client";
 
-import { useActionState, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import Image from "next/image";
 import { ChevronDown, ChevronUp, ImageUp, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FormMessage, SubmitButton } from "@/components/admin/ui";
+import {
+  acceptPhoto,
+  FormMessage,
+  MAX_PHOTO_MB,
+  SubmitButton,
+  useFormAction,
+} from "@/components/admin/ui";
 import {
   createStaff,
   deleteStaff,
@@ -86,13 +92,14 @@ function Fields({ member }: { member?: StaffRow }) {
             type="file"
             accept="image/jpeg,image/png,image/webp"
             onChange={(e) => {
-              const file = e.target.files?.[0];
+              const file = acceptPhoto(e.target);
               setPreview(file ? URL.createObjectURL(file) : null);
             }}
             className="cursor-pointer file:mr-3 file:cursor-pointer file:rounded-full file:border-0 file:bg-secondary file:px-3 file:py-1 file:text-xs"
           />
           <p className="text-xs text-muted-foreground">
-            Decupată automat la formatul de portret folosit pe site.
+            Maximum {MAX_PHOTO_MB} MB. Decupată automat la formatul de portret
+            folosit pe site.
           </p>
         </div>
       </div>
@@ -111,7 +118,10 @@ function Fields({ member }: { member?: StaffRow }) {
 }
 
 export function CreateStaffForm() {
-  const [state, action] = useActionState<StaffState, FormData>(createStaff, {});
+  const { state, onSubmit, pending, saved } = useFormAction<StaffState>(
+    createStaff,
+    {},
+  );
   const [open, setOpen] = useState(false);
 
   if (!open) {
@@ -130,17 +140,20 @@ export function CreateStaffForm() {
 
   return (
     <form
-      action={action}
+      onSubmit={onSubmit}
       className="space-y-5 rounded-2xl border border-border bg-card p-5"
     >
       <h3 className="text-base text-foreground">Membru nou</h3>
 
-      <Fields />
+      {/* Refăcut gol după fiecare adăugare reușită. */}
+      <Fields key={saved} />
 
       <FormMessage ok={state.ok} message={state.message} error={state.error} />
 
       <div className="flex gap-2">
-        <SubmitButton pendingLabel="Se adaugă…">Adaugă</SubmitButton>
+        <SubmitButton pending={pending} pendingLabel="Se adaugă…">
+          Adaugă
+        </SubmitButton>
         <Button
           type="button"
           variant="ghost"
@@ -163,7 +176,12 @@ export function StaffCardEditor({
   isFirst: boolean;
   isLast: boolean;
 }) {
-  const [state, action] = useActionState<StaffState, FormData>(updateStaff, {});
+  const {
+    state,
+    onSubmit,
+    pending: saving,
+    saved,
+  } = useFormAction<StaffState>(updateStaff, {});
   const [open, setOpen] = useState(false);
   const [pending, startTransition] = useTransition();
   const [confirming, setConfirming] = useState(false);
@@ -241,10 +259,11 @@ export function StaffCardEditor({
       </div>
 
       {open && (
-        <form action={action} className="space-y-5 border-t border-border p-5">
+        <form onSubmit={onSubmit} className="space-y-5 border-t border-border p-5">
           <input type="hidden" name="id" value={member.id} />
 
-          <Fields member={member} />
+          {/* Refăcut din datele salvate după fiecare salvare reușită. */}
+          <Fields key={saved} member={member} />
 
           <FormMessage
             ok={state.ok}
@@ -253,7 +272,7 @@ export function StaffCardEditor({
           />
 
           <div className="flex flex-wrap items-center gap-2">
-            <SubmitButton>Salvează</SubmitButton>
+            <SubmitButton pending={saving}>Salvează</SubmitButton>
 
             {confirming ? (
               <>

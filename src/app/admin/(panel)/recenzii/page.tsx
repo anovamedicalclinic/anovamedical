@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Star } from "lucide-react";
 import { requireRole } from "@/lib/auth/dal";
 import { createClient } from "@/lib/supabase/server";
-import { testimonials as fallbackTestimonials } from "@/lib/testimonials";
 import {
   CreateTestimonialForm,
   TestimonialCard,
@@ -44,12 +43,11 @@ export default async function RecenziiPage() {
         <div className="rounded-2xl border border-dashed border-border bg-card p-8 text-center">
           <Star className="mx-auto size-8 text-muted-foreground" />
           <p className="mt-3 text-sm font-medium text-foreground">
-            Tabelul de recenzii e gol
+            Nicio recenzie
           </p>
           <p className="mx-auto mt-1 max-w-md text-sm text-muted-foreground">
-            Site-ul afișează deocamdată cele {fallbackTestimonials.length}{" "}
-            recenzii scrise în cod. Din momentul în care adaugi prima recenzie
-            aici, site-ul folosește exclusiv lista din panou.
+            Secțiunea de pe prima pagină arată doar nota de pe Google până
+            adaugi o recenzie aici.
           </p>
         </div>
       )}

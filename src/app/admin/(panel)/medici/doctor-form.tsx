@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -16,7 +16,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { FormMessage, SubmitButton } from "@/components/admin/ui";
+import {
+  acceptPhoto,
+  FormMessage,
+  MAX_PHOTO_MB,
+  SubmitButton,
+  useFormAction,
+} from "@/components/admin/ui";
 import {
   createDoctor,
   deleteDoctor,
@@ -99,13 +105,13 @@ function PhotoPicker({
           type="file"
           accept="image/jpeg,image/png,image/webp"
           onChange={(e) => {
-            const file = e.target.files?.[0];
+            const file = acceptPhoto(e.target);
             setPreview(file ? URL.createObjectURL(file) : null);
           }}
           className="cursor-pointer file:mr-3 file:cursor-pointer file:rounded-full file:border-0 file:bg-secondary file:px-3 file:py-1 file:text-xs"
         />
         <p className="text-xs text-muted-foreground">
-          Orice format (JPG, PNG, WebP), maximum 8 MB. Poza e decupată automat la
+          Orice format (JPG, PNG, WebP), maximum {MAX_PHOTO_MB} MB. Poza e decupată automat la
           formatul de portret folosit pe site, centrat pe față.
         </p>
       </div>
@@ -153,6 +159,10 @@ function DoctorFields({
             required
             maxLength={80}
             value={slug}
+            // Fixă după creare: de ea depind fotografia, textele din cod și
+            // linkurile vechi. Serverul o ignoră oricum la actualizare.
+            readOnly={Boolean(doctor)}
+            className={cn(doctor && "bg-muted text-muted-foreground")}
             onChange={(e) => {
               setSlugTouched(true);
               setSlug(toSlug(e.target.value));
@@ -160,6 +170,7 @@ function DoctorFields({
           />
           <p className="truncate text-xs text-muted-foreground">
             /echipa/{slug || "…"}
+            {doctor && " · nu se schimbă după creare"}
           </p>
         </div>
 
@@ -221,10 +232,13 @@ function DoctorFields({
         <Textarea
           id={`fullBio-${doctor?.id ?? "nou"}`}
           name="fullBio"
-          rows={5}
+          rows={8}
           maxLength={4000}
           defaultValue={doctor?.fullBio ?? ""}
         />
+        <p className="text-xs text-muted-foreground">
+          Lasă un rând liber între paragrafe.
+        </p>
       </div>
 
       <fieldset className="space-y-2">
@@ -276,7 +290,7 @@ export function CreateDoctorForm({
 }: {
   specialties: SpecialtyOption[];
 }) {
-  const [state, action] = useActionState<DoctorState, FormData>(
+  const { state, onSubmit, pending, saved } = useFormAction<DoctorState>(
     createDoctor,
     {},
   );
@@ -298,17 +312,20 @@ export function CreateDoctorForm({
 
   return (
     <form
-      action={action}
+      onSubmit={onSubmit}
       className="space-y-5 rounded-2xl border border-border bg-card p-5"
     >
       <h3 className="text-base text-foreground">Medic nou</h3>
 
-      <DoctorFields specialties={specialties} />
+      {/* Refăcut gol după fiecare adăugare reușită. */}
+      <DoctorFields key={saved} specialties={specialties} />
 
       <FormMessage ok={state.ok} message={state.message} error={state.error} />
 
       <div className="flex gap-2">
-        <SubmitButton pendingLabel="Se adaugă…">Adaugă</SubmitButton>
+        <SubmitButton pending={pending} pendingLabel="Se adaugă…">
+          Adaugă
+        </SubmitButton>
         <Button
           type="button"
           variant="ghost"
@@ -333,10 +350,12 @@ export function DoctorCardEditor({
   isFirst: boolean;
   isLast: boolean;
 }) {
-  const [state, action] = useActionState<DoctorState, FormData>(
-    updateDoctor,
-    {},
-  );
+  const {
+    state,
+    onSubmit,
+    pending: saving,
+    saved,
+  } = useFormAction<DoctorState>(updateDoctor, {});
   const [open, setOpen] = useState(false);
   const [pending, startTransition] = useTransition();
   const [confirming, setConfirming] = useState(false);
@@ -421,10 +440,11 @@ export function DoctorCardEditor({
       </div>
 
       {open && (
-        <form action={action} className="space-y-5 border-t border-border p-5">
+        <form onSubmit={onSubmit} className="space-y-5 border-t border-border p-5">
           <input type="hidden" name="id" value={doctor.id} />
 
-          <DoctorFields doctor={doctor} specialties={specialties} />
+          {/* Refăcut din datele salvate după fiecare salvare reușită. */}
+          <DoctorFields key={saved} doctor={doctor} specialties={specialties} />
 
           <FormMessage
             ok={state.ok}
@@ -433,7 +453,7 @@ export function DoctorCardEditor({
           />
 
           <div className="flex flex-wrap items-center gap-2">
-            <SubmitButton>Salvează</SubmitButton>
+            <SubmitButton pending={saving}>Salvează</SubmitButton>
 
             {confirming ? (
               <>

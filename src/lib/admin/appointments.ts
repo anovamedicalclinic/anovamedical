@@ -89,7 +89,14 @@ export async function countNewAppointments(): Promise<number> {
   }
 }
 
-/** Câte cereri sunt în fiecare stare, pentru filtre și pentru panoul de start. */
+/**
+ * Câte cereri sunt în fiecare stare, pentru filtre și pentru panoul de start.
+ *
+ * O numărătoare `head` pe stare, toate în paralel: nu transferă niciun rând și
+ * nu depinde de mărimea tabelului. Varianta anterioară aducea coloana `status`
+ * pentru toate cererile și se oprea la limita implicită de 1000 de rânduri a
+ * PostgREST, deci ar fi arătat cifre greșite după prima mie de cereri.
+ */
 export async function countAppointmentsByStatus(): Promise<
   Record<AppointmentStatus, number>
 > {
@@ -102,13 +109,20 @@ export async function countAppointmentsByStatus(): Promise<
 
   try {
     const supabase = await createClient();
-    const { data, error } = await supabase
-      .from("appointment_requests")
-      .select("status")
-      .returns<{ status: AppointmentStatus }[]>();
-    if (error) throw error;
+    const results = await Promise.all(
+      statusOrder.map((status) =>
+        supabase
+          .from("appointment_requests")
+          .select("*", { count: "exact", head: true })
+          .eq("status", status),
+      ),
+    );
 
-    for (const row of data ?? []) empty[row.status] += 1;
+    statusOrder.forEach((status, i) => {
+      const { count, error } = results[i];
+      if (error) throw error;
+      empty[status] = count ?? 0;
+    });
     return empty;
   } catch {
     return empty;

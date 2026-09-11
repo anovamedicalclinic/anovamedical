@@ -15,25 +15,20 @@ export default async function AdminHome() {
   const canSeeAppointments = roleCan(role, "appointments");
   const canSeeSettings = roleCan(role, "settings");
 
-  const counts = canSeeAppointments
-    ? await countAppointmentsByStatus()
-    : null;
-
   // Verificăm dacă emailul e configurat, ca adminul să afle aici, nu când pierde
-  // prima cerere.
-  const emailReady = canSeeSettings
-    ? await (async () => {
-        const [smtp, notifications] = await Promise.all([
-          getSmtpSettings(),
-          getNotificationSettings(),
-        ]);
-        return {
-          smtp: Boolean(smtp),
-          recipients: notifications.recipients.length,
-          enabled: notifications.enabled,
-        };
-      })()
-    : null;
+  // prima cerere. Ambele citiri pornesc deodată, nu una după alta.
+  const [counts, emailReady] = await Promise.all([
+    canSeeAppointments ? countAppointmentsByStatus() : null,
+    canSeeSettings
+      ? Promise.all([getSmtpSettings(), getNotificationSettings()]).then(
+          ([smtp, notifications]) => ({
+            smtp: Boolean(smtp),
+            recipients: notifications.recipients.length,
+            enabled: notifications.enabled,
+          }),
+        )
+      : null,
+  ]);
 
   const firstName = (user.profile.full_name || user.email).split(/[\s@]/)[0];
 
