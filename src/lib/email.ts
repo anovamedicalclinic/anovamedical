@@ -5,7 +5,9 @@ import { getNotificationSettings, getSmtpSettings } from "@/lib/settings";
 import type { SmtpSettings } from "@/lib/settings";
 
 /**
- * Trimiterea emailurilor prin SMTP-ul clinicii (mail pe hosting cPanel).
+ * Trimiterea emailurilor prin SMTP-ul clinicii. Mailul @anovamedical.ro e pe
+ * Zoho Mail, centrul de date din Europa: `smtppro.zoho.eu`, 465 (TLS) sau 587
+ * (STARTTLS). Zoho dă acces SMTP doar pe planurile plătite.
  *
  * Configurarea vine din `app_settings`, nu din variabile de mediu, ca să poată
  * fi schimbată din panou fără redeploy. De aceea transportul se construiește la
@@ -29,8 +31,8 @@ function buildTransport(smtp: SmtpSettings) {
 }
 
 function fromHeader(smtp: SmtpSettings): string {
-  // Multe servere cPanel resping un `From` care nu corespunde contului
-  // autentificat, deci implicit folosim chiar utilizatorul SMTP.
+  // Zoho respinge un `From` care nu e contul autentificat sau un alias al lui,
+  // deci implicit folosim chiar utilizatorul SMTP.
   const address = smtp.fromEmail || smtp.user;
   return `"${smtp.fromName}" <${address}>`;
 }
@@ -43,7 +45,8 @@ function describe(err: unknown): string {
   if (err instanceof Error) {
     const code = (err as { code?: string }).code;
     // Traducem cele mai frecvente erori într-un mesaj acționabil.
-    if (code === "EAUTH") return "Utilizator sau parolă SMTP greșite.";
+    if (code === "EAUTH")
+      return "Zoho a refuzat autentificarea. Verifică adresa și parola; cu verificare în doi pași e nevoie de o parolă de aplicație, iar pe planul gratuit Zoho nu permite SMTP deloc.";
     if (code === "ECONNREFUSED") return "Serverul a refuzat conexiunea. Verifică gazda și portul.";
     if (code === "ETIMEDOUT" || code === "ECONNECTION")
       return "Conexiunea a expirat. Verifică gazda, portul și dacă TLS e potrivit.";

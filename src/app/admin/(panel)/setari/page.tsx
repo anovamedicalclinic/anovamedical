@@ -34,7 +34,7 @@ export default async function SetariPage() {
         <div className="flex items-start gap-3">
           <Mail className="mt-0.5 size-5 shrink-0 text-muted-foreground" />
           <div className="min-w-0">
-            <h2 className="text-lg text-foreground">Cont de email (cPanel)</h2>
+            <h2 className="text-lg text-foreground">Cont de email (Zoho Mail)</h2>
             <p className="mt-1 text-sm text-muted-foreground">
               Emailurile pleacă prin serverul tău de mail, de pe adresa clinicii.
             </p>

@@ -34,11 +34,13 @@ export function SmtpForm({ initial }: { initial: SmtpFormValues | null }) {
             id="host"
             name="host"
             required
-            defaultValue={initial?.host ?? ""}
-            placeholder="mail.anovamedical.ro"
+            defaultValue={initial?.host ?? "smtppro.zoho.eu"}
+            placeholder="smtppro.zoho.eu"
           />
           <p className="text-xs text-muted-foreground">
-            În cPanel: Email Accounts → Connect Devices → Outgoing Server.
+            Pentru adresele @anovamedical.ro (Zoho Mail, Europa):
+            smtppro.zoho.eu. Zoho permite trimiterea prin SMTP doar pe un plan
+            plătit; pe planul gratuit conectarea e refuzată.
           </p>
         </div>
 
@@ -97,7 +99,7 @@ export function SmtpForm({ initial }: { initial: SmtpFormValues | null }) {
           <p className="text-xs text-muted-foreground">
             {initial?.hasPassword
               ? "Lasă gol ca să păstrezi parola actuală."
-              : "Parola contului de email din cPanel."}
+              : "Parola contului Zoho. Dacă are verificare în doi pași, generează o parolă de aplicație: Zoho → My Account → Security → App Passwords."}
           </p>
         </div>
 
@@ -121,8 +123,8 @@ export function SmtpForm({ initial }: { initial: SmtpFormValues | null }) {
             placeholder="la fel ca utilizatorul"
           />
           <p className="text-xs text-muted-foreground">
-            Lasă gol dacă e aceeași cu utilizatorul. Multe servere cPanel resping
-            un expeditor diferit de contul autentificat.
+            Lasă gol dacă e aceeași cu utilizatorul. Zoho acceptă doar adresa
+            contului sau un alias al lui.
           </p>
         </div>
       </div>
