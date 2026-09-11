@@ -74,7 +74,11 @@ export function AppointmentForm({
   const errClass = "text-xs text-destructive";
 
   return (
-    <>
+    // Un singur element-rădăcină: formularul stă într-o grilă pe /contact, iar
+    // `<Toaster>` desenează un `<section>` în flux. Ca frate al formularului,
+    // acel section gol ocupa coloana din dreapta și împingea formularul sub
+    // text, lăsând jumătate de cartelă albă.
+    <div className="min-w-0">
       {/* Notificările de trimitere. Montate aici, nu în layout-ul rădăcină:
           sonner (~35 KB) se încărca altfel pe fiecare pagină publică, deși
           formularul e singurul loc din site care ridică vreun toast. */}
@@ -260,6 +264,6 @@ export function AppointmentForm({
         stabilim data și ora.
       </p>
       </form>
-    </>
+    </div>
   );
 }
