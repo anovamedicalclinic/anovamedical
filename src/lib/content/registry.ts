@@ -81,7 +81,7 @@ export const contentSections: ContentSection[] = [
   {
     id: "home.about",
     title: "Despre (previzualizare)",
-    description: "Secțiunea cu poza echipei, imediat sub hero.",
+    description: "Secțiunea cu povestea clinicii, imediat sub hero.",
     page: "Prima pagină",
     preview: "/#despre",
     fields: [
