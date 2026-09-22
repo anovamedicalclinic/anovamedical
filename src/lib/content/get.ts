@@ -37,7 +37,7 @@ const loadOverrides = unstable_cache(
       return {};
     }
   },
-  ["site-content"],
+  ["site-content-v2"],
   { tags: [CONTENT_TAG], revalidate: 3600 },
 );
 

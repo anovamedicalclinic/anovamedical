@@ -138,7 +138,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     id: "matei-palimariciuc",
     slug: "matei-palimariciuc",
     name: "Matei Palimariciuc",
-    title: "Medic specialist psihiatru",
+    title: "Medic Specialist Psihiatrie",
     credentials: "Dr.",
     photo_url: null,
     short_bio:
@@ -170,7 +170,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     id: "ana-caterina-cristofor",
     slug: "ana-caterina-cristofor",
     name: "Ana-Caterina Cristofor",
-    title: "Medic primar psihiatru",
+    title: "Medic Primar Psihiatrie",
     credentials: "Dr., șef de lucrări",
     photo_url: null,
     short_bio:
@@ -186,7 +186,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     id: "irina-dobrin",
     slug: "irina-dobrin",
     name: "Irina Dobrin",
-    title: "Medic primar psihiatru",
+    title: "Medic Primar Psihiatrie",
     credentials: "Dr., șef de lucrări",
     photo_url: null,
     short_bio:
@@ -202,7 +202,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     id: "tudor-florea",
     slug: "tudor-florea",
     name: "Tudor Florea",
-    title: "Medic primar psihiatru",
+    title: "Medic Primar Psihiatrie",
     credentials: "Dr.",
     photo_url: null,
     short_bio:
@@ -218,7 +218,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     id: "cartas-nicoleta",
     slug: "cartas-nicoleta",
     name: "Nicoleta Cartas",
-    title: "Medic primar psihiatru",
+    title: "Medic Primar Psihiatrie",
     credentials: "Dr.",
     photo_url: null,
     short_bio:
@@ -234,7 +234,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     id: "gilea-andra",
     slug: "gilea-andra",
     name: "Andra Gîlea",
-    title: "Medic primar psihiatru",
+    title: "Medic Primar Psihiatrie",
     credentials: "Dr.",
     photo_url: null,
     short_bio:
@@ -250,7 +250,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     id: "andra-morasan",
     slug: "andra-morasan",
     name: "Andra Morășan",
-    title: "Medic primar psihiatru",
+    title: "Medic Primar Psihiatrie",
     credentials: "Dr.",
     photo_url: null,
     short_bio:
@@ -266,7 +266,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     id: "aionesei-catalin",
     slug: "aionesei-catalin",
     name: "Cătălin Aionesei",
-    title: "Medic specialist psihiatru",
+    title: "Medic Specialist Psihiatrie",
     credentials: "Dr.",
     photo_url: null,
     short_bio:
@@ -282,7 +282,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     id: "aura-cosofret",
     slug: "aura-cosofret",
     name: "Aura Coșofreț",
-    title: "Medic specialist psihiatru",
+    title: "Medic Specialist Psihiatrie",
     credentials: "Dr.",
     photo_url: null,
     short_bio: "Medic psihiatru atentă la complexitatea fiecărei povești.",
@@ -297,7 +297,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     id: "mihulca-ioana",
     slug: "mihulca-ioana",
     name: "Ioana Mihulcă",
-    title: "Medic specialist psihiatru",
+    title: "Medic Specialist Psihiatrie",
     credentials: "Dr.",
     photo_url: null,
     short_bio:
@@ -313,7 +313,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     id: "silvia-tudosa",
     slug: "silvia-tudosa",
     name: "Silvia Tudosă",
-    title: "Medic specialist psihiatru",
+    title: "Medic Specialist Psihiatrie",
     credentials: "Dr.",
     photo_url: null,
     short_bio: "Medic psihiatru cu o abordare empatică și centrată pe pacient.",
@@ -328,7 +328,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     id: "elena-pcela",
     slug: "elena-pcela",
     name: "Elena Pcela",
-    title: "Medic specialist psihiatru",
+    title: "Medic Specialist Psihiatrie",
     credentials: "Dr.",
     photo_url: null,
     short_bio:
@@ -344,7 +344,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     id: "vlasceanu-marceza",
     slug: "vlasceanu-marceza",
     name: "Marceza Vlăsceanu",
-    title: "Medic specialist psihiatru",
+    title: "Medic Specialist Psihiatrie",
     credentials: "Dr.",
     photo_url: null,
     short_bio:
@@ -360,7 +360,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     id: "georgean-rozinbaum",
     slug: "georgean-rozinbaum",
     name: "Georgean Rozinbaum",
-    title: "Medic primar psihiatrie pediatrică",
+    title: "Medic Primar Psihiatrie Pediatrică",
     credentials: "Dr.",
     photo_url: null,
     short_bio:
@@ -376,7 +376,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     id: "andreea-albu",
     slug: "andreea-albu",
     name: "Andreea Albu",
-    title: "Medic specialist neurolog",
+    title: "Medic Specialist Neurologie",
     credentials: "Dr.",
     photo_url: null,
     short_bio:
@@ -392,7 +392,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     id: "thomas-gabriel-schreiner",
     slug: "thomas-gabriel-schreiner",
     name: "Thomas Gabriel Schreiner",
-    title: "Medic specialist neurolog",
+    title: "Medic Specialist Neurologie",
     credentials: "Dr., șef de lucrări, doctor în medicină",
     photo_url: null,
     short_bio:
@@ -408,7 +408,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     id: "gusa-lucia",
     slug: "gusa-lucia",
     name: "Lucia Gușă",
-    title: "Medic specialist cardiolog",
+    title: "Medic Specialist Cardiologie",
     credentials: "Dr.",
     photo_url: null,
     short_bio:
@@ -424,7 +424,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     id: "dorneanu-andra",
     slug: "dorneanu-andra",
     name: "Andra Dorneanu",
-    title: "Medic specialist endocrinolog",
+    title: "Medic Specialist Endocrinologie",
     credentials: "Dr.",
     photo_url: null,
     short_bio:

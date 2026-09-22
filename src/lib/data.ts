@@ -90,10 +90,11 @@ const loadDoctors = unstable_cache(
       return fallbackDoctors;
     }
   },
-  // `v2`: descrierile medicilor s-au mutat din cod în baza de date. Cache-ul de
-  // date supraviețuiește deploy-urilor, iar sub cheia veche site-ul ar fi servit
-  // până la o oră textele scurte de dinainte de mutare.
-  ["doctors-v2"],
+  // `v2`: descrierile medicilor s-au mutat din cod în baza de date. `v3`:
+  // titulaturile au trecut la denumirea specialității (0006). Cache-ul de date
+  // supraviețuiește deploy-urilor, iar sub cheia veche site-ul ar fi servit
+  // până la o oră titlurile de dinainte de migrație.
+  ["doctors-v3"],
   { tags: [DOCTORS_TAG], revalidate: REVALIDATE },
 );
 
@@ -285,7 +286,8 @@ const loadStaff = unstable_cache(
       return fromFallback();
     }
   },
-  ["staff"],
+  // `v2`: rolurile au trecut la denumirea oficială („Asistent medical”, 0006).
+  ["staff-v2"],
   { tags: [STAFF_TAG], revalidate: REVALIDATE },
 );
 

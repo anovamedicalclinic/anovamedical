@@ -354,7 +354,7 @@ export const contentSections: ContentSection[] = [
         kind: "multiline",
         max: 320,
         default:
-          "Conducerea clinicii și asistentele medicale care se ocupă de programări, de pregătirea consultațiilor și de confortul tău la fiecare vizită.",
+          "Conducerea clinicii și asistenții medicali care se ocupă de programări, de pregătirea consultațiilor și de confortul tău la fiecare vizită.",
       },
     ],
   },
