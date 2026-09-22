@@ -186,7 +186,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     id: "irina-dobrin",
     slug: "irina-dobrin",
     name: "Irina Dobrin",
-    title: "Medic Primar Psihiatrie",
+    title: "Medic Primar Psihiatrie, Terapie dialectic-comportamentală",
     credentials: "Dr., șef de lucrări",
     photo_url: null,
     short_bio:
@@ -440,7 +440,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     id: "mihaela-ungureanu",
     slug: "mihaela-ungureanu",
     name: "Mihaela Ungureanu",
-    title: "Psiholog clinician",
+    title: "Psiholog clinician, Psihoterapeut TCC",
     credentials: "Psiholog clinician",
     photo_url: null,
     short_bio:

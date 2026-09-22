@@ -90,11 +90,12 @@ const loadDoctors = unstable_cache(
       return fallbackDoctors;
     }
   },
-  // `v2`: descrierile medicilor s-au mutat din cod în baza de date. `v3`:
-  // titulaturile au trecut la denumirea specialității (0006). Cache-ul de date
-  // supraviețuiește deploy-urilor, iar sub cheia veche site-ul ar fi servit
-  // până la o oră titlurile de dinainte de migrație.
-  ["doctors-v3"],
+  // Cheia crește la fiecare scriere directă în baza de date: `v2` — descrierile
+  // s-au mutat din cod în baze; `v3` — titulaturile au trecut la denumirea
+  // specialității (0006); `v4` — s-au adăugat competențele de psihoterapie
+  // (0007). Cache-ul de date supraviețuiește deploy-urilor, iar sub cheia veche
+  // site-ul ar fi servit până la o oră conținutul de dinainte de migrație.
+  ["doctors-v4"],
   { tags: [DOCTORS_TAG], revalidate: REVALIDATE },
 );
 

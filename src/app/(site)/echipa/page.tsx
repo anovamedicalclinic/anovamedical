@@ -4,7 +4,7 @@ import { connection } from "next/server";
 import { PageHeader } from "@/components/layout/page-header";
 import { Section, SectionHeading } from "@/components/layout/section";
 import { Reveal } from "@/components/reveal";
-import { DoctorFlipCard } from "@/components/doctor-flip-card";
+import { TeamGrid } from "@/components/team-grid";
 import { StaffCard } from "@/components/staff-card";
 import { CtaBand } from "@/components/cta-band";
 import {
@@ -14,7 +14,7 @@ import {
   getStaff,
 } from "@/lib/data";
 import { getContent } from "@/lib/content/get";
-import { isLeadershipRole } from "@/lib/staff";
+import { isLeadershipRole, staffGroupLabel } from "@/lib/staff";
 import { shuffle } from "@/lib/utils";
 
 export const metadata: Metadata = buildMetadata({
@@ -22,12 +22,22 @@ export const metadata: Metadata = buildMetadata({
   ...requireMeta("/echipa"),
 });
 
+/** Titlul discret care desparte conducerea de restul echipei de suport. */
+function GroupHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <Reveal>
+      <h3 className="text-sm font-medium uppercase tracking-[0.18em] text-sage-strong">
+        {children}
+      </h3>
+    </Reveal>
+  );
+}
+
 export default async function EchipaPage() {
   // Ordinea medicilor se amestecă la fiecare vizită, ca nimeni să nu fie
   // permanent primul sau ultimul — dar numai în interiorul specialității lui,
-  // așa că grila rămâne grupată pe specialități, fără titluri care să o taie.
-  // `connection()` scoate pagina din prerender, altfel `Math.random()` ar rula
-  // o singură dată, la build.
+  // așa că grila rămâne grupată pe specialități. `connection()` scoate pagina
+  // din prerender, altfel `Math.random()` ar rula o singură dată, la build.
   await connection();
 
   const [doctors, specialties, byDoctor, staff, content] = await Promise.all([
@@ -54,6 +64,12 @@ export default async function EchipaPage() {
     ...shuffle(cards.filter((c) => c.specialties.length === 0)),
   ];
 
+  // Butoanele de filtrare arată doar specialitățile care chiar au medici, ca
+  // să nu existe un filtru care duce la o grilă goală.
+  const filters = specialties
+    .filter((s) => cards.some((c) => c.specialties.some((x) => x.id === s.id)))
+    .map((s) => ({ id: s.id, name: s.name }));
+
   // Conducerea stă pe un rând al ei, centrat, deasupra restului echipei de
   // suport: directorul nu apare în aceeași grilă cu asistenții medicali.
   const leadership = staff.filter((m) => isLeadershipRole(m.role));
@@ -69,17 +85,7 @@ export default async function EchipaPage() {
       />
 
       <Section>
-        <div className="grid grid-cols-2 gap-3.5 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
-          {grouped.map(({ doctor, specialties }, i) => (
-            <Reveal
-              key={doctor.id}
-              delay={(i % 4) * 0.05}
-              className="h-[23rem] sm:h-[27rem]"
-            >
-              <DoctorFlipCard doctor={doctor} specialties={specialties} />
-            </Reveal>
-          ))}
-        </div>
+        <TeamGrid cards={grouped} filters={filters} />
       </Section>
 
       {/* Echipa de suport */}
@@ -93,32 +99,42 @@ export default async function EchipaPage() {
           />
 
           {leadership.length > 0 && (
-            // Lățimile sunt cele ale unei coloane din grila de dedesubt, ca
-            // un card centrat să arate la fel de mare ca restul.
-            <div className="mt-12 flex flex-wrap justify-center gap-3.5 sm:gap-5">
-              {leadership.map((member, i) => (
-                <Reveal
-                  key={member.id}
-                  delay={i * 0.05}
-                  className="w-[calc(50%-0.4375rem)] sm:w-[calc(50%-0.625rem)] lg:w-[calc(33.333%-0.834rem)] xl:w-[calc(25%-0.9375rem)]"
-                >
-                  <StaffCard member={member} />
-                </Reveal>
-              ))}
+            <div className="mt-12 flex flex-col gap-6 sm:gap-8">
+              <GroupHeading>
+                {staffGroupLabel(leadership, "Conducere")}
+              </GroupHeading>
+              {/* Lățimile sunt cele ale unei coloane din grila de dedesubt, ca
+                  un card centrat să arate la fel de mare ca restul. */}
+              <div className="flex flex-wrap justify-center gap-3.5 sm:gap-5">
+                {leadership.map((member, i) => (
+                  <Reveal
+                    key={member.id}
+                    delay={i * 0.05}
+                    className="w-[calc(50%-0.4375rem)] sm:w-[calc(50%-0.625rem)] lg:w-[calc(33.333%-0.834rem)] xl:w-[calc(25%-0.9375rem)]"
+                  >
+                    <StaffCard member={member} />
+                  </Reveal>
+                ))}
+              </div>
             </div>
           )}
 
           {support.length > 0 && (
             <div
-              className={`grid grid-cols-2 gap-3.5 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4 ${
-                leadership.length > 0 ? "mt-3.5 sm:mt-5" : "mt-12"
+              className={`flex flex-col gap-6 sm:gap-8 ${
+                leadership.length > 0 ? "mt-14 sm:mt-16" : "mt-12"
               }`}
             >
-              {support.map((member, i) => (
-                <Reveal key={member.id} delay={(i % 4) * 0.05}>
-                  <StaffCard member={member} />
-                </Reveal>
-              ))}
+              <GroupHeading>
+                {staffGroupLabel(support, "Echipa de suport")}
+              </GroupHeading>
+              <div className="grid grid-cols-2 gap-3.5 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
+                {support.map((member, i) => (
+                  <Reveal key={member.id} delay={(i % 4) * 0.05}>
+                    <StaffCard member={member} />
+                  </Reveal>
+                ))}
+              </div>
             </div>
           )}
         </Section>

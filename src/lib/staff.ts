@@ -57,3 +57,24 @@ export function isLeadershipRole(role: string): boolean {
   const words = role.toLowerCase().split(/[^a-zăâîșț]+/);
   return LEADERSHIP_WORDS.some((word) => words.includes(word));
 }
+
+/**
+ * Titlul de deasupra unui grup de colegi cu același rol: rolul e la singular
+ * pe card, titlul la plural. Un rol care nu e în hartă se afișează ca atare,
+ * deci unul adăugat din panou nu rămâne fără titlu.
+ */
+const ROLE_GROUP_LABELS: Record<string, string> = {
+  "Asistent medical": "Asistenți medicali",
+  "Asistent medical principal": "Asistenți medicali",
+  Recepționer: "Recepție",
+};
+
+/** Titlul grupului pentru o listă de colegi; generic dacă rolurile diferă. */
+export function staffGroupLabel(
+  members: readonly { role: string }[],
+  fallback: string,
+): string {
+  const roles = [...new Set(members.map((m) => m.role))];
+  if (roles.length !== 1) return fallback;
+  return ROLE_GROUP_LABELS[roles[0]] ?? roles[0];
+}
