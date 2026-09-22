@@ -5,7 +5,7 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Section, SectionHeading } from "@/components/layout/section";
 import { Reveal } from "@/components/reveal";
 import { TeamGrid } from "@/components/team-grid";
-import { StaffCard } from "@/components/staff-card";
+import { StaffCard, StaffLeadCard } from "@/components/staff-card";
 import { CtaBand } from "@/components/cta-band";
 import {
   getDoctors,
@@ -103,16 +103,10 @@ export default async function EchipaPage() {
               <GroupHeading>
                 {staffGroupLabel(leadership, "Conducere")}
               </GroupHeading>
-              {/* Lățimile sunt cele ale unei coloane din grila de dedesubt, ca
-                  un card centrat să arate la fel de mare ca restul. */}
-              <div className="flex flex-wrap justify-center gap-3.5 sm:gap-5">
+              <div className="flex flex-wrap gap-3.5 sm:gap-5">
                 {leadership.map((member, i) => (
-                  <Reveal
-                    key={member.id}
-                    delay={i * 0.05}
-                    className="w-[calc(50%-0.4375rem)] sm:w-[calc(50%-0.625rem)] lg:w-[calc(33.333%-0.834rem)] xl:w-[calc(25%-0.9375rem)]"
-                  >
-                    <StaffCard member={member} />
+                  <Reveal key={member.id} delay={i * 0.05} className="w-full max-w-lg">
+                    <StaffLeadCard member={member} />
                   </Reveal>
                 ))}
               </div>

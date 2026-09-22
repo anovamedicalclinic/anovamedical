@@ -4,6 +4,7 @@ import { ArrowRight, Check } from "lucide-react";
 import { SpecialtyIcon } from "@/lib/icons";
 import { Reveal } from "@/components/reveal";
 import { doctorPhoto } from "@/lib/doctor-photos";
+import { specialtyImageFocus } from "@/lib/specialty-images";
 import { cn } from "@/lib/utils";
 import type { Doctor, Specialty } from "@/lib/supabase/types";
 
@@ -125,6 +126,9 @@ export function ServiceCard({
             alt={`Serviciu de ${specialty.name.toLowerCase()} la Anova Medical Clinic`}
             fill
             sizes="(max-width: 1024px) 100vw, 50vw"
+            // Panoul e aproape pătrat, iar sursele sunt peisaj: fără punctul de
+            // interes, decuparea centrată taie capul persoanei din imagine.
+            style={{ objectPosition: specialtyImageFocus(specialty.slug) }}
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
         ) : (

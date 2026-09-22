@@ -29,3 +29,34 @@ export function StaffCard({ member }: { member: StaffMember }) {
     </div>
   );
 }
+
+/**
+ * Card orizontal pentru conducere: poza în stânga, rolul și numele în dreapta.
+ *
+ * Aceeași poză 4:5 ca pe `StaffCard`, dar într-un card lat cât două coloane
+ * din grila de dedesubt. Un card normal, singur pe rând, lăsa o bandă goală
+ * de o parte și de alta; forma diferită arată și că e alt nivel în echipă.
+ */
+export function StaffLeadCard({ member }: { member: StaffMember }) {
+  return (
+    <div className="flex w-full max-w-lg overflow-hidden rounded-3xl border border-border bg-card">
+      <div className="relative aspect-[4/5] w-2/5 max-w-[12rem] shrink-0 bg-secondary">
+        <Image
+          src={member.photo_url ?? "/medici/Placeholder.webp"}
+          alt={`Portret ${member.name}`}
+          fill
+          sizes="(min-width: 640px) 12rem, 40vw"
+          className="object-cover object-top"
+        />
+      </div>
+      <div className="flex flex-1 flex-col justify-center gap-1.5 p-5 sm:p-7">
+        <span className="text-[0.65rem] font-medium uppercase tracking-[0.12em] text-sage-strong sm:text-xs sm:tracking-[0.14em]">
+          {member.role}
+        </span>
+        <h3 className="text-lg leading-tight text-foreground sm:text-xl">
+          {member.name}
+        </h3>
+      </div>
+    </div>
+  );
+}

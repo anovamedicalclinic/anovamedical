@@ -114,7 +114,10 @@ export const Header = () => {
   const navMenu = (
     <ul
       className={cn(
-        "hidden flex-1 items-center gap-6 lg:flex",
+        // `flex-none`: meniul își ia exact lățimea textului. Ca a treia coloană
+        // egală, la lățimi mici de desktop conținutul lui depășea coloana și
+        // butoanele din dreapta ajungeau peste „Contact”.
+        "hidden flex-none items-center gap-5 lg:flex xl:gap-6",
         navGroupClass,
       )}
     >
@@ -173,7 +176,7 @@ export const Header = () => {
           >
             <div
               className={cn(
-                "relative flex items-center justify-between px-5 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:px-8",
+                "relative flex items-center justify-between gap-4 px-5 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:px-8",
                 scrolled ? "py-2" : "py-3 lg:py-3.5",
               )}
             >
@@ -186,11 +189,11 @@ export const Header = () => {
                 <Button
                   asChild
                   variant="outline"
-                  className="h-10 gap-2 rounded-full border-border bg-transparent px-4 text-sm hover:border-primary/30 hover:bg-primary/5 hover:text-primary"
+                  className="h-10 gap-2 rounded-full border-border bg-transparent px-3 text-sm hover:border-primary/30 hover:bg-primary/5 hover:text-primary xl:px-4"
                 >
-                  <a href={contact.phoneHref}>
+                  <a href={contact.phoneHref} aria-label="Sună acum">
                     <Phone className="size-4" />
-                    Sună acum
+                    <span className="hidden xl:inline">Sună acum</span>
                   </a>
                 </Button>
                 <Button

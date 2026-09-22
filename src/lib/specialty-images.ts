@@ -27,3 +27,25 @@ export function specialtyImage(slug: string): string | null {
   }
   return null;
 }
+
+/**
+ * Punctul de interes al fiecărei imagini, ca `object-position`.
+ *
+ * Fotografiile din setul nou au subiectul spre dreapta, cu partea stângă
+ * ocupată de ilustrația decorativă. Pe cardurile de pe prima pagină, panoul cu
+ * imaginea e aproape pătrat, iar o decupare centrată taie exact capul
+ * persoanei. Valorile de mai jos mută decupajul spre subiect.
+ */
+const IMAGE_FOCUS: Record<string, string> = {
+  psihiatrie: "84% 50%",
+  "psihiatrie-pediatrica": "62% 50%",
+  neurologie: "72% 50%",
+  cardiologie: "72% 50%",
+  endocrinologie: "62% 50%",
+  psihologie: "45% 50%",
+};
+
+/** `object-position` pentru imaginea specialității; centrat, dacă nu e definit. */
+export function specialtyImageFocus(slug: string): string {
+  return IMAGE_FOCUS[slug] ?? "50% 50%";
+}

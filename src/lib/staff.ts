@@ -64,6 +64,11 @@ export function isLeadershipRole(role: string): boolean {
  * deci unul adăugat din panou nu rămâne fără titlu.
  */
 const ROLE_GROUP_LABELS: Record<string, string> = {
+  // Titlul grupului numește nivelul, nu funcția: rolul exact scrie oricum pe
+  // card, iar „Director” de două ori la rând ar fi doar un ecou.
+  Director: "Conducere",
+  "Director medical": "Conducere",
+  Manager: "Conducere",
   "Asistent medical": "Asistenți medicali",
   "Asistent medical principal": "Asistenți medicali",
   Recepționer: "Recepție",
