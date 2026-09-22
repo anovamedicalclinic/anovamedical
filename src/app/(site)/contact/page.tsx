@@ -128,7 +128,7 @@ export default async function ContactPage() {
                 Sedii
               </span>
               <h2 className="mt-2 text-balance text-2xl text-foreground sm:text-3xl">
-                Ne găsești în două locuri
+                Ne găsești în 2 locații
               </h2>
             </div>
             <div className="flex items-center gap-3">
