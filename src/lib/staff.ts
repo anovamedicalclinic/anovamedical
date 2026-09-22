@@ -44,60 +44,16 @@ export const staff: StaffMember[] = [
   },
 ];
 
-/**
- * Titlul grupului sub care apare un rol pe /echipa. Rolul e la singular (așa
- * cum e scris pe card), titlul de grup la plural. Ce nu e în hartă se afișează
- * ca atare, deci un rol nou adăugat din panou nu rămâne fără secțiune.
- */
-const ROLE_GROUP_LABELS: Record<string, string> = {
-  Director: "Conducere",
-  "Director medical": "Conducere",
-  Manager: "Conducere",
-  "Asistent medical": "Asistenți medicali",
-  "Asistent medical principal": "Asistenți medicali",
-  Recepționer: "Recepție",
-};
+/** Cuvintele care fac dintr-un rol o poziție de conducere. */
+const LEADERSHIP_WORDS = ["director", "manager", "administrator", "coordonator"];
 
 /**
- * Rolurile de conducere urcă primele, oricare ar fi ordinea din panou:
- * directorul nu stă în același rând cu asistenții medicali.
+ * Rolurile de conducere se afișează separat, pe un rând centrat deasupra
+ * restului echipei de suport: directorul nu stă în aceeași grilă cu asistenții
+ * medicali. Testul e pe cuvinte întregi, ca „Director medical” să intre, dar
+ * un rol care doar conține silabele să nu.
  */
-const LEADERSHIP_ROLE = /\b(director|manager|administrator|coordonator)\b/i;
-
 export function isLeadershipRole(role: string): boolean {
-  return LEADERSHIP_ROLE.test(role);
-}
-
-export function staffRoleGroupLabel(role: string): string {
-  return ROLE_GROUP_LABELS[role] ?? role;
-}
-
-/**
- * Grupează echipa de suport pe roluri, cu conducerea prima.
- *
- * Ordinea din panou (`order_index`) se păstrează atât între grupuri — un grup
- * apare acolo unde apare primul său membru — cât și în interiorul lor.
- */
-export function groupStaffByRole<T extends { role: string }>(
-  members: readonly T[],
-): { label: string; members: T[] }[] {
-  const groups: { label: string; leadership: boolean; members: T[] }[] = [];
-
-  for (const member of members) {
-    const label = staffRoleGroupLabel(member.role);
-    const existing = groups.find((g) => g.label === label);
-    if (existing) {
-      existing.members.push(member);
-    } else {
-      groups.push({
-        label,
-        leadership: isLeadershipRole(member.role),
-        members: [member],
-      });
-    }
-  }
-
-  return groups
-    .sort((a, b) => Number(b.leadership) - Number(a.leadership))
-    .map(({ label, members }) => ({ label, members }));
+  const words = role.toLowerCase().split(/[^a-zăâîșț]+/);
+  return LEADERSHIP_WORDS.some((word) => words.includes(word));
 }

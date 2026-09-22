@@ -14,7 +14,7 @@ import {
   getStaff,
 } from "@/lib/data";
 import { getContent } from "@/lib/content/get";
-import { groupStaffByRole } from "@/lib/staff";
+import { isLeadershipRole } from "@/lib/staff";
 import { shuffle } from "@/lib/utils";
 
 export const metadata: Metadata = buildMetadata({
@@ -22,20 +22,10 @@ export const metadata: Metadata = buildMetadata({
   ...requireMeta("/echipa"),
 });
 
-/** Titlul discret care desparte grupurile din pagină. */
-function GroupHeading({ children }: { children: React.ReactNode }) {
-  return (
-    <Reveal>
-      <h2 className="text-sm font-medium uppercase tracking-[0.18em] text-sage-strong">
-        {children}
-      </h2>
-    </Reveal>
-  );
-}
-
 export default async function EchipaPage() {
   // Ordinea medicilor se amestecă la fiecare vizită, ca nimeni să nu fie
-  // permanent primul sau ultimul — dar numai în interiorul specialității lui.
+  // permanent primul sau ultimul — dar numai în interiorul specialității lui,
+  // așa că grila rămâne grupată pe specialități, fără titluri care să o taie.
   // `connection()` scoate pagina din prerender, altfel `Math.random()` ar rula
   // o singură dată, la build.
   await connection();
@@ -54,22 +44,20 @@ export default async function EchipaPage() {
   }));
 
   // Un medic apare o singură dată, la prima lui specialitate (harta vine deja
-  // ordonată după `order_index`), ca să nu se repete de la un grup la altul.
-  const groups = specialties
-    .map((specialty) => ({
-      label: specialty.name,
-      cards: shuffle(cards.filter((c) => c.specialties[0]?.id === specialty.id)),
-    }))
-    .filter((group) => group.cards.length > 0);
+  // ordonată după `order_index`), ca să nu se repete dintr-un grup în altul.
+  // Cine nu e legat de nicio specialitate nu dispare din pagină: intră la
+  // coadă, ca să rămână vizibil chiar dacă lipsește o asociere.
+  const grouped = [
+    ...specialties.flatMap((specialty) =>
+      shuffle(cards.filter((c) => c.specialties[0]?.id === specialty.id)),
+    ),
+    ...shuffle(cards.filter((c) => c.specialties.length === 0)),
+  ];
 
-  // Cine nu e legat de nicio specialitate nu dispare din pagină: intră într-un
-  // grup la coadă, ca să rămână vizibil chiar dacă lipsește o asociere.
-  const unassigned = shuffle(cards.filter((c) => c.specialties.length === 0));
-  if (unassigned.length > 0) {
-    groups.push({ label: "Alți membri ai echipei", cards: unassigned });
-  }
-
-  const staffGroups = groupStaffByRole(staff);
+  // Conducerea stă pe un rând al ei, centrat, deasupra restului echipei de
+  // suport: directorul nu apare în aceeași grilă cu asistenții medicali.
+  const leadership = staff.filter((m) => isLeadershipRole(m.role));
+  const support = staff.filter((m) => !isLeadershipRole(m.role));
 
   return (
     <main className="flex-1 overflow-x-hidden">
@@ -81,28 +69,21 @@ export default async function EchipaPage() {
       />
 
       <Section>
-        <div className="flex flex-col gap-14 sm:gap-16">
-          {groups.map((group) => (
-            <div key={group.label} className="flex flex-col gap-6 sm:gap-8">
-              <GroupHeading>{group.label}</GroupHeading>
-              <div className="grid grid-cols-2 gap-3.5 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
-                {group.cards.map(({ doctor, specialties }, i) => (
-                  <Reveal
-                    key={doctor.id}
-                    delay={(i % 4) * 0.05}
-                    className="h-[23rem] sm:h-[27rem]"
-                  >
-                    <DoctorFlipCard doctor={doctor} specialties={specialties} />
-                  </Reveal>
-                ))}
-              </div>
-            </div>
+        <div className="grid grid-cols-2 gap-3.5 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
+          {grouped.map(({ doctor, specialties }, i) => (
+            <Reveal
+              key={doctor.id}
+              delay={(i % 4) * 0.05}
+              className="h-[23rem] sm:h-[27rem]"
+            >
+              <DoctorFlipCard doctor={doctor} specialties={specialties} />
+            </Reveal>
           ))}
         </div>
       </Section>
 
       {/* Echipa de suport */}
-      {staffGroups.length > 0 && (
+      {staff.length > 0 && (
         <Section blend className="bg-card">
           <SectionHeading
             eyebrow={content("echipa.support.eyebrow")}
@@ -110,21 +91,36 @@ export default async function EchipaPage() {
             description={content("echipa.support.description")}
             align="center"
           />
-          {/* Conducerea are rândul ei, deasupra asistenților medicali. */}
-          <div className="mt-12 flex flex-col gap-14 sm:gap-16">
-            {staffGroups.map((group) => (
-              <div key={group.label} className="flex flex-col gap-6 sm:gap-8">
-                <GroupHeading>{group.label}</GroupHeading>
-                <div className="grid grid-cols-2 gap-3.5 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
-                  {group.members.map((member, i) => (
-                    <Reveal key={member.id} delay={(i % 4) * 0.05}>
-                      <StaffCard member={member} />
-                    </Reveal>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
+
+          {leadership.length > 0 && (
+            // Lățimile sunt cele ale unei coloane din grila de dedesubt, ca
+            // un card centrat să arate la fel de mare ca restul.
+            <div className="mt-12 flex flex-wrap justify-center gap-3.5 sm:gap-5">
+              {leadership.map((member, i) => (
+                <Reveal
+                  key={member.id}
+                  delay={i * 0.05}
+                  className="w-[calc(50%-0.4375rem)] sm:w-[calc(50%-0.625rem)] lg:w-[calc(33.333%-0.834rem)] xl:w-[calc(25%-0.9375rem)]"
+                >
+                  <StaffCard member={member} />
+                </Reveal>
+              ))}
+            </div>
+          )}
+
+          {support.length > 0 && (
+            <div
+              className={`grid grid-cols-2 gap-3.5 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4 ${
+                leadership.length > 0 ? "mt-3.5 sm:mt-5" : "mt-12"
+              }`}
+            >
+              {support.map((member, i) => (
+                <Reveal key={member.id} delay={(i % 4) * 0.05}>
+                  <StaffCard member={member} />
+                </Reveal>
+              ))}
+            </div>
+          )}
         </Section>
       )}
 
