@@ -154,8 +154,8 @@ export const fallbackDoctors: FallbackDoctor[] = [
     id: "alexandru-ungureanu",
     slug: "alexandru-ungureanu",
     name: "Alexandru Ungureanu",
-    title: "Psiholog clinician",
-    credentials: "Psiholog clinician",
+    title: "Doctorand în domeniul Psihologiei\nPsiholog clinician",
+    credentials: "Psih.",
     photo_url: null,
     short_bio:
       "Psiholog clinician și co-fondator Anova, dedicat binelui și echilibrului pacienților.",
@@ -186,7 +186,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     id: "irina-dobrin",
     slug: "irina-dobrin",
     name: "Irina Dobrin",
-    title: "Medic Primar Psihiatrie, Terapie dialectic-comportamentală",
+    title: "Medic Primar Psihiatrie",
     credentials: "Dr., șef de lucrări",
     photo_url: null,
     short_bio:
@@ -441,7 +441,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     slug: "mihaela-ungureanu",
     name: "Mihaela Ungureanu",
     title: "Psiholog clinician, Psihoterapeut TCC",
-    credentials: "Psiholog clinician",
+    credentials: "Psih.",
     photo_url: null,
     short_bio:
       "Psiholog clinician specializat în terapie cognitiv-comportamentală și dialectic-comportamentală.",
@@ -457,7 +457,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     slug: "ramona-costiug",
     name: "Ramona Coștiug",
     title: "Psiholog clinician",
-    credentials: "Psiholog clinician",
+    credentials: "Psih.",
     photo_url: null,
     short_bio:
       "Psiholog clinician cu formare în psihoterapie integrativă, centrată pe soluții.",
@@ -473,7 +473,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     slug: "dan-chirila",
     name: "Dan Chirilă",
     title: "Psiholog clinician",
-    credentials: "Psiholog clinician",
+    credentials: "Psih.",
     photo_url: null,
     short_bio:
       "Psiholog clinician care creează un spațiu sigur pentru auto-descoperire și transformare.",
@@ -489,7 +489,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     slug: "paula-stanciulescu",
     name: "Paula Stănciulescu",
     title: "Psiholog clinician",
-    credentials: "Psiholog clinician",
+    credentials: "Psih.",
     photo_url: null,
     short_bio:
       "Psiholog clinician și psihoterapeut, specializată în terapia copilului și adolescentului.",
@@ -505,7 +505,7 @@ export const fallbackDoctors: FallbackDoctor[] = [
     slug: "banu-adelina",
     name: "Adelina Banu",
     title: "Psiholog clinician",
-    credentials: "Psiholog clinician",
+    credentials: "Psih.",
     photo_url: null,
     short_bio:
       "Psiholog clinician, alături de pacienți în explorarea gândurilor și emoțiilor.",

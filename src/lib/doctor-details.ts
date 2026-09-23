@@ -167,6 +167,7 @@ export const doctorDetails: Record<string, DoctorDetails> = {
     current: [
       { period: "2020 – prezent", text: "Cursuri de formare în Psihoterapie Integrativă – Asociația de Psihoterapie Integrativă și Psihologie Clinică" },
       { period: "2023 – prezent", text: "Psiholog clinician – ANOVA Medical Clinic, Iași" },
+      { period: "2025 – prezent", text: "Doctorand în domeniul Psihologiei – Universitatea „Alexandru Ioan Cuza”, Iași" },
     ],
   },
 

@@ -147,7 +147,9 @@ export default async function DoctorPage({
                       {doctor.name}
                     </h1>
                     {doctor.title && (
-                      <p className="text-muted-foreground">{doctor.title}</p>
+                      <p className="whitespace-pre-line text-muted-foreground">
+                        {doctor.title}
+                      </p>
                     )}
                     {specialties.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 pt-1">

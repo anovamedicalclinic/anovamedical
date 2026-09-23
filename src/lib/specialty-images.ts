@@ -11,12 +11,12 @@ import path from "node:path";
  * fiecare imagine, când optimizatorul trebuia să o decodeze.
  */
 const SERVICE_IMAGES: Record<string, string> = {
-  psihiatrie: "/servicii/Psihiatrie.webp",
-  "psihiatrie-pediatrica": "/servicii/PsihiatriePedriatica.webp",
-  psihologie: "/servicii/Psihologie.webp",
-  neurologie: "/servicii/Neurologie.webp",
-  cardiologie: "/servicii/Cardiologie.webp",
-  endocrinologie: "/servicii/Endocrionologie.webp",
+  psihiatrie: "/servicii/psihiatrie.webp",
+  "psihiatrie-pediatrica": "/servicii/psihiatrie-pediatrica.webp",
+  psihologie: "/servicii/psihologie.webp",
+  neurologie: "/servicii/neurologie.webp",
+  cardiologie: "/servicii/cardiologie.webp",
+  endocrinologie: "/servicii/endocrinologie.webp",
 };
 
 /** Returnează calea imaginii specialității dacă fișierul există în /public. */
@@ -37,12 +37,12 @@ export function specialtyImage(slug: string): string | null {
  * persoanei. Valorile de mai jos mută decupajul spre subiect.
  */
 const IMAGE_FOCUS: Record<string, string> = {
-  psihiatrie: "84% 50%",
-  "psihiatrie-pediatrica": "62% 50%",
-  neurologie: "72% 50%",
-  cardiologie: "72% 50%",
-  endocrinologie: "62% 50%",
-  psihologie: "45% 50%",
+  psihiatrie: "82% 50%",
+  "psihiatrie-pediatrica": "60% 50%",
+  neurologie: "82% 50%",
+  cardiologie: "78% 50%",
+  endocrinologie: "78% 50%",
+  psihologie: "40% 50%",
 };
 
 /** `object-position` pentru imaginea specialității; centrat, dacă nu e definit. */

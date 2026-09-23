@@ -52,7 +52,7 @@ export function DoctorCard({
           <ArrowUpRight className="mt-0.5 size-4 shrink-0 text-muted-foreground transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary sm:mt-1" />
         </h3>
         {doctor.title && (
-          <p className="text-xs text-muted-foreground sm:text-sm">
+          <p className="whitespace-pre-line text-xs text-muted-foreground sm:text-sm">
             {doctor.title}
           </p>
         )}

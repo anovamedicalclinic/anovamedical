@@ -69,8 +69,10 @@ export function DoctorFlipCard({
             <h3 className="mt-1 text-sm leading-tight text-foreground sm:text-lg">
               {doctor.name}
             </h3>
+            {/* `whitespace-pre-line`: un titlu poate avea două rânduri
+                (calitatea academică, apoi cea clinică). */}
             {doctor.title && (
-              <p className="mt-0.5 text-xs text-muted-foreground sm:text-sm">
+              <p className="mt-0.5 whitespace-pre-line text-xs text-muted-foreground sm:text-sm">
                 {doctor.title}
               </p>
             )}

@@ -93,9 +93,10 @@ const loadDoctors = unstable_cache(
   // Cheia crește la fiecare scriere directă în baza de date: `v2` — descrierile
   // s-au mutat din cod în baze; `v3` — titulaturile au trecut la denumirea
   // specialității (0006); `v4` — s-au adăugat competențele de psihoterapie
-  // (0007). Cache-ul de date supraviețuiește deploy-urilor, iar sub cheia veche
+  // (0007); `v5` — psihologii au primit „Psih.” în credențiale (0008).
+  // Cache-ul de date supraviețuiește deploy-urilor, iar sub cheia veche
   // site-ul ar fi servit până la o oră conținutul de dinainte de migrație.
-  ["doctors-v4"],
+  ["doctors-v5"],
   { tags: [DOCTORS_TAG], revalidate: REVALIDATE },
 );
 

@@ -90,7 +90,7 @@ export function ServiceCard({
                   </span>
                   {d.title && (
                     <span className="block truncate text-xs text-muted-foreground">
-                      {d.title}
+                      {d.title.split("\n").join(", ")}
                     </span>
                   )}
                 </span>
