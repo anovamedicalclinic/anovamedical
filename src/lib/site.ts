@@ -21,7 +21,7 @@ export const contact = {
   email: "contact@anovamedical.ro",
   emailHref: "mailto:contact@anovamedical.ro",
   schedule: [
-    { days: "Luni – Vineri", hours: "09:00 – 20:00" },
+    { days: "Luni – Vineri", hours: "08:00 – 20:00" },
     { days: "Sâmbătă – Duminică", hours: "Închis" },
   ],
   note: "Oferim consultații gratuite pacienților asigurați care prezintă bilet de trimitere de la medicul de familie sau specialist.",

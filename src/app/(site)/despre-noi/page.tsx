@@ -71,7 +71,7 @@ const faqs = [
   },
   {
     q: "Care este programul clinicii?",
-    a: "Suntem deschiși de luni până vineri, între 09:00 și 20:00. Sâmbăta și duminica suntem închiși.",
+    a: "Suntem deschiși de luni până vineri, între 08:00 și 20:00. Sâmbăta și duminica suntem închiși.",
   },
   {
     q: "Datele mele sunt confidențiale?",

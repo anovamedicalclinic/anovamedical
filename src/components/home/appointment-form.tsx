@@ -5,7 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format, parseISO } from "date-fns";
 import { ro } from "date-fns/locale";
-import { CalendarIcon, Loader2, Phone } from "lucide-react";
+import { CalendarIcon, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,7 +29,6 @@ import {
   appointmentSchema,
   type AppointmentInput,
 } from "@/lib/appointment-schema";
-import { contact } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import type { Specialty } from "@/lib/supabase/types";
 import { Toaster } from "@/components/ui/sonner";
@@ -257,12 +256,6 @@ export function AppointmentForm({
           )}
         </Button>
       </div>
-
-      <p className="flex items-start gap-2 text-xs text-muted-foreground">
-        <Phone className="mt-0.5 size-3.5 shrink-0 text-primary" />
-        Programarea nu e confirmată automat: te sunăm la {contact.phone} ca să
-        stabilim data și ora.
-      </p>
       </form>
     </div>
   );
