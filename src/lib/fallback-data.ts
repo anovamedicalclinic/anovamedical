@@ -357,22 +357,6 @@ export const fallbackDoctors: FallbackDoctor[] = [
     specialtySlugs: ["psihiatrie"],
   },
   {
-    id: "georgean-rozinbaum",
-    slug: "georgean-rozinbaum",
-    name: "Georgean Rozinbaum",
-    title: "Medic Primar Psihiatrie Pediatrică",
-    credentials: "Dr.",
-    photo_url: null,
-    short_bio:
-      "Specialist în psihiatrie pediatrică, cu experiență vastă în îngrijirea copiilor și adolescenților.",
-    full_bio:
-      "Dr. Georgean Rozinbaum este medic în psihiatrie pediatrică și fondator al „Centrului Vocale” din Vaslui. Are o experiență vastă în îngrijirea copiilor și adolescenților, abordând cu blândețe și profesionalism provocările emoționale și de dezvoltare ale celor mici.",
-    order_index: 15,
-    is_founder: false,
-    created_at: now,
-    specialtySlugs: ["psihiatrie-pediatrica"],
-  },
-  {
     id: "andreea-albu",
     slug: "andreea-albu",
     name: "Andreea Albu",
@@ -480,22 +464,6 @@ export const fallbackDoctors: FallbackDoctor[] = [
     full_bio:
       "Dan Chirilă este psiholog clinician care creează un spațiu sigur și confidențial pentru auto-descoperire. Folosește strategii creative, bazate pe dovezi, pentru provocările emoționale și comportamentale ale fiecărui pacient.",
     order_index: 22,
-    is_founder: false,
-    created_at: now,
-    specialtySlugs: ["psihologie"],
-  },
-  {
-    id: "paula-stanciulescu",
-    slug: "paula-stanciulescu",
-    name: "Paula Stănciulescu",
-    title: "Psiholog clinician",
-    credentials: "Psih.",
-    photo_url: null,
-    short_bio:
-      "Psiholog clinician și psihoterapeut, specializată în terapia copilului și adolescentului.",
-    full_bio:
-      "Paula Stănciulescu este psiholog clinician și psihoterapeut cu peste un deceniu de experiență, specializată în terapia copilului și adolescentului. Certificată în Terapia Comportamentală Aplicată (ABA) și în terapia limbajului.",
-    order_index: 23,
     is_founder: false,
     created_at: now,
     specialtySlugs: ["psihologie"],

@@ -29,9 +29,7 @@ const TARGET = { width: 1200, height: 1500 };
 const PORTRAITS = [
   { source: "AnaCaterinaCristofor.jpg", target: "CristoforAnaCaterina.webp", faceX: 1252 },
   { source: "TudorFlorea.jpg", target: "FloreaTudor.webp", faceX: 1144 },
-  { source: "GeorgeanRozinbaum.jpg", target: "RozinbaumGeorgean.webp", faceX: 1153 },
   { source: "ThomasGabrielScheiner.webp", target: "SchreinerThomasGabriel.webp", faceX: 848 },
-  { source: "PaulaStanciulescu.jpg", target: "StanciulescuPaula.webp", faceX: 1272 },
 ];
 
 const kb = (bytes) => `${Math.round(bytes / 1024)} KB`;

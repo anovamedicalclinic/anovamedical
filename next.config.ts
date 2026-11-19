@@ -74,6 +74,10 @@ const MEDICI_PLECATI = [
   "romeo-dobrin",
 ];
 
+/** Au avut profil pe site-ul nou, sub `/echipa`, și au plecat între timp.
+ *  Adresa lor veche din `/despre-noi` duce tot la lista de echipă. */
+const MEDICI_PLECATI_ECHIPA = ["georgean-rozinbaum", "paula-stanciulescu"];
+
 /** Specialitățile stăteau în rădăcină, acum sunt sub `/specialitati`. */
 const SPECIALITATI_MUTATE = [
   "neurologie",
@@ -158,8 +162,14 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
 
-      ...MEDICI_PLECATI.map((slug) => ({
+      ...[...MEDICI_PLECATI, ...MEDICI_PLECATI_ECHIPA].map((slug) => ({
         source: `/despre-noi/${slug}`,
+        destination: "/echipa",
+        permanent: true,
+      })),
+
+      ...MEDICI_PLECATI_ECHIPA.map((slug) => ({
+        source: `/echipa/${slug}`,
         destination: "/echipa",
         permanent: true,
       })),

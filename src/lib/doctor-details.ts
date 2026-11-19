@@ -144,21 +144,6 @@ export const doctorDetails: Record<string, DoctorDetails> = {
     ],
   },
 
-  "georgean-rozinbaum": {
-    education: [
-      { text: "Absolvent al Facultății de Medicină Generală – UMF „Gr. T. Popa”, Iași" },
-    ],
-    experience: [
-      { text: "Medic rezident Psihiatrie Pediatrică – Spitalul Clinic de Urgență pentru Copii „Louis Țurcanu”, Timișoara" },
-      { text: "Medic specialist Psihiatrie Pediatrică – Spitalul Municipal de Urgență „Elena Beldiman”, Bârlad" },
-    ],
-    current: [
-      { text: "Medic specialist Psihiatrie Pediatrică – Centrul de Sănătate Mintală Copii, Spitalul Județean de Urgență, Vaslui" },
-      { text: "„Centrul Vocale”, Vaslui – terapie pentru copii cu tulburări de dezvoltare, din spectrul autist și emoționale" },
-      { text: "Medic specialist Psihiatrie Pediatrică – ANOVA Medical Clinic, Iași" },
-    ],
-  },
-
   "alexandru-ungureanu": {
     education: [
       { period: "2017 – 2020", text: "Absolvent al Facultății de Psihologie, Științele Educației și Asistență Socială – Universitatea „Petre Andrei”, Iași" },
@@ -208,9 +193,6 @@ export const doctorDetails: Record<string, DoctorDetails> = {
       { period: "2023 – prezent", text: "Formare de bază – Psihoterapie sistemică de familie și cuplu – Asociația Human Center" },
       { period: "2023 – prezent", text: "Psiholog clinician – ANOVA Medical Clinic, Iași" },
     ],
-  },
-
-  "paula-stanciulescu": {
   },
 
 };

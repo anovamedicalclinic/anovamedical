@@ -82,11 +82,6 @@ export const pageMeta: Record<string, PageMeta> = {
     description:
       "Dr. Elena Pcela, medic psihiatru la Anova Medical Clinic, este aici pentru a oferi suport și tratament specializat pentru tulburările psihice.",
   },
-  "/echipa/georgean-rozinbaum": {
-    title: "Dr. Georgean Rozinbaum - Anova Medical Clinic",
-    description:
-      "Descoperă expertiza lui Dr. Georgean Rozinbaum în psihiatrie pediatrică la Anova Medical Clinic, pentru îngrijire specializată pentru copii.",
-  },
   // Corectat: pe site-ul vechi scria „Psihatrie”.
   "/echipa/irina-dobrin": {
     title: "Dr. Irina Dobrin - Psihiatrie | Anova Medical Clinic",
@@ -102,11 +97,6 @@ export const pageMeta: Record<string, PageMeta> = {
     title: "Mihaela Ungureanu - Psiholog | Anova Medical Clinic",
     description:
       "Ai nevoie de un spațiu sigur pentru a discuta despre problemele tale? Programează o ședință cu Mihaela Ungureanu, psiholog la Anova Medical Clinic.",
-  },
-  "/echipa/paula-stanciulescu": {
-    title: "Paula Stănciulescu - Psiholog | Anova Medical Clinic",
-    description:
-      "Găsește suport emoțional și consiliere eficientă într-un mediu sigur și confidențial cu Paula Stănciulescu, psiholog la Anova Medical Clinic.",
   },
   "/echipa/ramona-costiug": {
     title: "Ramona Coștiug - Psiholog | Anova Medical Clinic",

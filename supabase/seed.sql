@@ -248,15 +248,6 @@ values
     14, false
   ),
   (
-    'georgean-rozinbaum',
-    'Georgean Rozinbaum',
-    'Medic primar psihiatrie pediatrică',
-    'Dr.',
-    'Specialist în psihiatrie pediatrică, cu experiență vastă în îngrijirea copiilor și adolescenților.',
-    'Dr. Georgean Rozinbaum este medic în psihiatrie pediatrică și fondator al „Centrului Vocale" din Vaslui. Are o experiență vastă în îngrijirea copiilor și adolescenților, abordând cu blândețe și profesionalism provocările emoționale și de dezvoltare ale celor mici.',
-    15, false
-  ),
-  (
     'andreea-albu',
     'Andreea Albu',
     'Medic specialist neurolog',
@@ -320,15 +311,6 @@ values
     22, false
   ),
   (
-    'paula-stanciulescu',
-    'Paula Stănciulescu',
-    'Psiholog clinician',
-    'Psiholog clinician',
-    'Psiholog clinician și psihoterapeut, specializată în terapia copilului și adolescentului.',
-    'Paula Stănciulescu este psiholog clinician și psihoterapeut cu peste un deceniu de experiență, specializată în terapia copilului și adolescentului. Certificată în Terapia Comportamentală Aplicată (ABA) și în terapia limbajului.',
-    23, false
-  ),
-  (
     'banu-adelina',
     'Adelina Banu',
     'Psiholog clinician',
@@ -366,7 +348,6 @@ join public.specialties s on (d.slug, s.slug) in (
   ('silvia-tudosa',             'psihiatrie'),
   ('elena-pcela',               'psihiatrie'),
   ('vlasceanu-marceza',         'psihiatrie'),
-  ('georgean-rozinbaum',        'psihiatrie-pediatrica'),
   ('andreea-albu',              'neurologie'),
   ('thomas-gabriel-schreiner',  'neurologie'),
   ('gusa-lucia',                'cardiologie'),
@@ -375,7 +356,6 @@ join public.specialties s on (d.slug, s.slug) in (
   ('mihaela-ungureanu',         'psihologie'),
   ('ramona-costiug',            'psihologie'),
   ('dan-chirila',               'psihologie'),
-  ('paula-stanciulescu',        'psihologie'),
   ('banu-adelina',              'psihologie')
 )
 on conflict (doctor_id, specialty_id) do nothing;
