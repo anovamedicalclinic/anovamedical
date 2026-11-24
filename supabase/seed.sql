@@ -275,15 +275,6 @@ values
     18, false
   ),
   (
-    'dorneanu-andra',
-    'Andra Dorneanu',
-    'Medic specialist endocrinolog',
-    'Dr.',
-    'Medic specialist endocrinolog, dedicată echilibrului hormonal și stării generale de bine.',
-    'Dr. Andra Dorneanu este medic specialist endocrinolog în cadrul Anova Medical Clinic. Se ocupă de diagnosticul și tratamentul afecțiunilor glandelor endocrine, corelând echilibrul hormonal cu starea generală de sănătate, într-o abordare atentă și personalizată.',
-    19, false
-  ),
-  (
     'mihaela-ungureanu',
     'Mihaela Ungureanu',
     'Psiholog clinician',
@@ -351,7 +342,6 @@ join public.specialties s on (d.slug, s.slug) in (
   ('andreea-albu',              'neurologie'),
   ('thomas-gabriel-schreiner',  'neurologie'),
   ('gusa-lucia',                'cardiologie'),
-  ('dorneanu-andra',            'endocrinologie'),
   ('alexandru-ungureanu',       'psihologie'),
   ('mihaela-ungureanu',         'psihologie'),
   ('ramona-costiug',            'psihologie'),

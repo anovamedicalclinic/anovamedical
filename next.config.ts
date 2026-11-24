@@ -76,7 +76,11 @@ const MEDICI_PLECATI = [
 
 /** Au avut profil pe site-ul nou, sub `/echipa`, și au plecat între timp.
  *  Adresa lor veche din `/despre-noi` duce tot la lista de echipă. */
-const MEDICI_PLECATI_ECHIPA = ["georgean-rozinbaum", "paula-stanciulescu"];
+const MEDICI_PLECATI_ECHIPA = [
+  "georgean-rozinbaum",
+  "paula-stanciulescu",
+  "dorneanu-andra",
+];
 
 /** Specialitățile stăteau în rădăcină, acum sunt sub `/specialitati`. */
 const SPECIALITATI_MUTATE = [

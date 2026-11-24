@@ -405,22 +405,6 @@ export const fallbackDoctors: FallbackDoctor[] = [
     specialtySlugs: ["cardiologie"],
   },
   {
-    id: "dorneanu-andra",
-    slug: "dorneanu-andra",
-    name: "Andra Dorneanu",
-    title: "Medic Specialist Endocrinologie",
-    credentials: "Dr.",
-    photo_url: null,
-    short_bio:
-      "Medic specialist endocrinolog, dedicată echilibrului hormonal și stării generale de bine.",
-    full_bio:
-      "Dr. Andra Dorneanu este medic specialist endocrinolog în cadrul Anova Medical Clinic. Se ocupă de diagnosticul și tratamentul afecțiunilor glandelor endocrine, corelând echilibrul hormonal cu starea generală de sănătate, într-o abordare atentă și personalizată.",
-    order_index: 19,
-    is_founder: false,
-    created_at: now,
-    specialtySlugs: ["endocrinologie"],
-  },
-  {
     id: "mihaela-ungureanu",
     slug: "mihaela-ungureanu",
     name: "Mihaela Ungureanu",

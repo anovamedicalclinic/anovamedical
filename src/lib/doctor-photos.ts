@@ -29,7 +29,6 @@ const PHOTOS: Record<string, string> = {
   "banu-adelina": "/medici/BanuAdelina.webp",
   "cartas-nicoleta": "/medici/CartasNicoleta.webp",
   "dan-chirila": "/medici/ChirilaDan.webp",
-  "dorneanu-andra": "/medici/DorneanuAndra.webp",
   "elena-pcela": "/medici/PcelaElena.webp",
   "gilea-andra": "/medici/GileaAndra.webp",
   "gusa-lucia": "/medici/GusaLucia.webp",
