@@ -95,10 +95,10 @@ const loadDoctors = unstable_cache(
   // specialității (0006); `v4` — s-au adăugat competențele de psihoterapie
   // (0007); `v5` — psihologii au primit „Psih.” în credențiale (0008);
   // `v6` — doi medici au plecat din echipă (0009); `v7` — a plecat și
-  // dr. Andra Dorneanu (0010).
+  // dr. Andra Dorneanu (0010); `v8` — v7 s-a umplut înainte de rularea 0010.
   // Cache-ul de date supraviețuiește deploy-urilor, iar sub cheia veche
   // site-ul ar fi servit până la o oră conținutul de dinainte de migrație.
-  ["doctors-v7"],
+  ["doctors-v8"],
   { tags: [DOCTORS_TAG], revalidate: REVALIDATE },
 );
 
@@ -158,7 +158,8 @@ const loadDoctorSpecialtyMap = unstable_cache(
       return fromFallback();
     }
   },
-  ["doctor-specialties"],
+  // `v2` — medicii plecați (0009, 0010) dispar din paginile de specialitate.
+  ["doctor-specialties-v2"],
   { tags: [DOCTORS_TAG, SPECIALTIES_TAG], revalidate: REVALIDATE },
 );
 
